@@ -1,5 +1,6 @@
 import { events } from "../data/content";
-import { EventCard, FeaturedEventCard, PastEventGalleryCard } from "../components/EventCards";
+import { EventCard, FeaturedEventCard, PastEventRow } from "../components/EventCards";
+import GalleryTicker from "../components/GalleryTicker";
 
 export default function Events() {
   const upcoming = events.filter((e) => e.status !== "PAST");
@@ -49,15 +50,16 @@ export default function Events() {
             </div>
           </div>
           {past.length > 0 ? (
-            <div className="grid events-grid">
+            <div className="past-list">
               {past.map((e) => (
-                <PastEventGalleryCard key={e.id} e={e} />
+                <PastEventRow key={e.id} e={e} />
               ))}
             </div>
           ) : (
             <p className="muted">No past events yet — check back soon.</p>
           )}
         </div>
+        <GalleryTicker events={past} />
       </section>
     </main>
   );

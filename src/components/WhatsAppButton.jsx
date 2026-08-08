@@ -9,7 +9,8 @@ export default function WhatsAppButton() {
       className="fab-wa"
       aria-label="Talk to us on WhatsApp"
     >
-      Talk to us
+      <span>Talk</span>
+      <span>to us</span>
     </a>
   );
 }

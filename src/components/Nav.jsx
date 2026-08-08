@@ -18,9 +18,6 @@ export default function Nav() {
           AFRO<span>VIBES</span>
         </Link>
         <div className={`nav-links${open ? " open" : ""}`} id="navLinks">
-          <button className="nav-close" onClick={() => setOpen(false)} aria-label="Close menu">
-            ✕
-          </button>
           <Link to="/events" onClick={() => setOpen(false)}>
             Events
           </Link>
@@ -41,7 +38,15 @@ export default function Nav() {
           Get Tickets
         </Link>
         <button className="menu" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
-          {open ? "✕" : "☰"}
+          {open ? (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M2 2L18 18M18 2L2 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M2 5H18M2 10H18M2 15H18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          )}
         </button>
       </div>
     </nav>

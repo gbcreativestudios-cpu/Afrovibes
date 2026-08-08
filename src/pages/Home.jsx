@@ -56,7 +56,7 @@ export default function Home() {
           <div className="container">
             <div className="section-head">
               <div>
-                <h2>UPCOMING VIBES.</h2>
+                <h2>UPCOMING EVENT.</h2>
               </div>
               <Link className="btn btn-outline" to="/events">
                 View All Events

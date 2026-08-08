@@ -75,6 +75,16 @@ export function FeaturedEventCard({ e }) {
   );
 }
 
+export function PastEventRow({ e }) {
+  return (
+    <Link className="past-row" to={`/event/${e.id}`}>
+      <div className="past-row-date">{formatEventDate(e.date)}</div>
+      <h3 className="past-row-title">{e.title}</h3>
+      <div className="past-row-thumb" style={{ backgroundImage: `url('${e.image}')` }} />
+    </Link>
+  );
+}
+
 export function PastEventGalleryCard({ e }) {
   const thumbs = e.gallery.slice(0, 4);
   return (
