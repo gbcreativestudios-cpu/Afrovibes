@@ -1,13 +1,13 @@
 {
   "id": "games-night",
   "title": "Games Night",
-  "date": "September 2026",
+  "date": "2026-09-01",
   "location": "Canada",
   "status": "COMING SOON",
   "ticket": false,
   "url": "",
   "image": "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
-  "desc": "Competitive, playful and social — bring your people and your game face.",
+  "desc": "Competitive, playful and social \u2014 bring your people and your game face.",
   "gallery": [
     "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
     "https://images.unsplash.com/photo-1606167668584-78701c57f13d?auto=format&fit=crop&w=1200&q=85"

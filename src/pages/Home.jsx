@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { events, products, money } from "../data/content";
-import { EventCard, FeaturedEventCard } from "../components/EventCards";
+import { events, products, money, formatEventDate } from "../data/content";
+import { FeaturedEventCard } from "../components/EventCards";
+import EventsTicker from "../components/EventsTicker";
 
 export default function Home() {
   const upcoming = events.filter((e) => e.status !== "PAST");
@@ -61,11 +62,7 @@ export default function Home() {
                 View All Events
               </Link>
             </div>
-            <div className="grid events-grid">
-              {rest.map((e) => (
-                <EventCard key={e.id} e={e} />
-              ))}
-            </div>
+            <EventsTicker events={rest} />
           </div>
         </section>
       )}
@@ -92,7 +89,7 @@ export default function Home() {
               >
                 <div className="past-card-content">
                   <div className="event-meta" style={{ color: "var(--white)", marginBottom: 8 }}>
-                    {past[0].date}
+                    {formatEventDate(past[0].date)}
                   </div>
                   <h3>{past[0].title}</h3>
                 </div>
@@ -111,7 +108,7 @@ export default function Home() {
                           className="event-meta"
                           style={{ color: "var(--white)", marginBottom: 8 }}
                         >
-                          {e.date}
+                          {formatEventDate(e.date)}
                         </div>
                         <h3>{e.title}</h3>
                       </div>

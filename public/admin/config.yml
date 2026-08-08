@@ -20,7 +20,7 @@ collections:
     fields:
       - { label: "ID (used in the URL — lowercase-with-hyphens)", name: "id", widget: "string" }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "string", hint: "e.g. August 2026" }
+      - { label: "Event Date", name: "date", widget: "date", format: "YYYY-MM-DD", hint: "Used for both display and sort order" }
       - { label: "Location", name: "location", widget: "string" }
       - label: "Status"
         name: "status"

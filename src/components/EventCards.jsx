@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { formatEventDate } from "../data/content";
 
 export function EventCard({ e }) {
   return (
@@ -9,7 +10,7 @@ export function EventCard({ e }) {
         </div>
         <div className="event-info">
           <div className="event-meta">
-            {e.date} · {e.location}
+            {formatEventDate(e.date)} · {e.location}
           </div>
           <h3>{e.title}</h3>
           <p className="event-desc">{e.desc}</p>
@@ -46,7 +47,7 @@ export function FeaturedEventCard({ e }) {
         </div>
         <div className="event-info">
           <div className="event-meta">
-            {e.date} · {e.location}
+            {formatEventDate(e.date)} · {e.location}
           </div>
           <h3>{e.title}</h3>
           <p className="event-desc">{e.desc}</p>
@@ -81,7 +82,7 @@ export function PastEventGalleryCard({ e }) {
       <div className="past-gallery-main" style={{ backgroundImage: `url('${e.image}')` }}>
         <div className="past-gallery-overlay">
           <div className="event-meta" style={{ color: "var(--white)", marginBottom: 6 }}>
-            {e.date} · {e.location}
+            {formatEventDate(e.date)} · {e.location}
           </div>
           <h3 style={{ fontWeight: 900, fontSize: "1.4rem", margin: 0 }}>{e.title}</h3>
         </div>

@@ -8,7 +8,7 @@ const siteModule = import.meta.glob("../../content/site.json", { eager: true });
 
 export const events = Object.values(eventModules)
   .map((m) => m.default)
-  .sort((a, b) => new Date(a.date) - new Date(b.date));
+  .sort((a, b) => a.date.localeCompare(b.date));
 
 export const products = Object.values(productModules).map((m) => m.default);
 
@@ -24,3 +24,18 @@ export const site = Object.values(siteModule)[0]?.default ?? {
 };
 
 export const money = (n) => `CAD $${Number(n).toFixed(2)}`;
+
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+// Events store date as an ISO "YYYY-MM-DD" string (reliable to sort/compare
+// across every browser). This turns that into the "August 2026" display
+// format used throughout the site, without ever constructing a Date object
+// (Safari/WebKit parses non-ISO date strings inconsistently, which is what
+// caused events to display out of order before).
+export function formatEventDate(iso) {
+  const [year, month] = iso.split("-").map(Number);
+  return `${MONTHS[month - 1]} ${year}`;
+}

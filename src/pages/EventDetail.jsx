@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { events } from "../data/content";
+import { events, formatEventDate } from "../data/content";
 import NotFound from "./NotFound";
 
 export default function EventDetail() {
@@ -16,7 +16,7 @@ export default function EventDetail() {
         <div className="detail-hero" style={{ backgroundImage: `url('${e.image}')` }}>
           <div>
             <div className="event-meta" style={{ color: "var(--white)", marginBottom: 12 }}>
-              {e.date} · {e.location}
+              {formatEventDate(e.date)} · {e.location}
             </div>
             <h1>{e.title}</h1>
           </div>

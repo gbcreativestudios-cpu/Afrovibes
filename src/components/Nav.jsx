@@ -18,6 +18,9 @@ export default function Nav() {
           AFRO<span>VIBES</span>
         </Link>
         <div className={`nav-links${open ? " open" : ""}`} id="navLinks">
+          <button className="nav-close" onClick={() => setOpen(false)} aria-label="Close menu">
+            ✕
+          </button>
           <Link to="/events" onClick={() => setOpen(false)}>
             Events
           </Link>
