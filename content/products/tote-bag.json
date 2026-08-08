@@ -1,0 +1,24 @@
+{
+  "id": "tote-bag",
+  "name": "Afrovibes Tote Bag",
+  "category": "Tote Bag",
+  "price": 28,
+  "image": "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=1000&q=85",
+  "sizes": [
+    "One Size"
+  ],
+  "colors": [
+    {
+      "name": "Black",
+      "hex": "#111111"
+    },
+    {
+      "name": "Natural",
+      "hex": "#d7c9b0"
+    }
+  ],
+  "custom": [
+    "No customization",
+    "Add custom text"
+  ]
+}

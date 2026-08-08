@@ -1,0 +1,93 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: "events"
+    label: "Events"
+    folder: "content/events"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    slug: "{{fields.id}}"
+    summary: "{{title}} — {{date}} ({{status}})"
+    fields:
+      - { label: "ID (used in the URL — lowercase-with-hyphens)", name: "id", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "string", hint: "e.g. August 2026" }
+      - { label: "Location", name: "location", widget: "string" }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["TICKETS AVAILABLE", "COMING SOON", "PAST"]
+      - { label: "Ticket link is live?", name: "ticket", widget: "boolean", default: false }
+      - { label: "Ticket URL", name: "url", widget: "string", required: false }
+      - { label: "Cover Image URL", name: "image", widget: "string" }
+      - { label: "Short Description", name: "desc", widget: "text" }
+      - label: "Gallery Image URLs"
+        name: "gallery"
+        widget: "list"
+        field: { label: "Image URL", name: "url", widget: "string" }
+      - { label: "Instagram / Video Link", name: "instagram", widget: "string", required: false }
+
+  - name: "products"
+    label: "Merch"
+    folder: "content/products"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    slug: "{{fields.id}}"
+    summary: "{{name}} — CAD ${{price}}"
+    fields:
+      - { label: "ID (used in the URL — lowercase-with-hyphens)", name: "id", widget: "string" }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Price (CAD)", name: "price", widget: "number", value_type: "float" }
+      - { label: "Image URL", name: "image", widget: "string" }
+      - label: "Available Sizes"
+        name: "sizes"
+        widget: "list"
+        field: { label: "Size", name: "size", widget: "string" }
+      - label: "Available Colors"
+        name: "colors"
+        widget: "list"
+        fields:
+          - { label: "Color Name", name: "name", widget: "string" }
+          - { label: "Hex Code", name: "hex", widget: "string" }
+      - label: "Customization Options"
+        name: "custom"
+        widget: "list"
+        field: { label: "Option", name: "option", widget: "string" }
+
+  - name: "team"
+    label: "Team"
+    folder: "content/team"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Role", name: "role", widget: "string" }
+      - { label: "Photo URL", name: "image", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
+
+  - name: "site"
+    label: "Site Settings"
+    files:
+      - name: "settings"
+        label: "General Settings"
+        file: "content/site.json"
+        fields:
+          - { label: "WhatsApp Number (digits only, with country code)", name: "whatsappNumber", widget: "string" }
+          - { label: "Contact Email", name: "contactEmail", widget: "string" }
+          - { label: "Instagram URL", name: "instagramUrl", widget: "string" }
+          - { label: "TikTok URL", name: "tiktokUrl", widget: "string" }

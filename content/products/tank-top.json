@@ -1,0 +1,28 @@
+{
+  "id": "tank-top",
+  "name": "Afrovibes Tank Top",
+  "category": "Tank Top",
+  "price": 35,
+  "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=1000&q=85",
+  "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+  ],
+  "colors": [
+    {
+      "name": "Black",
+      "hex": "#111111"
+    },
+    {
+      "name": "Pink",
+      "hex": "#FF2D95"
+    }
+  ],
+  "custom": [
+    "No customization",
+    "Add my name",
+    "Add custom text"
+  ]
+}

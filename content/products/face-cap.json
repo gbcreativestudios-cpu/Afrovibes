@@ -1,0 +1,24 @@
+{
+  "id": "face-cap",
+  "name": "Afrovibes Face Cap",
+  "category": "Face Cap",
+  "price": 30,
+  "image": "https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=1000&q=85",
+  "sizes": [
+    "One Size"
+  ],
+  "colors": [
+    {
+      "name": "Black",
+      "hex": "#111111"
+    },
+    {
+      "name": "Purple",
+      "hex": "#7B2FF7"
+    }
+  ],
+  "custom": [
+    "No customization",
+    "Add my name"
+  ]
+}

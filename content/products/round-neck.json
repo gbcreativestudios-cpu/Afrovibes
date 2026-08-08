@@ -1,0 +1,33 @@
+{
+  "id": "round-neck",
+  "name": "Afrovibes Round Neck",
+  "category": "Round Neck",
+  "price": 45,
+  "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1000&q=85",
+  "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL"
+  ],
+  "colors": [
+    {
+      "name": "Black",
+      "hex": "#111111"
+    },
+    {
+      "name": "White",
+      "hex": "#f4f4f4"
+    },
+    {
+      "name": "Purple",
+      "hex": "#7B2FF7"
+    }
+  ],
+  "custom": [
+    "No customization",
+    "Add my name",
+    "Add custom text"
+  ]
+}
