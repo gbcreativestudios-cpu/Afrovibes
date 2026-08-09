@@ -2,10 +2,12 @@ import { Link, useParams } from "react-router-dom";
 import { events, formatEventDate, getTitle, isPastEvent } from "../data/content";
 import NotFound from "./NotFound";
 import Title from "../components/Title";
+import useParallax from "../hooks/useParallax";
 
 export default function EventDetail() {
   const { id } = useParams();
   const e = events.find((x) => x.id === id);
+  const parallaxRef = useParallax(40);
   if (!e) return <NotFound />;
 
   const past = isPastEvent(e);
@@ -28,7 +30,7 @@ export default function EventDetail() {
         <Link className="back" to="/events">
           ← Back to events
         </Link>
-        <div className="detail-hero" style={{ backgroundImage: `url('${e.image}')` }}>
+        <div ref={parallaxRef} className="detail-hero" style={{ backgroundImage: `url('${e.image}')` }}>
           <div>
             <div className="event-meta" style={{ color: "var(--white)", marginBottom: 12 }}>
               {formatEventDate(e.date)} · {e.location}

@@ -77,14 +77,16 @@ export function FeaturedEventCard({ e }) {
 export function PastEventRow({ e }) {
   return (
     <Link className="past-row" to={`/event/${e.id}`}>
-      <div className="past-row-date">{formatEventDate(e.date)}</div>
-      <Title
-        as="h3"
-        className="past-row-title"
-        text={e.title}
-        fontSize={e.titleFontSize}
-        color={e.titleColor}
-      />
+      <div className="past-row-meta">
+        <div className="past-row-date">{formatEventDate(e.date)}</div>
+        <Title
+          as="h3"
+          className="past-row-title"
+          text={e.title}
+          fontSize={e.titleFontSize}
+          color={e.titleColor}
+        />
+      </div>
       <div className="past-row-thumb" style={{ backgroundImage: `url('${e.image}')` }} />
     </Link>
   );

@@ -36,8 +36,8 @@ export default function Home() {
         <div className="hero-bg" />
         <div className="container hero-content">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
-          <div className="actions">
-            <Link className="btn btn-primary" to="/events">
+          <div className="actions actions-stack-mobile">
+            <Link className="btn btn-primary btn-purple" to="/events">
               Explore Events
             </Link>
             <Link className="btn btn-outline" to="/merch">

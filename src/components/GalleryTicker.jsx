@@ -1,5 +1,12 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { site } from "../data/content";
+
+// Constant on-screen speed in px/second. A fixed animation *duration*
+// (the old approach) covers a much shorter distance on mobile, since the
+// cards are narrower there — same time, less travel, so it reads as
+// almost frozen. Deriving the duration from the track's real scrollWidth
+// keeps the visual speed constant across every screen size.
+const PX_PER_SECOND = 70;
 
 // Deterministic shuffle (no external deps, stable across re-renders for the
 // same input) so the order looks "random" without reshuffling on every
@@ -28,6 +35,26 @@ export default function GalleryTicker({ events }) {
     return shuffle(all).slice(0, limit);
   }, [events, limit]);
 
+  const trackRef = useRef(null);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const setSpeed = () => {
+      // scrollWidth spans both duplicated copies; translateX(-50%) only
+      // needs to travel one copy's worth of distance per loop.
+      const distance = el.scrollWidth / 2;
+      if (distance > 0) {
+        el.style.animationDuration = `${distance / PX_PER_SECOND}s`;
+      }
+    };
+
+    setSpeed();
+    window.addEventListener("resize", setSpeed);
+    return () => window.removeEventListener("resize", setSpeed);
+  }, [images]);
+
   if (images.length === 0) return null;
 
   // Always duplicate the list, even for a single image, so
@@ -38,7 +65,7 @@ export default function GalleryTicker({ events }) {
   return (
     <div className="gallery-ticker-bleed">
       <div className="gallery-ticker" aria-label="Photos from past events">
-        <div className="gallery-ticker-track">
+        <div className="gallery-ticker-track" ref={trackRef}>
           {track.map((src, i) => (
             <div className="gallery-ticker-item" key={i} style={{ backgroundImage: `url('${src}')` }} />
           ))}

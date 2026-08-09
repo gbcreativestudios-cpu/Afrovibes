@@ -23,7 +23,7 @@ export default function Connect() {
         <div className="container">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
           <p>Have a brand, idea or collaboration in mind? Let's create something people will want to show up for.</p>
-          <a className="btn btn-primary" style={{ marginTop: 20 }} href="#message-section">
+          <a className="btn btn-primary btn-mobile-fill" style={{ marginTop: 20 }} href="#message-section">
             Let's Talk
           </a>
         </div>
@@ -95,7 +95,11 @@ export default function Connect() {
               <option value="Other">Other</option>
             </select>
             <textarea name="c-message" placeholder="Your Message..." required />
-            <button type="submit" className="btn btn-primary" style={{ justifySelf: "start", minHeight: 55, padding: "0 35px" }}>
+            <button
+              type="submit"
+              className="btn btn-primary btn-mobile-fill"
+              style={{ justifySelf: "start", minHeight: 55, padding: "0 35px" }}
+            >
               Send Message
             </button>
           </form>

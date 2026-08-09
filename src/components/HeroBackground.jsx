@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useParallax from "../hooks/useParallax";
 
 // Crossfades through a list of images every `interval` seconds. Renders
 // nothing (falls through to the section's own solid black background) when
@@ -6,6 +7,7 @@ import { useEffect, useState } from "react";
 export default function HeroBackground({ enabled, interval, images }) {
   const [active, setActive] = useState(0);
   const list = (images || []).map((i) => i.url).filter(Boolean).slice(0, 3);
+  const parallaxRef = useParallax(50);
 
   useEffect(() => {
     if (!enabled || list.length < 2) return;
@@ -20,7 +22,7 @@ export default function HeroBackground({ enabled, interval, images }) {
   if (!enabled || list.length === 0) return null;
 
   return (
-    <div className="hero-slides">
+    <div className="hero-slides" ref={parallaxRef}>
       {list.map((url, i) => (
         <div
           key={i}

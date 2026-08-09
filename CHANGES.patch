@@ -1,0 +1,336 @@
+diff --git a/src/App.jsx b/src/App.jsx
+index ba7916a..c1876e0 100644
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
+ import Footer from "./components/Footer";
+ import Newsletter from "./components/Newsletter";
+ import WhatsAppButton from "./components/WhatsAppButton";
++import ScrollReveal from "./components/ScrollReveal";
+ import Home from "./pages/Home";
+ import Events from "./pages/Events";
+ import EventDetail from "./pages/EventDetail";
+@@ -41,6 +42,7 @@ export default function App() {
+     <>
+       <Favicon />
+       <ScrollToTop />
++      <ScrollReveal />
+       <Nav />
+       <Routes>
+         <Route path="/" element={<Home />} />
+diff --git a/src/components/EventCards.jsx b/src/components/EventCards.jsx
+index 5cddb6f..a3aadac 100644
+--- a/src/components/EventCards.jsx
++++ b/src/components/EventCards.jsx
+@@ -77,14 +77,16 @@ export function FeaturedEventCard({ e }) {
+ export function PastEventRow({ e }) {
+   return (
+     <Link className="past-row" to={`/event/${e.id}`}>
+-      <div className="past-row-date">{formatEventDate(e.date)}</div>
+-      <Title
+-        as="h3"
+-        className="past-row-title"
+-        text={e.title}
+-        fontSize={e.titleFontSize}
+-        color={e.titleColor}
+-      />
++      <div className="past-row-meta">
++        <div className="past-row-date">{formatEventDate(e.date)}</div>
++        <Title
++          as="h3"
++          className="past-row-title"
++          text={e.title}
++          fontSize={e.titleFontSize}
++          color={e.titleColor}
++        />
++      </div>
+       <div className="past-row-thumb" style={{ backgroundImage: `url('${e.image}')` }} />
+     </Link>
+   );
+diff --git a/src/components/Footer.jsx b/src/components/Footer.jsx
+index 70c388c..a0b70b2 100644
+--- a/src/components/Footer.jsx
++++ b/src/components/Footer.jsx
+@@ -9,16 +9,6 @@ export default function Footer() {
+     <footer className="footer">
+       <div className="container">
+         <div className="footer-grid">
+-          <div className="footer-col">
+-            <h4>Explore</h4>
+-            <div className="footer-links">
+-              <Link to="/events">Events</Link>
+-              <Link to="/merch">Merch</Link>
+-              <Link to="/who-we-are">Who We Are</Link>
+-              <Link to="/connect">Connect With Us</Link>
+-            </div>
+-          </div>
+-
+           <div className="footer-col footer-brand">
+             <Link className="logo footer-logo" to="/">
+               {footerLogo ? (
+@@ -40,16 +30,28 @@ export default function Footer() {
+             </p>
+           </div>
+ 
+-          <div className="footer-col footer-social">
+-            <h4>Social</h4>
+-            <div className="footer-links">
+-              <a href={site.instagramUrl} target="_blank" rel="noreferrer">
+-                Instagram
+-              </a>
+-              <a href={site.tiktokUrl} target="_blank" rel="noreferrer">
+-                TikTok
+-              </a>
+-              <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
++          <div className="footer-bottom-row">
++            <div className="footer-col">
++              <h4>Explore</h4>
++              <div className="footer-links">
++                <Link to="/events">Events</Link>
++                <Link to="/merch">Merch</Link>
++                <Link to="/who-we-are">Who We Are</Link>
++                <Link to="/connect">Connect With Us</Link>
++              </div>
++            </div>
++
++            <div className="footer-col footer-social">
++              <h4>Social</h4>
++              <div className="footer-links">
++                <a href={site.instagramUrl} target="_blank" rel="noreferrer">
++                  Instagram
++                </a>
++                <a href={site.tiktokUrl} target="_blank" rel="noreferrer">
++                  TikTok
++                </a>
++                <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
++              </div>
+             </div>
+           </div>
+         </div>
+diff --git a/src/components/GalleryTicker.jsx b/src/components/GalleryTicker.jsx
+index 598cad4..502915c 100644
+--- a/src/components/GalleryTicker.jsx
++++ b/src/components/GalleryTicker.jsx
+@@ -1,6 +1,13 @@
+-import { useMemo } from "react";
++import { useEffect, useMemo, useRef } from "react";
+ import { site } from "../data/content";
+ 
++// Constant on-screen speed in px/second. A fixed animation *duration*
++// (the old approach) covers a much shorter distance on mobile, since the
++// cards are narrower there — same time, less travel, so it reads as
++// almost frozen. Deriving the duration from the track's real scrollWidth
++// keeps the visual speed constant across every screen size.
++const PX_PER_SECOND = 70;
++
+ // Deterministic shuffle (no external deps, stable across re-renders for the
+ // same input) so the order looks "random" without reshuffling on every
+ // render, which would make the loop visibly jump.
+@@ -28,6 +35,26 @@ export default function GalleryTicker({ events }) {
+     return shuffle(all).slice(0, limit);
+   }, [events, limit]);
+ 
++  const trackRef = useRef(null);
++
++  useEffect(() => {
++    const el = trackRef.current;
++    if (!el) return;
++
++    const setSpeed = () => {
++      // scrollWidth spans both duplicated copies; translateX(-50%) only
++      // needs to travel one copy's worth of distance per loop.
++      const distance = el.scrollWidth / 2;
++      if (distance > 0) {
++        el.style.animationDuration = `${distance / PX_PER_SECOND}s`;
++      }
++    };
++
++    setSpeed();
++    window.addEventListener("resize", setSpeed);
++    return () => window.removeEventListener("resize", setSpeed);
++  }, [images]);
++
+   if (images.length === 0) return null;
+ 
+   // Always duplicate the list, even for a single image, so
+@@ -38,7 +65,7 @@ export default function GalleryTicker({ events }) {
+   return (
+     <div className="gallery-ticker-bleed">
+       <div className="gallery-ticker" aria-label="Photos from past events">
+-        <div className="gallery-ticker-track">
++        <div className="gallery-ticker-track" ref={trackRef}>
+           {track.map((src, i) => (
+             <div className="gallery-ticker-item" key={i} style={{ backgroundImage: `url('${src}')` }} />
+           ))}
+diff --git a/src/components/HeroBackground.jsx b/src/components/HeroBackground.jsx
+index cc583ca..df00f56 100644
+--- a/src/components/HeroBackground.jsx
++++ b/src/components/HeroBackground.jsx
+@@ -1,4 +1,5 @@
+ import { useEffect, useState } from "react";
++import useParallax from "../hooks/useParallax";
+ 
+ // Crossfades through a list of images every `interval` seconds. Renders
+ // nothing (falls through to the section's own solid black background) when
+@@ -6,6 +7,7 @@ import { useEffect, useState } from "react";
+ export default function HeroBackground({ enabled, interval, images }) {
+   const [active, setActive] = useState(0);
+   const list = (images || []).map((i) => i.url).filter(Boolean).slice(0, 3);
++  const parallaxRef = useParallax(50);
+ 
+   useEffect(() => {
+     if (!enabled || list.length < 2) return;
+@@ -20,7 +22,7 @@ export default function HeroBackground({ enabled, interval, images }) {
+   if (!enabled || list.length === 0) return null;
+ 
+   return (
+-    <div className="hero-slides">
++    <div className="hero-slides" ref={parallaxRef}>
+       {list.map((url, i) => (
+         <div
+           key={i}
+diff --git a/src/index.css b/src/index.css
+index 6df6aea..7d3a7b5 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -3,34 +3,36 @@
+ @tailwind utilities;
+ 
+     @font-face{font-family:AfroFutura;src:local("Futura PT"),local("Futura"),local("Century Gothic");font-weight:400;font-style:normal;}
++    @font-face{font-family:AfroFutura;src:local("Futura PT Bold"),local("Futura Bold"),local("Century Gothic Bold"),local("Futura PT Demi"),local("Futura Medium");font-weight:700;font-style:normal;}
+     :root{--black:#0D0D0D;--pink:#FF2D95;--purple:#7B2FF7;--violet:#8A4DFF;--yellow:#F4C430;--white:#F7F5F8;--muted:#AAA6AE;--line:rgba(255,255,255,.12);--max:1240px}
+     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--black);color:var(--white);font-family:AfroFutura,Arial,sans-serif;line-height:1.45;font-weight:300}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}
+-    .container{width:min(var(--max),calc(100% - 40px));margin:auto}.section{padding:110px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:40px}.section-head h2{font-size:clamp(1.6rem,4.5vw,4.5rem);line-height:.9;margin:8px 0 0;letter-spacing:-.055em;font-weight:900;white-space:nowrap}.section-head .btn{white-space:nowrap;flex-shrink:0}.muted{color:var(--muted)}
++    .container{width:min(var(--max),calc(100% - 40px));margin:auto}.section{padding:110px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:40px}.section-head h2{font-size:clamp(1.6rem,4.5vw,4.5rem);line-height:.9;margin:8px 0 0;letter-spacing:-.055em;font-weight:900;white-space:nowrap}.section-head .btn{white-space:nowrap;flex-shrink:0}.muted{color:var(--muted);font-weight:700;font-size:1.05rem}
+     h1,h2,h3,.logo{font-family:"Arial Black","Arial Bold",AfroFutura,Arial,sans-serif;font-weight:900}
+     .nav{position:fixed;z-index:50;top:0;left:0;width:100%;padding:22px 0;transition:.3s;background:linear-gradient(to bottom,rgba(13,13,13,.75),transparent)}.nav.scrolled{background:rgba(13,13,13,.92);backdrop-filter:blur(15px);padding:14px 0}.nav-inner{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;column-gap:24px}.logo{font-weight:900;font-size:1.2rem;letter-spacing:-.05em;justify-self:start}.logo span{color:var(--purple)}.logo-img{display:block;height:34px;width:auto}.nav-links{justify-self:center;display:flex;gap:28px;font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase}.nav-links a:hover{color:var(--purple)}.nav-cta{justify-self:end;padding:12px 18px;border:1px solid var(--purple);background:var(--purple);color:var(--white);font-weight:600;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}.nav-links .nav-cta{display:none}.menu{display:none;background:none;border:0;color:white;justify-self:end;padding:0;margin:0 0 0 auto;line-height:1;cursor:pointer;align-items:center;justify-content:center;width:20px;height:20px}
+-    .hero{min-height:92vh;position:relative;display:flex;align-items:center;overflow:hidden;background:#18131a}.hero-slides{position:absolute;inset:0}.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease}.hero-slide.active{opacity:1}.hero-bg{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(13,13,13,.82) 0%,rgba(13,13,13,.4) 48%,rgba(13,13,13,.18) 100%),linear-gradient(0deg,rgba(13,13,13,.8),transparent 55%)}.hero:after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,var(--black));z-index:1}.hero-content{position:relative;z-index:2;padding:100px 0;max-width:1100px;margin:0 auto;text-align:center}.hero h1{font-weight:900;font-size:clamp(2.6rem,6.5vw,6.5rem);line-height:.9;letter-spacing:-.06em;margin:18px 0 28px;max-width:1100px}.hero h1 em{font-style:normal;color:var(--white)}.hero-copy{max-width:540px;color:#ddd;font-size:1.05rem;margin:0 auto}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;justify-content:center}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:1px solid transparent;text-transform:uppercase;letter-spacing:.08em;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:.74rem;transition:.25s}.btn-primary{background:var(--pink);color:var(--white)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,45,149,.25)}.btn-outline{border-color:rgba(255,255,255,.35);background:rgba(13,13,13,.2)}.btn-outline:hover{border-color:var(--purple);color:var(--purple)}
+-    .grid{display:grid;gap:18px}.events-grid{grid-template-columns:repeat(3,1fr)}.event-card{background:#151416;border:1px solid var(--line);overflow:hidden;transition:.3s}.event-card:hover{transform:translateY(-5px);border-color:rgba(123,47,247,.55)}.event-img{aspect-ratio:4/5;background-size:cover;background-position:center;position:relative}.event-status{position:absolute;top:14px;left:14px;background:var(--purple);color:#fff;padding:7px 10px;font-size:.68rem;font-weight:700;letter-spacing:.08em}.event-info{padding:20px}.event-info h3{font-weight:900;font-size:1.5rem;margin:0 0 8px;letter-spacing:-.03em}.event-meta{font-weight:500;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.event-desc{color:#c5c1c7;margin:12px 0 20px;font-size:.9rem}.event-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
++    .hero{min-height:92vh;position:relative;display:flex;align-items:center;overflow:hidden;background:#18131a}.hero-slides{position:absolute;inset:0}.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center calc(50% + var(--parallax-y,0px));opacity:0;transition:opacity 1.4s ease}.hero-slide.active{opacity:1}.hero-bg{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(13,13,13,.82) 0%,rgba(13,13,13,.4) 48%,rgba(13,13,13,.18) 100%),linear-gradient(0deg,rgba(13,13,13,.8),transparent 55%)}.hero:after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,var(--black));z-index:1}.hero-content{position:relative;z-index:2;padding:100px 0;max-width:1100px;margin:0 auto;text-align:center}.hero h1{font-weight:900;font-size:clamp(2.6rem,6.5vw,6.5rem);line-height:.9;letter-spacing:-.06em;margin:18px 0 28px;max-width:1100px}.hero h1 em{font-style:normal;color:var(--white)}.hero-copy{max-width:540px;color:#ddd;font-size:1.1rem;font-weight:700;margin:0 auto}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;justify-content:center}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:1px solid transparent;text-transform:uppercase;letter-spacing:.08em;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:.74rem;transition:.25s}.btn-primary{background:var(--pink);color:var(--white)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,45,149,.25)}.btn-primary.btn-purple{background:var(--purple)}.btn-primary.btn-purple:hover{box-shadow:0 10px 30px rgba(123,47,247,.35)}.btn-outline{border-color:rgba(255,255,255,.35);background:rgba(13,13,13,.2)}.btn-outline:hover{border-color:var(--purple);color:var(--purple)}
++    .grid{display:grid;gap:18px}.events-grid{grid-template-columns:repeat(3,1fr)}.event-card{background:#151416;border:1px solid var(--line);overflow:hidden;transition:.3s}.event-card:hover{transform:translateY(-5px);border-color:rgba(123,47,247,.55)}.event-img{aspect-ratio:4/5;background-size:cover;background-position:center;position:relative}.event-status{position:absolute;top:14px;left:14px;background:var(--purple);color:#fff;padding:7px 10px;font-size:.68rem;font-weight:700;letter-spacing:.08em}.event-info{padding:20px}.event-info h3{font-weight:900;font-size:1.5rem;margin:0 0 8px;letter-spacing:-.03em}.event-meta{font-weight:500;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.event-desc{color:#c5c1c7;margin:12px 0 20px;font-size:.95rem;font-weight:700}.event-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+     .events-grid.single{grid-template-columns:1fr}.event-card.featured>a{display:flex;flex-direction:row}.event-card.featured .event-img{flex:0 0 50%;aspect-ratio:4/3;height:auto}.event-card.featured .event-info{flex:1;display:flex;flex-direction:column;justify-content:center;padding:45px 55px;min-width:0}.event-card.featured .event-info h3{font-size:2.2rem}.event-card.featured .event-desc{font-size:1rem;max-width:420px}@media(max-width:480px){.event-card.featured>a{flex-direction:column}.event-card.featured .event-img{flex:0 0 auto;width:100%;aspect-ratio:4/5}.event-card.featured .event-info{padding:20px}}
+     .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;white-space:nowrap}.marquee-track{display:inline-flex;gap:40px;animation:scroll 22s linear infinite;font-size:clamp(1.5rem,4vw,3.5rem);font-weight:900;letter-spacing:-.04em}.marquee-track span{color:var(--white)}@keyframes scroll{to{transform:translateX(-50%)}}
+     .ticker-bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw}.ticker{overflow:hidden;cursor:pointer;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);padding:0 4vw}.ticker-track{display:flex;gap:18px;width:max-content;animation:ticker-scroll 26s linear infinite}.ticker-track.paused{animation-play-state:paused}.ticker-item{flex:0 0 clamp(280px,32vw,380px)}.ticker-item .event-card{height:100%}@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+     .gallery-ticker-bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;margin-top:50px}.gallery-ticker{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);padding:0 4vw}.gallery-ticker-track{display:flex;gap:14px;width:max-content;animation:gallery-ticker-scroll 40s linear infinite}.gallery-ticker-item{flex:0 0 clamp(160px,20vw,240px);aspect-ratio:4/5;background-size:cover;background-position:center;border:1px solid var(--line)}@keyframes gallery-ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+     .past-gallery-card{display:block;background:#151416;border:1px solid var(--line);overflow:hidden;transition:.3s}.past-gallery-card:hover{transform:translateY(-5px);border-color:rgba(123,47,247,.55)}.past-gallery-main{aspect-ratio:16/10;background-size:cover;background-position:center;position:relative}.past-gallery-main:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(13,13,13,.85))}.past-gallery-overlay{position:absolute;z-index:2;left:18px;right:18px;bottom:16px}.past-gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}.past-thumb{aspect-ratio:1;background-size:cover;background-position:center}
+-    .past-list{display:flex;flex-direction:column}.past-row{display:flex;align-items:center;gap:28px;padding:28px 0;text-decoration:none;color:inherit}.past-row:not(:first-child){border-top:1px solid var(--line)}.past-row-date{flex:0 0 130px;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}.past-row-title{flex:1;font-weight:900;font-size:1.7rem;letter-spacing:-.03em;margin:0;text-align:center;color:var(--purple);transition:.25s}.past-row:hover .past-row-title{color:var(--white)}.past-row-thumb{flex:0 0 170px;aspect-ratio:4/3;background-size:cover;background-position:center}.past-grid{grid-template-columns:1.2fr .8fr}.past-card{position:relative;min-height:360px;background-size:cover;background-position:center;overflow:hidden}.past-card:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(13,13,13,.88))}.past-card-content{position:absolute;z-index:2;left:24px;right:24px;bottom:24px}.past-card h3{font-weight:900;font-size:2rem;margin:8px 0}.past-card.small{min-height:170px}.past-stack{display:grid;gap:18px}
++    .past-list{display:flex;flex-direction:column}.past-row{display:flex;align-items:center;gap:28px;padding:28px 0;text-decoration:none;color:inherit}.past-row:not(:first-child){border-top:1px solid var(--line)}.past-row-meta{display:contents}.past-row-date{flex:0 0 130px;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}.past-row-title{flex:1;font-weight:900;font-size:1.7rem;letter-spacing:-.03em;margin:0;text-align:center;color:var(--purple);transition:.25s}.past-row:hover .past-row-title{color:var(--white)}.past-row-thumb{flex:0 0 170px;aspect-ratio:4/3;background-size:cover;background-position:center}.past-grid{grid-template-columns:1.2fr .8fr}.past-card{position:relative;min-height:360px;background-size:cover;background-position:center;overflow:hidden}.past-card:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(13,13,13,.88))}.past-card-content{position:absolute;z-index:2;left:24px;right:24px;bottom:24px}.past-card h3{font-weight:900;font-size:2rem;margin:8px 0}.past-card.small{min-height:170px}.past-stack{display:grid;gap:18px}
+     .statement{background:linear-gradient(115deg,#151018,#0d0d0d 55%,#170b18);position:relative;overflow:hidden}.statement:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(123,47,247,.2);filter:blur(80px);right:-180px;top:-220px}.statement-inner{position:relative;z-index:1;max-width:1000px}.statement h2{font-weight:900;font-size:clamp(2.4rem,5.5vw,5.5rem);line-height:.9;letter-spacing:-.06em;margin:10px 0 28px}.statement h2 span{color:var(--white)}.statement p{max-width:650px;color:#ccc;font-size:1.1rem}
+     .merch-teaser{overflow:hidden}.stack{position:relative;height:460px;margin-top:30px}.merch-card{position:absolute;width:min(330px,48vw);aspect-ratio:3/4;background:#1b181c;border:1px solid var(--line);padding:14px;transition:.35s;box-shadow:0 30px 70px rgba(0,0,0,.35)}.merch-card:hover{z-index:10!important;transform:translateY(-25px) rotate(0deg) scale(1.03)!important}.merch-card:nth-child(1){left:5%;top:20px;transform:rotate(-7deg);z-index:5}.merch-card:nth-child(2){left:20%;top:0;transform:rotate(-2deg);z-index:4}.merch-card:nth-child(3){left:36%;top:25px;transform:rotate(4deg);z-index:3}.merch-card:nth-child(4){left:52%;top:5px;transform:rotate(8deg);z-index:2}.merch-card:nth-child(5){left:67%;top:50px;transform:rotate(12deg);z-index:1}.merch-visual{height:100%;background-size:cover;background-position:center;display:flex;align-items:end;padding:20px;background-color:#252126}.merch-visual:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.75))}.merch-label{position:relative;z-index:2;font-weight:500;font-size:1.35rem}.merch-price{display:block;color:var(--pink);font-size:.75rem;margin-top:4px}
+     .newsletter{padding:70px 0;background:var(--purple);color:#fff}.newsletter h2{font-weight:900;color:var(--white);font-size:clamp(2.4rem,5.5vw,5.5rem);line-height:.9;letter-spacing:-.06em;margin:0 0 20px}.newsletter p{max-width:540px}.newsletter-form{display:flex;max-width:650px;margin-top:28px}.newsletter-form input{flex:1;border:1px solid rgba(13,13,13,.4);background:rgba(255,255,255,.12);padding:16px;color:#fff;outline:none}.newsletter-form input::placeholder{color:rgba(255,255,255,.8)}.newsletter-form button{border:0;background:#0d0d0d;color:white;padding:0 24px;font-weight:900;text-transform:uppercase}
+-    .footer{padding:70px 0 25px;border-top:1px solid var(--line)}.footer-grid{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:40px;align-items:start}.footer-col{display:flex;flex-direction:column;gap:10px}.footer-brand{align-items:center;text-align:center}.footer-brand .footer-logo{margin-bottom:20px}.footer-brand p{max-width:320px;margin:0}.footer-social{align-items:flex-end;text-align:right}.footer h4{font-weight:500;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 2px}.footer-links{display:grid;gap:8px}.footer-links a:hover{color:var(--purple)}.copyright{border-top:1px solid var(--line);margin-top:50px;padding-top:18px;color:#777;font-size:.75rem;text-align:center}
+-    .about-banner{min-height:32vh;background-size:cover;background-position:center;background-color:#151416;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line)}.about-banner p{margin:0;text-align:center;font-weight:700;font-size:clamp(1.1rem,2.2vw,1.6rem);padding:26px 0}.page-hero{padding:180px 0 80px;background:radial-gradient(circle at 80% 20%,rgba(123,47,247,.25),transparent 30%)}.page-hero h1{font-weight:900;font-size:clamp(2.4rem,6vw,6rem);line-height:.9;letter-spacing:-.06em;margin:15px 0}.page-hero p{max-width:650px;color:#bbb;font-size:1.05rem}
++    .footer{padding:70px 0 25px;border-top:1px solid var(--line)}.footer-grid{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:40px;align-items:start}.footer-col{display:flex;flex-direction:column;gap:10px}.footer-brand{align-items:center;text-align:center}.footer-brand .footer-logo{margin-bottom:20px}.footer-brand p{max-width:320px;margin:0}.footer-social{align-items:flex-end;text-align:right}.footer-bottom-row{display:contents}.footer-brand{order:2}.footer-social{order:3}.footer-col:not(.footer-brand):not(.footer-social){order:1}.footer h4{font-weight:500;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 2px}.footer-links{display:grid;gap:8px}.footer-links a:hover{color:var(--purple)}.copyright{border-top:1px solid var(--line);margin-top:50px;padding-top:18px;color:#777;font-size:.75rem;text-align:center}
++    .about-banner{min-height:32vh;background-size:cover;background-position:center calc(50% + var(--parallax-y,0px));background-color:#151416;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line)}.about-banner p{margin:0;text-align:center;font-weight:700;font-size:clamp(1.1rem,2.2vw,1.6rem);padding:26px 0}.page-hero{padding:180px 0 80px;background:radial-gradient(circle at 80% 20%,rgba(123,47,247,.25),transparent 30%)}.page-hero h1{font-weight:900;font-size:clamp(2.4rem,6vw,6rem);line-height:.9;letter-spacing:-.06em;margin:15px 0}.page-hero p{max-width:650px;color:#bbb;font-size:1.1rem;font-weight:700}
+     .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:35px}.filter{background:none;border:1px solid var(--line);color:white;padding:10px 14px;text-transform:uppercase;font-size:.7rem;font-weight:500;letter-spacing:.08em}.filter.active,.filter:hover{border-color:var(--purple);color:var(--purple)}
+-    .about-block{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}.about-block h2{font-weight:900;font-size:clamp(2.2rem,4.5vw,4.5rem);line-height:.9;margin:0;letter-spacing:-.055em}.about-block p{color:#c3bec5;font-size:1.05rem}.values{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:50px}.value{border-top:1px solid var(--line);padding-top:18px}.value strong{font-weight:500;font-size:1.3rem}
++    .about-block{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}.about-block h2{font-weight:900;font-size:clamp(2.2rem,4.5vw,4.5rem);line-height:.9;margin:0;letter-spacing:-.055em}.about-block p{color:#c3bec5;font-size:1.1rem;font-weight:700}.values{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:50px}.value{border-top:1px solid var(--line);padding-top:18px}.value strong{font-weight:500;font-size:1.3rem}
+     .team-grid{grid-template-columns:repeat(3,1fr)}.team-card img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:saturate(.85)}.team-card h3{font-weight:900;margin:14px 0 2px}.team-card p{font-weight:500;margin:0;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+     .products-grid{grid-template-columns:repeat(3,1fr)}.product-card{background:#151416;border:1px solid var(--line);transition:.3s}.product-card:hover{transform:translateY(-5px);border-color:rgba(123,47,247,.55)}.product-image{aspect-ratio:1/1;background-size:cover;background-position:center}.product-body{padding:18px}.product-body>.muted{margin-bottom:6px}.product-body h3{font-weight:900;margin:0 0 8px}.price{color:var(--pink);font-weight:900}
+     .product-detail{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;padding:150px 0 90px}.product-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}.product-gallery img{width:100%;aspect-ratio:1;object-fit:cover}.product-main{grid-column:span 2}.product-copy h1{font-weight:900;font-size:clamp(2.2rem,4.5vw,4.5rem);line-height:.9;letter-spacing:-.055em;margin:10px 0}.option{margin:28px 0}.option label{font-weight:500;display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}.swatches,.sizes{display:flex;gap:8px;flex-wrap:wrap}.swatch{width:32px;height:32px;border-radius:50%;border:2px solid transparent;box-shadow:0 0 0 1px rgba(255,255,255,.3)}.swatch.selected{box-shadow:0 0 0 2px var(--purple)}.size{border:1px solid var(--line);background:none;color:white;padding:9px 13px;font-weight:500}.size.selected,.size:hover{border-color:var(--purple);color:var(--purple)}select,.text-input{font-weight:300;width:100%;background:#151416;border:1px solid var(--line);color:white;padding:13px;outline:none}.qty{display:flex;align-items:center;gap:10px}.qty button{width:40px;height:40px;background:none;border:1px solid var(--line);color:white;font-weight:500}.qty span{min-width:30px;text-align:center}.summary{border-top:1px solid var(--line);margin-top:30px;padding-top:20px}.summary-row{display:flex;justify-content:space-between;padding:5px 0;color:#bbb}.summary-row.total{font-size:1.1rem;color:white;font-weight:500;margin-top:8px}
+-    .event-detail{padding:150px 0 90px}.detail-hero{min-height:55vh;background-size:cover;background-position:center;position:relative;display:flex;align-items:end;padding:40px}.detail-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(13,13,13,.9))}.detail-hero>*{position:relative;z-index:2}.detail-hero h1{font-weight:900;font-size:clamp(2.4rem,5.5vw,5.5rem);line-height:.9;letter-spacing:-.06em;margin:10px 0}.detail-content{display:grid;grid-template-columns:1fr 2fr;gap:60px;padding-top:60px}.detail-content aside{display:flex;flex-direction:column;align-items:start;gap:16px}.aside-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.event-facts{display:flex;flex-wrap:wrap;gap:26px 40px;margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}.event-fact{display:flex;flex-direction:column;gap:5px;min-width:110px}.fact-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}.fact-value{font-size:1rem;font-weight:700;color:var(--white)}.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gallery img{width:100%;aspect-ratio:1.2;object-fit:cover}.video-gallery video{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}.back{display:inline-block;margin-bottom:20px;color:var(--purple);font-size:.75rem;text-transform:uppercase;font-weight:500}
++    .event-detail{padding:150px 0 90px}.detail-hero{min-height:55vh;background-size:cover;background-position:center calc(50% + var(--parallax-y,0px));position:relative;display:flex;align-items:end;padding:40px}.detail-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(13,13,13,.9))}.detail-hero>*{position:relative;z-index:2}.detail-hero h1{font-weight:900;font-size:clamp(2.4rem,5.5vw,5.5rem);line-height:.9;letter-spacing:-.06em;margin:10px 0}.detail-content{display:grid;grid-template-columns:1fr 2fr;gap:60px;padding-top:60px}.detail-content aside{display:flex;flex-direction:column;align-items:start;gap:16px}.aside-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.event-facts{display:flex;flex-wrap:wrap;gap:26px 40px;margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}.event-fact{display:flex;flex-direction:column;gap:5px;min-width:110px}.fact-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}.fact-value{font-size:1rem;font-weight:700;color:var(--white)}.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gallery img{width:100%;aspect-ratio:1.2;object-fit:cover}.video-gallery video{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}.back{display:inline-block;margin-bottom:20px;color:var(--purple);font-size:.75rem;text-transform:uppercase;font-weight:500}
++    .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.8,.24,1),transform .7s cubic-bezier(.16,.8,.24,1)}.reveal-in{opacity:1;transform:translateY(0)}
+     .empty{padding:80px 0;text-align:center;color:var(--muted)}
+     .fab-wa{position:fixed;bottom:30px;right:30px;width:92px;height:92px;background:var(--purple);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 10px 30px rgba(123,47,247,.45);z-index:100;transition:transform .3s;color:var(--white);font-weight:700;font-size:.7rem;line-height:1.3;text-transform:uppercase;letter-spacing:.03em;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;padding:10px}.fab-wa:hover{transform:scale(1.08)}
+     .connect-form{display:grid;gap:15px;max-width:700px;margin-top:28px}.connect-form input,.connect-form select,.connect-form textarea{width:100%;background:#151416;border:1px solid var(--line);color:white;padding:16px;outline:none;font-weight:300;font-family:inherit}.connect-form textarea{min-height:150px;resize:vertical}.connect-form select{appearance:none;background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");background-repeat:no-repeat;background-position:right%2020px%20top%2050%;background-size:12px%20auto}
+-    @media(max-width:900px){.events-grid,.products-grid,.team-grid{grid-template-columns:repeat(2,1fr)}.past-grid,.about-block,.product-detail,.detail-content,.footer-grid{grid-template-columns:1fr}.nav-links,.nav-cta{display:none}.nav-inner{display:flex;justify-content:space-between}.menu{display:flex;position:relative;z-index:61}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;background:rgba(13,13,13,.98);backdrop-filter:blur(18px);justify-content:flex-start;align-items:flex-start;gap:26px;padding:110px 32px 40px;font-size:1.05rem;z-index:60;box-shadow:-10px 0 40px rgba(0,0,0,.55)}.nav-links.open .nav-cta{display:inline-flex;margin-top:6px}.fab-wa{width:62px;height:62px;bottom:20px;right:20px;font-size:.58rem;padding:6px}.stack{height:300px;width:270px;max-width:100%;margin:24px auto 0;position:relative}.merch-card{width:150px}.merch-card:nth-child(1){left:0}.merch-card:nth-child(2){left:30px}.merch-card:nth-child(3){left:60px}.merch-card:nth-child(4){left:90px}.merch-card:nth-child(5){left:120px}.footer-grid{gap:36px}.footer-col{align-items:center}.footer-brand{order:-1}.footer-social{align-items:center;text-align:center}}
++    @media(max-width:900px){.events-grid,.products-grid,.team-grid{grid-template-columns:repeat(2,1fr)}.past-grid,.about-block,.product-detail,.detail-content,.footer-grid{grid-template-columns:1fr}.nav-links,.nav-cta{display:none}.nav-inner{display:flex;justify-content:space-between}.menu{display:flex;position:relative;z-index:61}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;background:rgba(13,13,13,.98);backdrop-filter:blur(18px);justify-content:flex-start;align-items:flex-start;gap:26px;padding:110px 32px 40px;font-size:1.05rem;z-index:60;box-shadow:-10px 0 40px rgba(0,0,0,.55)}.nav-links.open .nav-cta{display:inline-flex;margin-top:6px}.fab-wa{width:62px;height:62px;bottom:20px;right:20px;font-size:.58rem;padding:6px}.stack{height:300px;width:270px;max-width:100%;margin:24px auto 0;position:relative}.merch-card{width:150px}.merch-card:nth-child(1){left:0}.merch-card:nth-child(2){left:30px}.merch-card:nth-child(3){left:60px}.merch-card:nth-child(4){left:90px}.merch-card:nth-child(5){left:120px}.footer-grid{gap:32px}.footer-brand{order:-1}.footer-bottom-row{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;order:1}.footer-bottom-row .footer-col{align-items:flex-start;text-align:left}.footer-bottom-row .footer-social{align-items:flex-end;text-align:right}.actions-stack-mobile{flex-direction:column;align-items:stretch}.actions-stack-mobile .btn{width:100%}.btn-mobile-fill{width:100%}}
+     @media(max-width:600px){.events-grid,.products-grid{grid-template-columns:1fr}}
+-    @media(max-width:600px){.section-head{gap:12px}.section-head h2{font-size:clamp(1.05rem,6vw,1.8rem)}.section-head .btn{padding:0 12px;font-size:.62rem;min-height:38px}.past-row{flex-direction:column;align-items:stretch;gap:14px;padding:22px 0}.past-row-thumb{order:-1;flex:0 0 auto;width:100%;aspect-ratio:16/9}.past-row-title{order:0;font-size:1.35rem}.past-row-date{order:1;flex:0 0 auto}}
++    @media(max-width:600px){.section-head{gap:12px}.section-head h2{font-size:clamp(1.05rem,6vw,1.8rem)}.section-head .btn{padding:0 12px;font-size:.62rem;min-height:38px}.past-row{flex-direction:column;align-items:stretch;gap:14px;padding:22px 0}.past-row-thumb{order:-1;flex:0 0 auto;width:100%;aspect-ratio:16/9}.past-row-meta{display:flex;align-items:baseline;justify-content:space-between;gap:16px;width:100%}.past-row-title{flex:0 1 auto;text-align:right;font-size:1.15rem;margin:0}.past-row-date{flex:0 0 auto}}
+     @media(max-width:480px){.event-info h3{font-size:clamp(1.25rem,6vw,1.6rem)}}
+diff --git a/src/pages/About.jsx b/src/pages/About.jsx
+index 37f1896..c98f7a5 100644
+--- a/src/pages/About.jsx
++++ b/src/pages/About.jsx
+@@ -1,7 +1,9 @@
+ import { team, getTitle, site } from "../data/content";
+ import Title from "../components/Title";
++import useParallax from "../hooks/useParallax";
+ 
+ export default function About() {
++  const parallaxRef = useParallax(40);
+   const heroTitle = getTitle("about", "heroTitle", "Who We Are.");
+   const greatPeopleTitle = getTitle("about", "greatPeopleTitle", "Great People. Great Experiences.");
+   const bringPeopleTitle = getTitle("about", "bringPeopleTitle", "Bring People Together.");
+@@ -13,7 +15,11 @@ export default function About() {
+   return (
+     <main>
+       {banner?.enabled && (
+-        <section className="about-banner" style={banner.image ? { backgroundImage: `url('${banner.image}')` } : undefined}>
++        <section
++          ref={parallaxRef}
++          className="about-banner"
++          style={banner.image ? { backgroundImage: `url('${banner.image}')` } : undefined}
++        >
+           {banner.text && (
+             <div className="container">
+               <p>{banner.text}</p>
+diff --git a/src/pages/Connect.jsx b/src/pages/Connect.jsx
+index a6cb786..08417d5 100644
+--- a/src/pages/Connect.jsx
++++ b/src/pages/Connect.jsx
+@@ -23,7 +23,7 @@ export default function Connect() {
+         <div className="container">
+           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
+           <p>Have a brand, idea or collaboration in mind? Let's create something people will want to show up for.</p>
+-          <a className="btn btn-primary" style={{ marginTop: 20 }} href="#message-section">
++          <a className="btn btn-primary btn-mobile-fill" style={{ marginTop: 20 }} href="#message-section">
+             Let's Talk
+           </a>
+         </div>
+@@ -95,7 +95,11 @@ export default function Connect() {
+               <option value="Other">Other</option>
+             </select>
+             <textarea name="c-message" placeholder="Your Message..." required />
+-            <button type="submit" className="btn btn-primary" style={{ justifySelf: "start", minHeight: 55, padding: "0 35px" }}>
++            <button
++              type="submit"
++              className="btn btn-primary btn-mobile-fill"
++              style={{ justifySelf: "start", minHeight: 55, padding: "0 35px" }}
++            >
+               Send Message
+             </button>
+           </form>
+diff --git a/src/pages/EventDetail.jsx b/src/pages/EventDetail.jsx
+index 94ac425..aecb16a 100644
+--- a/src/pages/EventDetail.jsx
++++ b/src/pages/EventDetail.jsx
+@@ -2,10 +2,12 @@ import { Link, useParams } from "react-router-dom";
+ import { events, formatEventDate, getTitle, isPastEvent } from "../data/content";
+ import NotFound from "./NotFound";
+ import Title from "../components/Title";
++import useParallax from "../hooks/useParallax";
+ 
+ export default function EventDetail() {
+   const { id } = useParams();
+   const e = events.find((x) => x.id === id);
++  const parallaxRef = useParallax(40);
+   if (!e) return <NotFound />;
+ 
+   const past = isPastEvent(e);
+@@ -28,7 +30,7 @@ export default function EventDetail() {
+         <Link className="back" to="/events">
+           ← Back to events
+         </Link>
+-        <div className="detail-hero" style={{ backgroundImage: `url('${e.image}')` }}>
++        <div ref={parallaxRef} className="detail-hero" style={{ backgroundImage: `url('${e.image}')` }}>
+           <div>
+             <div className="event-meta" style={{ color: "var(--white)", marginBottom: 12 }}>
+               {formatEventDate(e.date)} · {e.location}
+diff --git a/src/pages/Home.jsx b/src/pages/Home.jsx
+index 930948d..078b0a0 100644
+--- a/src/pages/Home.jsx
++++ b/src/pages/Home.jsx
+@@ -36,8 +36,8 @@ export default function Home() {
+         <div className="hero-bg" />
+         <div className="container hero-content">
+           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
+-          <div className="actions">
+-            <Link className="btn btn-primary" to="/events">
++          <div className="actions actions-stack-mobile">
++            <Link className="btn btn-primary btn-purple" to="/events">
+               Explore Events
+             </Link>
+             <Link className="btn btn-outline" to="/merch">

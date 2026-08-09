@@ -1,7 +1,9 @@
 import { team, getTitle, site } from "../data/content";
 import Title from "../components/Title";
+import useParallax from "../hooks/useParallax";
 
 export default function About() {
+  const parallaxRef = useParallax(40);
   const heroTitle = getTitle("about", "heroTitle", "Who We Are.");
   const greatPeopleTitle = getTitle("about", "greatPeopleTitle", "Great People. Great Experiences.");
   const bringPeopleTitle = getTitle("about", "bringPeopleTitle", "Bring People Together.");
@@ -13,7 +15,11 @@ export default function About() {
   return (
     <main>
       {banner?.enabled && (
-        <section className="about-banner" style={banner.image ? { backgroundImage: `url('${banner.image}')` } : undefined}>
+        <section
+          ref={parallaxRef}
+          className="about-banner"
+          style={banner.image ? { backgroundImage: `url('${banner.image}')` } : undefined}
+        >
           {banner.text && (
             <div className="container">
               <p>{banner.text}</p>
