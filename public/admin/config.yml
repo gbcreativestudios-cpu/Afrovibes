@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: gbcreativestudios-cpu/Afrovibes
   branch: main
 
 media_folder: "public/uploads"
