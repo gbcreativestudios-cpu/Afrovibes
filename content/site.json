@@ -3,7 +3,7 @@
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
   "tiktokUrl": "https://tiktok.com/",
-  "logoImage": "",
-  "favicon": "",
+  "logoImage": "/uploads/full-logo-white.webp",
+  "favicon": "/uploads/favicon-3-.webp",
   "galleryTickerLimit": 10
 }
