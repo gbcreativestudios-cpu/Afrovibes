@@ -1,6 +1,11 @@
-import { site } from "../data/content";
+import { site, getTitle } from "../data/content";
+import Title from "../components/Title";
 
 export default function Connect() {
+  const heroTitle = getTitle("connect", "heroTitle", "Connect With Us.");
+  const createTitle = getTitle("connect", "createTitle", "Let's Create Something.");
+  const messageTitle = getTitle("connect", "messageTitle", "Send Us A Message.");
+
   const onSubmit = (e) => {
     e.preventDefault();
     const name = e.target["c-name"].value;
@@ -16,7 +21,7 @@ export default function Connect() {
     <main>
       <section className="page-hero">
         <div className="container">
-          <h1>CONNECT WITH US.</h1>
+          <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
           <p>Have a brand, idea or collaboration in mind? Let's create something people will want to show up for.</p>
           <a className="btn btn-primary" style={{ marginTop: 20 }} href="#message-section">
             Let's Talk
@@ -27,9 +32,13 @@ export default function Connect() {
       <section className="section">
         <div className="container about-block">
           <div>
-            <h2 style={{ fontSize: "clamp(1.6rem,3vw,2.4rem)", color: "var(--purple)", letterSpacing: "-.02em" }}>
-              Let's Create Something.
-            </h2>
+            <Title
+              as="h2"
+              text={createTitle.text}
+              fontSize={createTitle.fontSize}
+              color={createTitle.color}
+              style={{ letterSpacing: "-.02em" }}
+            />
           </div>
           <div>
             <div className="values" style={{ marginTop: 0 }}>
@@ -57,9 +66,13 @@ export default function Connect() {
       <section id="message-section" className="section statement">
         <div className="container about-block">
           <div>
-            <h2 style={{ fontSize: "clamp(1.6rem,3vw,2.4rem)", color: "var(--purple)", letterSpacing: "-.02em" }}>
-              Send Us A Message.
-            </h2>
+            <Title
+              as="h2"
+              text={messageTitle.text}
+              fontSize={messageTitle.fontSize}
+              color={messageTitle.color}
+              style={{ letterSpacing: "-.02em" }}
+            />
             <p>
               Tell us what you're thinking. Whether it's a partnership, collaboration, sponsorship
               or something completely new, we'd love to hear from you.

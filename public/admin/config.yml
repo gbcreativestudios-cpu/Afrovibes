@@ -20,6 +20,8 @@ collections:
     fields:
       - { label: "ID (used in the URL — lowercase-with-hyphens)", name: "id", widget: "string" }
       - { label: "Title", name: "title", widget: "string" }
+      - { label: "Title Font Size (e.g. 3rem, 48px — leave blank for default)", name: "titleFontSize", widget: "string", required: false }
+      - { label: "Title Color", name: "titleColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
       - { label: "Event Date", name: "date", widget: "date", format: "YYYY-MM-DD", hint: "Used for both display and sort order" }
       - { label: "Location", name: "location", widget: "string" }
       - label: "Status"
@@ -103,3 +105,141 @@ collections:
           - { label: "Logo Image", name: "logoImage", widget: "image", required: false, hint: "Used in the nav bar and footer. Leave empty to keep the default AFROVIBES text logo." }
           - { label: "Favicon", name: "favicon", widget: "image", required: false, hint: "Small square image, shown in the browser tab. Leave empty to keep the default." }
           - { label: "Past-Events Ticker — Max Images", name: "galleryTickerLimit", widget: "number", value_type: "int", default: 10, hint: "Caps how many photos the moving ticker on the Events page pulls in total, no matter how many are in the galleries." }
+
+      - name: "titles"
+        label: "Page & Section Titles"
+        file: "content/titles.json"
+        fields:
+          - label: "Home Page"
+            name: "home"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: &title_fields
+                  - { label: "Text", name: "text", widget: "string", hint: "Type it exactly how you want it to appear — any casing." }
+                  - { label: "Font Size (e.g. 3rem, 48px — leave blank for default)", name: "fontSize", widget: "string", required: false }
+                  - { label: "Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
+              - name: "nextEventTitle"
+                label: "\"Next Event\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "upcomingEventTitle"
+                label: "\"Upcoming Event\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "pastVibesTitle"
+                label: "\"Past Vibes\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "statementTitle"
+                label: "\"Best Memories Are Shared\" Statement"
+                widget: "object"
+                fields: *title_fields
+              - name: "merchTeaserTitle"
+                label: "\"Wear The Vibe\" Merch Teaser Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Who We Are Page"
+            name: "about"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "greatPeopleTitle"
+                label: "\"Great People\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "bringPeopleTitle"
+                label: "\"Bring People Together\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "redefineTitle"
+                label: "\"Redefine Connection\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "teamTitle"
+                label: "\"Meet The Team\" Section Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Events Page"
+            name: "events"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "nextEventTitle"
+                label: "\"Next Event\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "calendarTitle"
+                label: "\"Our Calendar\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "pastEventsTitle"
+                label: "\"Past Events\" Section Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Merch Page"
+            name: "merch"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Connect Page"
+            name: "connect"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "createTitle"
+                label: "\"Let's Create Something\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "messageTitle"
+                label: "\"Send Us A Message\" Section Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Event Detail Pages"
+            name: "eventDetail"
+            widget: "object"
+            collapsed: true
+            hint: "Shown on every individual event's page."
+            fields:
+              - name: "momentsTitle"
+                label: "\"The Moments\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "videosTitle"
+                label: "\"The Videos\" Section Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Newsletter Section"
+            name: "newsletter"
+            widget: "object"
+            collapsed: true
+            hint: "Shown at the bottom of multiple pages."
+            fields:
+              - name: "title"
+                label: "Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "404 Page"
+            name: "notFound"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "title"
+                label: "Title"
+                widget: "object"
+                fields: *title_fields

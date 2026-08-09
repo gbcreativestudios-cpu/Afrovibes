@@ -1,0 +1,40 @@
+{
+  "home": {
+    "heroTitle": { "text": "Make Plans. Make Memories.", "fontSize": "", "color": "" },
+    "nextEventTitle": { "text": "Next Event.", "fontSize": "", "color": "" },
+    "upcomingEventTitle": { "text": "Upcoming Event.", "fontSize": "", "color": "" },
+    "pastVibesTitle": { "text": "Past Vibes.", "fontSize": "", "color": "" },
+    "statementTitle": { "text": "The Best Memories Are Shared.", "fontSize": "", "color": "" },
+    "merchTeaserTitle": { "text": "Wear The Vibe.", "fontSize": "", "color": "" }
+  },
+  "about": {
+    "heroTitle": { "text": "Who We Are.", "fontSize": "", "color": "" },
+    "greatPeopleTitle": { "text": "Great People. Great Experiences.", "fontSize": "clamp(1.6rem,3vw,2.4rem)", "color": "#7B2FF7" },
+    "bringPeopleTitle": { "text": "Bring People Together.", "fontSize": "clamp(1.6rem,3vw,2.4rem)", "color": "#7B2FF7" },
+    "redefineTitle": { "text": "Redefine Connection.", "fontSize": "clamp(1.6rem,3vw,2.4rem)", "color": "#7B2FF7" },
+    "teamTitle": { "text": "Meet The Team.", "fontSize": "clamp(1.6rem,3vw,2.4rem)", "color": "#7B2FF7" }
+  },
+  "events": {
+    "nextEventTitle": { "text": "Next Event.", "fontSize": "", "color": "" },
+    "calendarTitle": { "text": "Our Calendar.", "fontSize": "", "color": "" },
+    "pastEventsTitle": { "text": "Past Events.", "fontSize": "", "color": "" }
+  },
+  "merch": {
+    "heroTitle": { "text": "Wear The Vibe.", "fontSize": "", "color": "" }
+  },
+  "connect": {
+    "heroTitle": { "text": "Connect With Us.", "fontSize": "", "color": "" },
+    "createTitle": { "text": "Let's Create Something.", "fontSize": "clamp(1.6rem,3vw,2.4rem)", "color": "#7B2FF7" },
+    "messageTitle": { "text": "Send Us A Message.", "fontSize": "clamp(1.6rem,3vw,2.4rem)", "color": "#7B2FF7" }
+  },
+  "eventDetail": {
+    "momentsTitle": { "text": "The Moments.", "fontSize": "", "color": "" },
+    "videosTitle": { "text": "The Videos.", "fontSize": "", "color": "" }
+  },
+  "newsletter": {
+    "title": { "text": "Join The Vibe.", "fontSize": "", "color": "" }
+  },
+  "notFound": {
+    "title": { "text": "Page Not Found", "fontSize": "", "color": "" }
+  }
+}

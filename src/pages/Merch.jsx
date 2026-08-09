@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { products, money } from "../data/content";
+import { products, money, getTitle } from "../data/content";
+import Title from "../components/Title";
 
 function ProductCard({ p }) {
   return (
@@ -24,12 +25,13 @@ export default function Merch() {
   const categories = useMemo(() => [...new Set(products.map((p) => p.category))], []);
   const [active, setActive] = useState("all");
   const list = active === "all" ? products : products.filter((p) => p.category === active);
+  const heroTitle = getTitle("merch", "heroTitle", "Wear The Vibe.");
 
   return (
     <main>
       <section className="page-hero">
         <div className="container">
-          <h1>WEAR THE VIBE.</h1>
+          <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
           <p>Afrovibes merch made for the moments before, during and after the experience.</p>
         </div>
       </section>

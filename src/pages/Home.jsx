@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { events, products, money, formatEventDate } from "../data/content";
+import { events, products, money, formatEventDate, getTitle } from "../data/content";
 import { FeaturedEventCard } from "../components/EventCards";
 import EventsTicker from "../components/EventsTicker";
+import Title from "../components/Title";
 
 export default function Home() {
   const upcoming = events.filter((e) => e.status !== "PAST");
@@ -9,14 +10,19 @@ export default function Home() {
   const rest = upcoming.slice(1, 4);
   const past = events.filter((e) => e.status === "PAST");
 
+  const heroTitle = getTitle("home", "heroTitle", "Make Plans. Make Memories.");
+  const nextEventTitle = getTitle("home", "nextEventTitle", "Next Event.");
+  const upcomingEventTitle = getTitle("home", "upcomingEventTitle", "Upcoming Event.");
+  const pastVibesTitle = getTitle("home", "pastVibesTitle", "Past Vibes.");
+  const statementTitle = getTitle("home", "statementTitle", "The Best Memories Are Shared.");
+  const merchTeaserTitle = getTitle("home", "merchTeaserTitle", "Wear The Vibe.");
+
   return (
     <main>
       <section className="hero">
         <div className="hero-bg" />
         <div className="container hero-content">
-          <h1>
-            MAKE PLANS. MAKE <em>MEMORIES.</em>
-          </h1>
+          <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
           <div className="actions">
             <Link className="btn btn-primary" to="/events">
               Explore Events
@@ -41,7 +47,7 @@ export default function Home() {
           <div className="container">
             <div className="section-head">
               <div>
-                <h2>NEXT EVENT.</h2>
+                <Title as="h2" text={nextEventTitle.text} fontSize={nextEventTitle.fontSize} color={nextEventTitle.color} />
               </div>
             </div>
             <div className="grid events-grid single">
@@ -56,7 +62,7 @@ export default function Home() {
           <div className="container">
             <div className="section-head">
               <div>
-                <h2>UPCOMING EVENT.</h2>
+                <Title as="h2" text={upcomingEventTitle.text} fontSize={upcomingEventTitle.fontSize} color={upcomingEventTitle.color} />
               </div>
               <Link className="btn btn-outline" to="/events">
                 View All Events
@@ -72,7 +78,7 @@ export default function Home() {
           <div className="container">
             <div className="section-head">
               <div>
-                <h2>PAST VIBES.</h2>
+                <Title as="h2" text={pastVibesTitle.text} fontSize={pastVibesTitle.fontSize} color={pastVibesTitle.color} />
               </div>
               <Link className="btn btn-outline" to="/events">
                 View All Events
@@ -91,7 +97,7 @@ export default function Home() {
                   <div className="event-meta" style={{ color: "var(--white)", marginBottom: 8 }}>
                     {formatEventDate(past[0].date)}
                   </div>
-                  <h3>{past[0].title}</h3>
+                  <Title as="h3" text={past[0].title} fontSize={past[0].titleFontSize} color={past[0].titleColor} />
                 </div>
               </Link>
               {past.length > 1 && (
@@ -110,7 +116,7 @@ export default function Home() {
                         >
                           {formatEventDate(e.date)}
                         </div>
-                        <h3>{e.title}</h3>
+                        <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
                       </div>
                     </Link>
                   ))}
@@ -123,9 +129,7 @@ export default function Home() {
 
       <section className="section statement">
         <div className="container statement-inner">
-          <h2>
-            THE BEST MEMORIES ARE <span>SHARED.</span>
-          </h2>
+          <Title as="h2" text={statementTitle.text} fontSize={statementTitle.fontSize} color={statementTitle.color} />
           <p>
             We create experiences that give people a reason to step away from routine, connect
             with others, try something new, and leave with stories worth telling.
@@ -137,7 +141,7 @@ export default function Home() {
         <div className="container">
           <div className="section-head">
             <div>
-              <h2>WEAR THE VIBE.</h2>
+              <Title as="h2" text={merchTeaserTitle.text} fontSize={merchTeaserTitle.fontSize} color={merchTeaserTitle.color} />
             </div>
             <Link className="btn btn-primary" to="/merch">
               Shop Merch

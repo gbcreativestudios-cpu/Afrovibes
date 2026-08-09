@@ -1,12 +1,17 @@
-import { events } from "../data/content";
+import { events, getTitle } from "../data/content";
 import { EventCard, FeaturedEventCard, PastEventRow } from "../components/EventCards";
 import GalleryTicker from "../components/GalleryTicker";
+import Title from "../components/Title";
 
 export default function Events() {
   const upcoming = events.filter((e) => e.status !== "PAST");
   const past = events.filter((e) => e.status === "PAST");
   const next = upcoming[0];
   const rest = upcoming.slice(1);
+
+  const nextEventTitle = getTitle("events", "nextEventTitle", "Next Event.");
+  const calendarTitle = getTitle("events", "calendarTitle", "Our Calendar.");
+  const pastEventsTitle = getTitle("events", "pastEventsTitle", "Past Events.");
 
   return (
     <main>
@@ -15,7 +20,7 @@ export default function Events() {
           <div className="container">
             <div className="section-head">
               <div>
-                <h2>NEXT EVENT.</h2>
+                <Title as="h2" text={nextEventTitle.text} fontSize={nextEventTitle.fontSize} color={nextEventTitle.color} />
               </div>
             </div>
             <div className="grid events-grid single">
@@ -30,7 +35,7 @@ export default function Events() {
           <div className="container">
             <div className="section-head">
               <div>
-                <h2>OUR CALENDAR.</h2>
+                <Title as="h2" text={calendarTitle.text} fontSize={calendarTitle.fontSize} color={calendarTitle.color} />
               </div>
             </div>
             <div className="grid events-grid">
@@ -46,7 +51,7 @@ export default function Events() {
         <div className="container">
           <div className="section-head">
             <div>
-              <h2>PAST EVENTS.</h2>
+              <Title as="h2" text={pastEventsTitle.text} fontSize={pastEventsTitle.fontSize} color={pastEventsTitle.color} />
             </div>
           </div>
           {past.length > 0 ? (

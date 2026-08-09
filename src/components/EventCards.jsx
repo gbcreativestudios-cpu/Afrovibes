@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { formatEventDate } from "../data/content";
+import Title from "./Title";
 
 export function EventCard({ e }) {
   return (
@@ -12,7 +13,7 @@ export function EventCard({ e }) {
           <div className="event-meta">
             {formatEventDate(e.date)} · {e.location}
           </div>
-          <h3>{e.title}</h3>
+          <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
           <p className="event-desc">{e.desc}</p>
           <div className="event-actions">
             {e.ticket ? (
@@ -49,7 +50,7 @@ export function FeaturedEventCard({ e }) {
           <div className="event-meta">
             {formatEventDate(e.date)} · {e.location}
           </div>
-          <h3>{e.title}</h3>
+          <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
           <p className="event-desc">{e.desc}</p>
           <div className="event-actions">
             {e.ticket ? (
@@ -79,7 +80,13 @@ export function PastEventRow({ e }) {
   return (
     <Link className="past-row" to={`/event/${e.id}`}>
       <div className="past-row-date">{formatEventDate(e.date)}</div>
-      <h3 className="past-row-title">{e.title}</h3>
+      <Title
+        as="h3"
+        className="past-row-title"
+        text={e.title}
+        fontSize={e.titleFontSize}
+        color={e.titleColor}
+      />
       <div className="past-row-thumb" style={{ backgroundImage: `url('${e.image}')` }} />
     </Link>
   );
@@ -94,7 +101,13 @@ export function PastEventGalleryCard({ e }) {
           <div className="event-meta" style={{ color: "var(--white)", marginBottom: 6 }}>
             {formatEventDate(e.date)} · {e.location}
           </div>
-          <h3 style={{ fontWeight: 900, fontSize: "1.4rem", margin: 0 }}>{e.title}</h3>
+          <Title
+            as="h3"
+            text={e.title}
+            fontSize={e.titleFontSize}
+            color={e.titleColor}
+            style={{ fontWeight: 900, fontSize: "1.4rem", margin: 0 }}
+          />
         </div>
       </div>
       {thumbs.length > 0 && (

@@ -5,6 +5,7 @@ const eventModules = import.meta.glob("../../content/events/*.json", { eager: tr
 const productModules = import.meta.glob("../../content/products/*.json", { eager: true });
 const teamModules = import.meta.glob("../../content/team/*.json", { eager: true });
 const siteModule = import.meta.glob("../../content/site.json", { eager: true });
+const titlesModule = import.meta.glob("../../content/titles.json", { eager: true });
 
 export const events = Object.values(eventModules)
   .map((m) => m.default)
@@ -25,6 +26,22 @@ export const site = Object.values(siteModule)[0]?.default ?? {
   favicon: "",
   galleryTickerLimit: 10,
 };
+
+export const titles = Object.values(titlesModule)[0]?.default ?? {};
+
+// Reads a CMS-editable title. `group`/`key` locate it inside titles.json;
+// `fallbackText` is only used if that entry is missing (e.g. the JSON
+// hasn't been re-published yet), so pages never render blank headings.
+// fontSize/color come back as undefined (not "") when unset, so <Title>'s
+// "only override if truthy" check falls through to the CSS/style default.
+export function getTitle(group, key, fallbackText = "") {
+  const entry = titles?.[group]?.[key] || {};
+  return {
+    text: entry.text || fallbackText,
+    fontSize: entry.fontSize || undefined,
+    color: entry.color || undefined,
+  };
+}
 
 export const money = (n) => `CAD $${Number(n).toFixed(2)}`;
 

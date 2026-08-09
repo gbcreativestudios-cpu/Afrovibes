@@ -1,17 +1,18 @@
-import { team } from "../data/content";
-
-const headingStyle = {
-  fontSize: "clamp(1.6rem,3vw,2.4rem)",
-  color: "var(--purple)",
-  letterSpacing: "-.02em",
-};
+import { team, getTitle } from "../data/content";
+import Title from "../components/Title";
 
 export default function About() {
+  const heroTitle = getTitle("about", "heroTitle", "Who We Are.");
+  const greatPeopleTitle = getTitle("about", "greatPeopleTitle", "Great People. Great Experiences.");
+  const bringPeopleTitle = getTitle("about", "bringPeopleTitle", "Bring People Together.");
+  const redefineTitle = getTitle("about", "redefineTitle", "Redefine Connection.");
+  const teamTitle = getTitle("about", "teamTitle", "Meet The Team.");
+
   return (
     <main>
       <section className="page-hero">
         <div className="container">
-          <h1>WHO WE ARE.</h1>
+          <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
           <p>
             Afrovibes is a social experience brand dedicated to bringing people together through
             unforgettable events that inspire connection, excitement, and lasting memories.
@@ -22,7 +23,7 @@ export default function About() {
       <section className="section">
         <div className="container about-block">
           <div>
-            <h2 style={headingStyle}>Great People. Great Experiences.</h2>
+            <Title as="h2" text={greatPeopleTitle.text} fontSize={greatPeopleTitle.fontSize} color={greatPeopleTitle.color} />
           </div>
           <div>
             <p>
@@ -55,7 +56,7 @@ export default function About() {
       <section className="section statement">
         <div className="container about-block">
           <div>
-            <h2 style={headingStyle}>Bring People Together.</h2>
+            <Title as="h2" text={bringPeopleTitle.text} fontSize={bringPeopleTitle.fontSize} color={bringPeopleTitle.color} />
           </div>
           <div>
             <p>
@@ -70,7 +71,7 @@ export default function About() {
       <section className="section">
         <div className="container about-block">
           <div>
-            <h2 style={headingStyle}>Redefine Connection.</h2>
+            <Title as="h2" text={redefineTitle.text} fontSize={redefineTitle.fontSize} color={redefineTitle.color} />
           </div>
           <div>
             <p>
@@ -86,7 +87,7 @@ export default function About() {
         <div className="container">
           <div className="section-head">
             <div>
-              <h2 style={headingStyle}>Meet The Team.</h2>
+              <Title as="h2" text={teamTitle.text} fontSize={teamTitle.fontSize} color={teamTitle.color} />
             </div>
           </div>
           <div className="grid team-grid">

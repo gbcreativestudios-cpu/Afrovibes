@@ -1,11 +1,15 @@
 import { Link, useParams } from "react-router-dom";
-import { events, formatEventDate } from "../data/content";
+import { events, formatEventDate, getTitle } from "../data/content";
 import NotFound from "./NotFound";
+import Title from "../components/Title";
 
 export default function EventDetail() {
   const { id } = useParams();
   const e = events.find((x) => x.id === id);
   if (!e) return <NotFound />;
+
+  const momentsTitle = getTitle("eventDetail", "momentsTitle", "The Moments.");
+  const videosTitle = getTitle("eventDetail", "videosTitle", "The Videos.");
 
   return (
     <main className="event-detail">
@@ -18,7 +22,7 @@ export default function EventDetail() {
             <div className="event-meta" style={{ color: "var(--white)", marginBottom: 12 }}>
               {formatEventDate(e.date)} · {e.location}
             </div>
-            <h1>{e.title}</h1>
+            <Title as="h1" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
           </div>
         </div>
         <div className="detail-content">
@@ -35,7 +39,13 @@ export default function EventDetail() {
           </aside>
           <div>
             <p style={{ fontSize: "1.2rem", color: "#ddd", maxWidth: 750 }}>{e.desc}</p>
-            <h2 style={{ fontWeight: 900, fontSize: "2rem", marginTop: 55 }}>THE MOMENTS.</h2>
+            <Title
+              as="h2"
+              text={momentsTitle.text}
+              fontSize={momentsTitle.fontSize}
+              color={momentsTitle.color}
+              style={{ fontWeight: 900, fontSize: "2rem", marginTop: 55 }}
+            />
             <div className="gallery">
               {(e.gallery || []).map((x, i) => (
                 <img key={i} src={x} alt={`${e.title} experience`} />
@@ -43,7 +53,13 @@ export default function EventDetail() {
             </div>
             {e.showVideos && e.galleryVideos && e.galleryVideos.length > 0 && (
               <>
-                <h2 style={{ fontWeight: 900, fontSize: "2rem", marginTop: 55 }}>THE VIDEOS.</h2>
+                <Title
+                  as="h2"
+                  text={videosTitle.text}
+                  fontSize={videosTitle.fontSize}
+                  color={videosTitle.color}
+                  style={{ fontWeight: 900, fontSize: "2rem", marginTop: 55 }}
+                />
                 <div className="gallery video-gallery">
                   {e.galleryVideos.map((v, i) =>
                     /\.(mp4|webm|mov)(\?.*)?$/i.test(v) ? (
