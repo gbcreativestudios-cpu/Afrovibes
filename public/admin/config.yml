@@ -23,12 +23,24 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Title Font Size (e.g. 3rem, 48px — leave blank for default)", name: "titleFontSize", widget: "string", required: false }
       - { label: "Title Color", name: "titleColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
-      - { label: "Event Date", name: "date", widget: "date", format: "YYYY-MM-DD", hint: "Used for both display and sort order" }
-      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Event Date", name: "date", widget: "date", format: "YYYY-MM-DD", hint: "Whether this shows as upcoming or past is now automatic — the site compares this date to today, no need to set that yourself." }
+      - { label: "Time", name: "time", widget: "string", required: false, hint: "e.g. 7:00 PM" }
+      - { label: "Location", name: "location", widget: "string", required: false }
+      - { label: "Venue", name: "venue", widget: "string", required: false, hint: "Specific venue name or address, if different from Location." }
+      - label: "Additional Details"
+        name: "customFields"
+        widget: "list"
+        required: false
+        hint: "Add any extra event details as your own label + text — e.g. \"Dress Code\" / \"Smart casual\"."
+        label_singular: "Detail"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Content", name: "content", widget: "text" }
       - label: "Status"
         name: "status"
         widget: "select"
-        options: ["TICKETS AVAILABLE", "COMING SOON", "PAST"]
+        options: ["TICKETS AVAILABLE", "COMING SOON"]
+        hint: "Only shown for upcoming events — controls the badge on the card and the ticket button."
       - { label: "Ticket link is live?", name: "ticket", widget: "boolean", default: false }
       - { label: "Ticket URL", name: "url", widget: "string", required: false }
       - { label: "Cover Image URL", name: "image", widget: "string" }
@@ -37,9 +49,9 @@ collections:
         name: "gallery"
         widget: "list"
         required: false
-        hint: "Photos only. Used for event detail pages and the past-events ticker."
+        hint: "Photos only. These automatically appear on the event page once the event's date has passed, and feed the past-events ticker."
         field: { label: "Image URL", name: "url", widget: "string" }
-      - { label: "Show Video Section?", name: "showVideos", widget: "boolean", default: false, hint: "Turns the video section on/off for this event. Leave off if you don't have a video yet." }
+      - { label: "Show Video Section?", name: "showVideos", widget: "boolean", default: false, hint: "Turns the video section on/off once the event has passed. Leave off if you don't have a video yet." }
       - label: "Gallery Videos"
         name: "galleryVideos"
         widget: "list"

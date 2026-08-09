@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { events, products, money, formatEventDate, getTitle } from "../data/content";
+import { events, products, money, formatEventDate, getTitle, isPastEvent } from "../data/content";
 import { FeaturedEventCard } from "../components/EventCards";
 import EventsTicker from "../components/EventsTicker";
 import Title from "../components/Title";
 
 export default function Home() {
-  const upcoming = events.filter((e) => e.status !== "PAST");
+  const upcoming = events.filter((e) => !isPastEvent(e));
   const next = upcoming[0];
   const rest = upcoming.slice(1, 4);
-  const past = events.filter((e) => e.status === "PAST");
+  const past = events.filter(isPastEvent);
 
   const heroTitle = getTitle("home", "heroTitle", "Make Plans. Make Memories.");
   const nextEventTitle = getTitle("home", "nextEventTitle", "Next Event.");

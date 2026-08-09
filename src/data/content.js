@@ -59,3 +59,22 @@ export function formatEventDate(iso) {
   const [year, month] = iso.split("-").map(Number);
   return `${MONTHS[month - 1]} ${year}`;
 }
+
+// Today as a local "YYYY-MM-DD" string. Built from local date parts (not
+// `new Date().toISOString()`, which is UTC and can land on the wrong day
+// depending on the visitor's timezone) so the past/upcoming split matches
+// what the calendar actually shows wherever someone is viewing the site.
+function todayISO() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+// An event is "past" the day after its date — the event's own day still
+// counts as current/upcoming. This is computed from the date automatically;
+// there's no manual "PAST" status to keep in sync by hand.
+export function isPastEvent(e) {
+  return e.date < todayISO();
+}

@@ -1,11 +1,11 @@
-import { events, getTitle } from "../data/content";
+import { events, getTitle, isPastEvent } from "../data/content";
 import { EventCard, FeaturedEventCard, PastEventRow } from "../components/EventCards";
 import GalleryTicker from "../components/GalleryTicker";
 import Title from "../components/Title";
 
 export default function Events() {
-  const upcoming = events.filter((e) => e.status !== "PAST");
-  const past = events.filter((e) => e.status === "PAST");
+  const upcoming = events.filter((e) => !isPastEvent(e));
+  const past = events.filter(isPastEvent);
   const next = upcoming[0];
   const rest = upcoming.slice(1);
 

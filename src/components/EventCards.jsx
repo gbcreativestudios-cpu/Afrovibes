@@ -14,7 +14,6 @@ export function EventCard({ e }) {
             {formatEventDate(e.date)} · {e.location}
           </div>
           <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
-          <p className="event-desc">{e.desc}</p>
           <div className="event-actions">
             {e.ticket ? (
               <a
@@ -51,7 +50,6 @@ export function FeaturedEventCard({ e }) {
             {formatEventDate(e.date)} · {e.location}
           </div>
           <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
-          <p className="event-desc">{e.desc}</p>
           <div className="event-actions">
             {e.ticket ? (
               <a
