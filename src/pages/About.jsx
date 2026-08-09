@@ -1,4 +1,4 @@
-import { team, getTitle } from "../data/content";
+import { team, getTitle, site } from "../data/content";
 import Title from "../components/Title";
 
 export default function About() {
@@ -8,8 +8,20 @@ export default function About() {
   const redefineTitle = getTitle("about", "redefineTitle", "Redefine Connection.");
   const teamTitle = getTitle("about", "teamTitle", "Meet The Team.");
 
+  const banner = site.aboutBanner;
+
   return (
     <main>
+      {banner?.enabled && (
+        <section className="about-banner" style={banner.image ? { backgroundImage: `url('${banner.image}')` } : undefined}>
+          {banner.text && (
+            <div className="container">
+              <p>{banner.text}</p>
+            </div>
+          )}
+        </section>
+      )}
+
       <section className="page-hero">
         <div className="container">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />

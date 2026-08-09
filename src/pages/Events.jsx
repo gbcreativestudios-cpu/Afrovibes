@@ -1,4 +1,4 @@
-import { events, getTitle, isPastEvent } from "../data/content";
+import { events, getTitle, isPastEvent, site } from "../data/content";
 import { EventCard, FeaturedEventCard, PastEventRow } from "../components/EventCards";
 import GalleryTicker from "../components/GalleryTicker";
 import Title from "../components/Title";
@@ -13,10 +13,12 @@ export default function Events() {
   const calendarTitle = getTitle("events", "calendarTitle", "Our Calendar.");
   const pastEventsTitle = getTitle("events", "pastEventsTitle", "Past Events.");
 
+  const nextEventBg = site.nextEventBg?.color || undefined;
+
   return (
     <main>
       {next && (
-        <section className="section" style={{ paddingTop: 160 }}>
+        <section className="section" style={{ paddingTop: 160, backgroundColor: nextEventBg || "var(--purple)" }}>
           <div className="container">
             <div className="section-head">
               <div>

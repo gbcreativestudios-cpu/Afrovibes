@@ -15,7 +15,7 @@ export function EventCard({ e }) {
           </div>
           <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
           <div className="event-actions">
-            {e.ticket ? (
+            {e.status === "TICKETS AVAILABLE" ? (
               <a
                 className="btn btn-primary"
                 href={e.url}
@@ -51,7 +51,7 @@ export function FeaturedEventCard({ e }) {
           </div>
           <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
           <div className="event-actions">
-            {e.ticket ? (
+            {e.status === "TICKETS AVAILABLE" ? (
               <a
                 className="btn btn-primary"
                 href={e.url}

@@ -38,11 +38,9 @@ export default function EventDetail() {
         </div>
         <div className="detail-content">
           <aside>
-            <h3 style={{ fontSize: ".75rem", textTransform: "uppercase", letterSpacing: ".1em", marginBottom: 8 }}>
-              Experience
-            </h3>
+            <h3 className="aside-label">Experience</h3>
             <p className="muted">{e.status}</p>
-            {e.ticket && (
+            {e.status === "TICKETS AVAILABLE" && (
               <a className="btn btn-primary" href={e.url} target="_blank" rel="noreferrer">
                 Get Ticket
               </a>

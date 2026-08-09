@@ -4,6 +4,21 @@
   "instagramUrl": "https://instagram.com/",
   "tiktokUrl": "https://tiktok.com/",
   "logoImage": "/uploads/full-logo-white.webp",
+  "footerLogoImage": "",
+  "footerLogoSize": null,
   "favicon": "/uploads/favicon-3-.webp",
-  "galleryTickerLimit": 10
+  "galleryTickerLimit": 10,
+  "heroBackground": { "enabled": false, "interval": 4, "images": [] },
+  "heroTicker": {
+    "enabled": true,
+    "words": [
+      { "text": "CONNECTION" },
+      { "text": "ENERGY" },
+      { "text": "MEMORIES" },
+      { "text": "ADVENTURE" },
+      { "text": "COMMUNITY" }
+    ]
+  },
+  "nextEventBg": { "color": "" },
+  "aboutBanner": { "enabled": false, "image": "", "text": "" }
 }

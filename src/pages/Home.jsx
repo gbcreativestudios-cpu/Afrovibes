@@ -1,7 +1,9 @@
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { events, products, money, formatEventDate, getTitle, isPastEvent } from "../data/content";
+import { events, products, money, formatEventDate, getTitle, isPastEvent, site } from "../data/content";
 import { FeaturedEventCard } from "../components/EventCards";
 import EventsTicker from "../components/EventsTicker";
+import HeroBackground from "../components/HeroBackground";
 import Title from "../components/Title";
 
 export default function Home() {
@@ -17,9 +19,20 @@ export default function Home() {
   const statementTitle = getTitle("home", "statementTitle", "The Best Memories Are Shared.");
   const merchTeaserTitle = getTitle("home", "merchTeaserTitle", "Wear The Vibe.");
 
+  const tickerWords = (site.heroTicker?.words || []).map((w) => w.text).filter(Boolean);
+  const tickerEnabled = (site.heroTicker?.enabled ?? true) && tickerWords.length > 0;
+  const tickerTrack = tickerEnabled ? [...tickerWords, ...tickerWords] : [];
+
+  const nextEventBg = site.nextEventBg?.color || undefined;
+
   return (
     <main>
       <section className="hero">
+        <HeroBackground
+          enabled={site.heroBackground?.enabled}
+          interval={site.heroBackground?.interval}
+          images={site.heroBackground?.images}
+        />
         <div className="hero-bg" />
         <div className="container hero-content">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
@@ -34,16 +47,20 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="marquee">
-        <div className="marquee-track">
-          CONNECTION <span>✦</span> ENERGY <span>✦</span> MEMORIES <span>✦</span> ADVENTURE{" "}
-          <span>✦</span> COMMUNITY <span>✦</span> CONNECTION <span>✦</span> ENERGY <span>✦</span>{" "}
-          MEMORIES <span>✦</span>
+      {tickerEnabled && (
+        <div className="marquee">
+          <div className="marquee-track">
+            {tickerTrack.map((w, i) => (
+              <Fragment key={i}>
+                {w} <span>✦</span>
+              </Fragment>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {next && (
-        <section className="section">
+        <section className="section" style={{ backgroundColor: nextEventBg || "var(--purple)" }}>
           <div className="container">
             <div className="section-head">
               <div>

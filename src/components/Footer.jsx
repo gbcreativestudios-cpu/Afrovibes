@@ -2,26 +2,14 @@ import { Link } from "react-router-dom";
 import { site } from "../data/content";
 
 export default function Footer() {
+  const footerLogo = site.footerLogoImage || site.logoImage;
+  const footerLogoHeight = site.footerLogoSize ? `${site.footerLogoSize}px` : undefined;
+
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer-grid">
-          <div>
-            <Link className="logo" to="/">
-              {site.logoImage ? (
-                <img src={site.logoImage} alt="Afrovibes" className="logo-img" />
-              ) : (
-                <>
-                  AFRO<span>VIBES</span>
-                </>
-              )}
-            </Link>
-            <p className="muted" style={{ maxWidth: 330 }}>
-              Experiences worth showing up for. Bringing people together through fun, interactive
-              and unforgettable moments.
-            </p>
-          </div>
-          <div>
+          <div className="footer-col">
             <h4>Explore</h4>
             <div className="footer-links">
               <Link to="/events">Events</Link>
@@ -30,7 +18,29 @@ export default function Footer() {
               <Link to="/connect">Connect With Us</Link>
             </div>
           </div>
-          <div>
+
+          <div className="footer-col footer-brand">
+            <Link className="logo footer-logo" to="/">
+              {footerLogo ? (
+                <img
+                  src={footerLogo}
+                  alt="Afrovibes"
+                  className="logo-img"
+                  style={footerLogoHeight ? { height: footerLogoHeight } : undefined}
+                />
+              ) : (
+                <>
+                  AFRO<span>VIBES</span>
+                </>
+              )}
+            </Link>
+            <p className="muted">
+              Experiences worth showing up for. Bringing people together through fun, interactive
+              and unforgettable moments.
+            </p>
+          </div>
+
+          <div className="footer-col footer-social">
             <h4>Social</h4>
             <div className="footer-links">
               <a href={site.instagramUrl} target="_blank" rel="noreferrer">

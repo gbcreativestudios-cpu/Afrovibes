@@ -40,17 +40,16 @@ collections:
         name: "status"
         widget: "select"
         options: ["TICKETS AVAILABLE", "COMING SOON"]
-        hint: "Only shown for upcoming events — controls the badge on the card and the ticket button."
-      - { label: "Ticket link is live?", name: "ticket", widget: "boolean", default: false }
+        hint: "Only shown for upcoming events. \"Tickets Available\" shows the pink Get Ticket button (using the URL below) and the badge on the card; \"Coming Soon\" shows the outline badge with no ticket button."
       - { label: "Ticket URL", name: "url", widget: "string", required: false }
-      - { label: "Cover Image URL", name: "image", widget: "string" }
+      - { label: "Cover Image", name: "image", widget: "image" }
       - { label: "Short Description", name: "desc", widget: "text" }
       - label: "Gallery Images"
         name: "gallery"
         widget: "list"
         required: false
         hint: "Photos only. These automatically appear on the event page once the event's date has passed, and feed the past-events ticker."
-        field: { label: "Image URL", name: "url", widget: "string" }
+        field: { label: "Image", name: "url", widget: "image" }
       - { label: "Show Video Section?", name: "showVideos", widget: "boolean", default: false, hint: "Turns the video section on/off once the event has passed. Leave off if you don't have a video yet." }
       - label: "Gallery Videos"
         name: "galleryVideos"
@@ -74,7 +73,7 @@ collections:
       - { label: "Name", name: "name", widget: "string" }
       - { label: "Category", name: "category", widget: "string" }
       - { label: "Price (CAD)", name: "price", widget: "number", value_type: "float" }
-      - { label: "Image URL", name: "image", widget: "string" }
+      - { label: "Product Image", name: "image", widget: "image" }
       - label: "Available Sizes"
         name: "sizes"
         widget: "list"
@@ -101,7 +100,7 @@ collections:
     fields:
       - { label: "Name", name: "name", widget: "string" }
       - { label: "Role", name: "role", widget: "string" }
-      - { label: "Photo URL", name: "image", widget: "string" }
+      - { label: "Photo", name: "image", widget: "image" }
       - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
 
   - name: "site"
@@ -115,9 +114,50 @@ collections:
           - { label: "Contact Email", name: "contactEmail", widget: "string" }
           - { label: "Instagram URL", name: "instagramUrl", widget: "string" }
           - { label: "TikTok URL", name: "tiktokUrl", widget: "string" }
-          - { label: "Logo Image", name: "logoImage", widget: "image", required: false, hint: "Used in the nav bar and footer. Leave empty to keep the default AFROVIBES text logo." }
+          - { label: "Logo Image", name: "logoImage", widget: "image", required: false, hint: "Used in the nav bar, and in the footer too unless a separate Footer Logo is set below. Leave empty to keep the default AFROVIBES text logo." }
+          - { label: "Footer Logo Image", name: "footerLogoImage", widget: "image", required: false, hint: "Optional — only needed if you want a different logo in the footer than the nav bar. Leave empty to reuse the Logo Image above." }
+          - { label: "Footer Logo Height (px)", name: "footerLogoSize", widget: "number", value_type: "int", required: false, hint: "Leave blank for the default size." }
           - { label: "Favicon", name: "favicon", widget: "image", required: false, hint: "Small square image, shown in the browser tab. Leave empty to keep the default." }
           - { label: "Past-Events Ticker — Max Images", name: "galleryTickerLimit", widget: "number", value_type: "int", default: 10, hint: "Caps how many photos the moving ticker on the Events page pulls in total, no matter how many are in the galleries." }
+          - label: "Homepage Hero Background"
+            name: "heroBackground"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Rotate through images?", name: "enabled", widget: "boolean", default: false, hint: "Off = solid black background (current look). On = crossfades through the images below." }
+              - { label: "Seconds Between Images", name: "interval", widget: "number", value_type: "int", default: 4, min: 3, max: 5 }
+              - label: "Images"
+                name: "images"
+                widget: "list"
+                required: false
+                hint: "Add up to 3 images to rotate through."
+                field: { label: "Image", name: "url", widget: "image" }
+          - label: "Homepage Scrolling Ticker"
+            name: "heroTicker"
+            widget: "object"
+            collapsed: true
+            hint: "The scrolling marquee text right below the hero banner."
+            fields:
+              - { label: "Show this ticker?", name: "enabled", widget: "boolean", default: true }
+              - label: "Words"
+                name: "words"
+                widget: "list"
+                hint: "Each word/phrase shown in the loop, in order."
+                field: { label: "Word", name: "text", widget: "string" }
+          - label: "\"Next Event\" Section Background"
+            name: "nextEventBg"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Background Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank for the default purple." }
+          - label: "Who We Are — Top Banner"
+            name: "aboutBanner"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Show banner?", name: "enabled", widget: "boolean", default: false }
+              - { label: "Banner Image", name: "image", widget: "image", required: false }
+              - { label: "Banner Text", name: "text", widget: "string", required: false }
 
       - name: "titles"
         label: "Page & Section Titles"

@@ -23,9 +23,29 @@ export const site = Object.values(siteModule)[0]?.default ?? {
   instagramUrl: "https://instagram.com/",
   tiktokUrl: "https://tiktok.com/",
   logoImage: "",
+  footerLogoImage: "",
+  footerLogoSize: null,
   favicon: "",
   galleryTickerLimit: 10,
+  heroBackground: { enabled: false, interval: 4, images: [] },
+  heroTicker: { enabled: true, words: [] },
+  nextEventBg: { color: "" },
+  aboutBanner: { enabled: false, image: "", text: "" },
 };
+
+// Content JSON files predating a given round won't have every new nested
+// object yet (e.g. a site.json saved before heroBackground existed). This
+// backfills any missing nested settings with safe defaults so the site
+// never crashes reading `site.heroBackground.images` etc. on older data.
+const siteDefaults = {
+  heroBackground: { enabled: false, interval: 4, images: [] },
+  heroTicker: { enabled: true, words: [] },
+  nextEventBg: { color: "" },
+  aboutBanner: { enabled: false, image: "", text: "" },
+};
+for (const key of Object.keys(siteDefaults)) {
+  if (!site[key]) site[key] = siteDefaults[key];
+}
 
 export const titles = Object.values(titlesModule)[0]?.default ?? {};
 
