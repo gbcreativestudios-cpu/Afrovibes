@@ -12,6 +12,7 @@ import ProductDetail from "./pages/ProductDetail";
 import About from "./pages/About";
 import Connect from "./pages/Connect";
 import NotFound from "./pages/NotFound";
+import { site } from "./data/content";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -21,9 +22,24 @@ function ScrollToTop() {
   return null;
 }
 
+function Favicon() {
+  useEffect(() => {
+    if (!site.favicon) return;
+    let link = document.querySelector("link[rel='icon']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.head.appendChild(link);
+    }
+    link.href = site.favicon;
+  }, []);
+  return null;
+}
+
 export default function App() {
   return (
     <>
+      <Favicon />
       <ScrollToTop />
       <Nav />
       <Routes>

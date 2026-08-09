@@ -30,10 +30,19 @@ collections:
       - { label: "Ticket URL", name: "url", widget: "string", required: false }
       - { label: "Cover Image URL", name: "image", widget: "string" }
       - { label: "Short Description", name: "desc", widget: "text" }
-      - label: "Gallery Image URLs"
+      - label: "Gallery Images"
         name: "gallery"
         widget: "list"
+        required: false
+        hint: "Photos only. Used for event detail pages and the past-events ticker."
         field: { label: "Image URL", name: "url", widget: "string" }
+      - { label: "Show Video Section?", name: "showVideos", widget: "boolean", default: false, hint: "Turns the video section on/off for this event. Leave off if you don't have a video yet." }
+      - label: "Gallery Videos"
+        name: "galleryVideos"
+        widget: "list"
+        required: false
+        hint: "Video links only — keep these out of Gallery Images so the photo ticker doesn't pick them up."
+        field: { label: "Video URL", name: "url", widget: "string" }
       - { label: "Instagram / Video Link", name: "instagram", widget: "string", required: false }
 
   - name: "products"
@@ -91,3 +100,6 @@ collections:
           - { label: "Contact Email", name: "contactEmail", widget: "string" }
           - { label: "Instagram URL", name: "instagramUrl", widget: "string" }
           - { label: "TikTok URL", name: "tiktokUrl", widget: "string" }
+          - { label: "Logo Image", name: "logoImage", widget: "image", required: false, hint: "Used in the nav bar and footer. Leave empty to keep the default AFROVIBES text logo." }
+          - { label: "Favicon", name: "favicon", widget: "image", required: false, hint: "Small square image, shown in the browser tab. Leave empty to keep the default." }
+          - { label: "Past-Events Ticker — Max Images", name: "galleryTickerLimit", widget: "number", value_type: "int", default: 10, hint: "Caps how many photos the moving ticker on the Events page pulls in total, no matter how many are in the galleries." }

@@ -37,10 +37,26 @@ export default function EventDetail() {
             <p style={{ fontSize: "1.2rem", color: "#ddd", maxWidth: 750 }}>{e.desc}</p>
             <h2 style={{ fontWeight: 900, fontSize: "2rem", marginTop: 55 }}>THE MOMENTS.</h2>
             <div className="gallery">
-              {e.gallery.map((x, i) => (
+              {(e.gallery || []).map((x, i) => (
                 <img key={i} src={x} alt={`${e.title} experience`} />
               ))}
             </div>
+            {e.showVideos && e.galleryVideos && e.galleryVideos.length > 0 && (
+              <>
+                <h2 style={{ fontWeight: 900, fontSize: "2rem", marginTop: 55 }}>THE VIDEOS.</h2>
+                <div className="gallery video-gallery">
+                  {e.galleryVideos.map((v, i) =>
+                    /\.(mp4|webm|mov)(\?.*)?$/i.test(v) ? (
+                      <video key={i} src={v} controls playsInline />
+                    ) : (
+                      <a key={i} className="btn btn-outline" href={v} target="_blank" rel="noreferrer">
+                        Watch Video {i + 1}
+                      </a>
+                    )
+                  )}
+                </div>
+              </>
+            )}
             {e.instagram && (
               <a className="btn btn-outline" style={{ marginTop: 25 }} href={e.instagram} target="_blank" rel="noreferrer">
                 Watch on Instagram

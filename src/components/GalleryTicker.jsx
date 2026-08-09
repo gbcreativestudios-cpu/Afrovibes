@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { site } from "../data/content";
 
 // Deterministic shuffle (no external deps, stable across re-renders for the
 // same input) so the order looks "random" without reshuffling on every
@@ -18,10 +19,14 @@ function shuffle(arr) {
 }
 
 export default function GalleryTicker({ events }) {
+  const limit = Number(site.galleryTickerLimit) > 0 ? Number(site.galleryTickerLimit) : 10;
+
   const images = useMemo(() => {
+    // Only ever pull from each event's image gallery — video links live in
+    // a separate `galleryVideos` field and are never picked up here.
     const all = events.flatMap((e) => e.gallery || []);
-    return shuffle(all);
-  }, [events]);
+    return shuffle(all).slice(0, limit);
+  }, [events, limit]);
 
   if (images.length === 0) return null;
 

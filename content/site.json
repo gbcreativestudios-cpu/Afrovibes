@@ -2,5 +2,8 @@
   "whatsappNumber": "15550000000",
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
-  "tiktokUrl": "https://tiktok.com/"
+  "tiktokUrl": "https://tiktok.com/",
+  "logoImage": "",
+  "favicon": "",
+  "galleryTickerLimit": 10
 }

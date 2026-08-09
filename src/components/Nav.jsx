@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { site } from "../data/content";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -15,7 +16,13 @@ export default function Nav() {
     <nav className={`nav${scrolled ? " scrolled" : ""}`}>
       <div className="container nav-inner">
         <Link className="logo" to="/">
-          AFRO<span>VIBES</span>
+          {site.logoImage ? (
+            <img src={site.logoImage} alt="Afrovibes" className="logo-img" />
+          ) : (
+            <>
+              AFRO<span>VIBES</span>
+            </>
+          )}
         </Link>
         <div className={`nav-links${open ? " open" : ""}`} id="navLinks">
           <Link to="/events" onClick={() => setOpen(false)}>

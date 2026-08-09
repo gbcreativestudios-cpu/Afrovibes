@@ -21,6 +21,9 @@ export const site = Object.values(siteModule)[0]?.default ?? {
   contactEmail: "hello@afrovibes.ca",
   instagramUrl: "https://instagram.com/",
   tiktokUrl: "https://tiktok.com/",
+  logoImage: "",
+  favicon: "",
+  galleryTickerLimit: 10,
 };
 
 export const money = (n) => `CAD $${Number(n).toFixed(2)}`;

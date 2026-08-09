@@ -8,7 +8,13 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <Link className="logo" to="/">
-              AFRO<span>VIBES</span>
+              {site.logoImage ? (
+                <img src={site.logoImage} alt="Afrovibes" className="logo-img" />
+              ) : (
+                <>
+                  AFRO<span>VIBES</span>
+                </>
+              )}
             </Link>
             <p className="muted" style={{ maxWidth: 330 }}>
               Experiences worth showing up for. Bringing people together through fun, interactive
