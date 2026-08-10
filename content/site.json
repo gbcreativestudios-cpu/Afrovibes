@@ -1,36 +1,55 @@
 {
-  "whatsappNumber": "15550000000",
-  "contactEmail": "hello@afrovibes.ca",
-  "instagramUrl": "https://instagram.com/",
-  "tiktokUrl": "https://tiktok.com/",
-  "logoImage": "/uploads/full-logo-white.webp",
-  "footerLogoImage": "",
-  "footerLogoSize": null,
-  "favicon": "/uploads/favicon-3-.webp",
-  "galleryTickerLimit": 10,
-  "heroBackground": { "enabled": false, "interval": 4, "images": [] },
   "heroTicker": {
     "enabled": true,
     "words": [
-      { "text": "CONNECTION" },
-      { "text": "ENERGY" },
-      { "text": "MEMORIES" },
-      { "text": "ADVENTURE" },
-      { "text": "COMMUNITY" }
+      {
+        "text": "CONNECTION"
+      },
+      {
+        "text": "ENERGY"
+      },
+      {
+        "text": "MEMORIES"
+      },
+      {
+        "text": "ADVENTURE"
+      },
+      {
+        "text": "COMMUNITY"
+      }
     ]
   },
-  "nextEventBg": { "color": "" },
-  "aboutBanner": { "enabled": false, "image": "", "text": "" },
-  "aboutFeatures": {
-    "greatPeopleImage": "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
-    "bringPeopleImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
-    "redefineImage": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85"
+  "footerLogoSize": 20,
+  "heroBackground": {
+    "enabled": true,
+    "interval": 4,
+    "images": [
+      "/uploads/afv-23.jpg",
+      "/uploads/afv-48.jpg",
+      "/uploads/afv-125.jpg"
+    ]
+  },
+  "nextEventBg": {
+    "color": "#0d0d0d"
   },
   "typography": {
-    "footerWeight": "",
-    "aboutBodyWeight": "",
+    "footerWeight": "600",
+    "aboutBodyWeight": "600",
     "valuesHeadingWeight": "",
-    "valuesHeadingColor": "",
+    "valuesHeadingColor": "#ff2d95",
     "valuesHeadingSize": ""
-  }
+  },
+  "logoImage": "/uploads/full-logo-white.webp",
+  "favicon": "/uploads/favicon-6-.webp",
+  "tiktokUrl": "https://tiktok.com/",
+  "footerLogoImage": "/uploads/av-mark-white.webp",
+  "aboutBanner": {
+    "enabled": true,
+    "image": "/uploads/afv-47.jpg",
+    "text": ""
+  },
+  "whatsappNumber": "15550000000",
+  "contactEmail": "hello@afrovibes.ca",
+  "instagramUrl": "https://instagram.com/",
+  "galleryTickerLimit": 10
 }
