@@ -22,7 +22,7 @@ export default function Connect() {
       <section className="page-hero">
         <div className="container">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
-          <p>Have a brand, idea or collaboration in mind? Let's create something people will want to show up for.</p>
+          <p className="connect-copy">Have a brand, idea or collaboration in mind? Let's create something people will want to show up for.</p>
           <a className="btn btn-primary btn-mobile-fill" style={{ marginTop: 20 }} href="#message-section">
             Let's Talk
           </a>
@@ -73,7 +73,7 @@ export default function Connect() {
               color={messageTitle.color}
               style={{ letterSpacing: "-.02em" }}
             />
-            <p>
+            <p className="connect-copy">
               Tell us what you're thinking. Whether it's a partnership, collaboration, sponsorship
               or something completely new, we'd love to hear from you.
             </p>

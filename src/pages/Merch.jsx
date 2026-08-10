@@ -32,7 +32,7 @@ export default function Merch() {
       <section className="page-hero">
         <div className="container">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
-          <p>Afrovibes merch made for the moments before, during and after the experience.</p>
+          <p className="merch-copy">Afrovibes merch made for the moments before, during and after the experience.</p>
         </div>
       </section>
       <section className="section" style={{ paddingTop: 20 }}>

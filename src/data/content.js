@@ -31,6 +31,13 @@ export const site = Object.values(siteModule)[0]?.default ?? {
   heroTicker: { enabled: true, words: [] },
   nextEventBg: { color: "" },
   aboutBanner: { enabled: false, image: "", text: "" },
+  typography: {
+    footerWeight: "",
+    aboutBodyWeight: "",
+    valuesHeadingWeight: "",
+    valuesHeadingColor: "",
+    valuesHeadingSize: "",
+  },
 };
 
 // Content JSON files predating a given round won't have every new nested
@@ -42,6 +49,13 @@ const siteDefaults = {
   heroTicker: { enabled: true, words: [] },
   nextEventBg: { color: "" },
   aboutBanner: { enabled: false, image: "", text: "" },
+  typography: {
+    footerWeight: "",
+    aboutBodyWeight: "",
+    valuesHeadingWeight: "",
+    valuesHeadingColor: "",
+    valuesHeadingSize: "",
+  },
 };
 for (const key of Object.keys(siteDefaults)) {
   if (!site[key]) site[key] = siteDefaults[key];

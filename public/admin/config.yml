@@ -158,6 +158,63 @@ collections:
               - { label: "Show banner?", name: "enabled", widget: "boolean", default: false }
               - { label: "Banner Image", name: "image", widget: "image", required: false }
               - { label: "Banner Text", name: "text", widget: "string", required: false }
+          - label: "Text Weights & Styles"
+            name: "typography"
+            widget: "object"
+            collapsed: true
+            hint: "Each control below only affects its own section — changing one never changes the others."
+            fields:
+              - label: "Footer Text Weight"
+                name: "footerWeight"
+                widget: "select"
+                required: false
+                hint: "Affects every line of text inside the footer (links, tagline, copyright) at once. Leave blank for the default look."
+                options:
+                  - { label: "Default", value: "" }
+                  - { label: "Light", value: "300" }
+                  - { label: "Regular", value: "400" }
+                  - { label: "Medium", value: "500" }
+                  - { label: "Demi / Semi Bold", value: "600" }
+                  - { label: "Bold", value: "700" }
+                  - { label: "Heavy", value: "800" }
+              - label: "\"Who We Are\" Body Text Weight"
+                name: "aboutBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects the paragraph text on the Who We Are page only (the intro, and the text under Great People / Bring People Together / Redefine Connection)."
+                options:
+                  - { label: "Default", value: "" }
+                  - { label: "Light", value: "300" }
+                  - { label: "Regular", value: "400" }
+                  - { label: "Medium", value: "500" }
+                  - { label: "Demi / Semi Bold", value: "600" }
+                  - { label: "Bold", value: "700" }
+                  - { label: "Heavy", value: "800" }
+              - label: "\"Connection / Adventure / Community / Memories\" Weight"
+                name: "valuesHeadingWeight"
+                widget: "select"
+                required: false
+                hint: "One control for all 4 words at once."
+                options:
+                  - { label: "Default", value: "" }
+                  - { label: "Light", value: "300" }
+                  - { label: "Regular", value: "400" }
+                  - { label: "Medium", value: "500" }
+                  - { label: "Demi / Semi Bold", value: "600" }
+                  - { label: "Bold", value: "700" }
+                  - { label: "Heavy", value: "800" }
+              - label: "\"Connection / Adventure / Community / Memories\" Color"
+                name: "valuesHeadingColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "One control for all 4 words at once. Leave blank for the default white."
+              - label: "\"Connection / Adventure / Community / Memories\" Size"
+                name: "valuesHeadingSize"
+                widget: "string"
+                required: false
+                hint: "One control for all 4 words at once, e.g. 1.3rem or 22px. Leave blank for the default size."
 
       - name: "titles"
         label: "Page & Section Titles"

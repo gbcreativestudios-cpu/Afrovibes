@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Newsletter from "./components/Newsletter";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ScrollReveal from "./components/ScrollReveal";
+import TypographySettings from "./components/TypographySettings";
 import Home from "./pages/Home";
 import Events from "./pages/Events";
 import EventDetail from "./pages/EventDetail";
@@ -41,6 +42,7 @@ export default function App() {
   return (
     <>
       <Favicon />
+      <TypographySettings />
       <ScrollToTop />
       <ScrollReveal />
       <Nav />

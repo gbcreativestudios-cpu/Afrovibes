@@ -31,7 +31,7 @@ export default function About() {
       <section className="page-hero">
         <div className="container">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
-          <p>
+          <p className="about-copy">
             Afrovibes is a social experience brand dedicated to bringing people together through
             unforgettable events that inspire connection, excitement, and lasting memories.
           </p>
@@ -44,7 +44,7 @@ export default function About() {
             <Title as="h2" text={greatPeopleTitle.text} fontSize={greatPeopleTitle.fontSize} color={greatPeopleTitle.color} />
           </div>
           <div>
-            <p>
+            <p className="about-copy">
               We believe the best moments happen when great people share great experiences.
               That's why we create events that are engaging, inclusive, and designed to leave
               everyone with stories worth telling.
@@ -77,7 +77,7 @@ export default function About() {
             <Title as="h2" text={bringPeopleTitle.text} fontSize={bringPeopleTitle.fontSize} color={bringPeopleTitle.color} />
           </div>
           <div>
-            <p>
+            <p className="about-copy">
               To create exceptional social experiences that bring people together through fun,
               interactive, and thoughtfully curated events, fostering genuine connections,
               unforgettable memories, and a vibrant community where everyone feels welcome.
@@ -92,7 +92,7 @@ export default function About() {
             <Title as="h2" text={redefineTitle.text} fontSize={redefineTitle.fontSize} color={redefineTitle.color} />
           </div>
           <div>
-            <p>
+            <p className="about-copy">
               To become the leading lifestyle and experience brand known for redefining how people
               connect, celebrate, and create memories through innovative events that inspire
               community and meaningful human interaction.
