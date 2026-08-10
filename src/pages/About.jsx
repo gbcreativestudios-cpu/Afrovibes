@@ -11,6 +11,7 @@ export default function About() {
   const teamTitle = getTitle("about", "teamTitle", "Meet The Team.");
 
   const banner = site.aboutBanner;
+  const features = site.aboutFeatures || {};
 
   return (
     <main>
@@ -39,11 +40,13 @@ export default function About() {
       </section>
 
       <section className="section">
-        <div className="container about-block">
-          <div>
+        <div className="container about-feature-grid about-feature-image-left">
+          <div
+            className="about-feature-media"
+            style={features.greatPeopleImage ? { backgroundImage: `url('${features.greatPeopleImage}')` } : undefined}
+          />
+          <div className="about-feature-text">
             <Title as="h2" text={greatPeopleTitle.text} fontSize={greatPeopleTitle.fontSize} color={greatPeopleTitle.color} />
-          </div>
-          <div>
             <p className="about-copy">
               We believe the best moments happen when great people share great experiences.
               That's why we create events that are engaging, inclusive, and designed to leave
@@ -72,11 +75,13 @@ export default function About() {
       </section>
 
       <section className="section statement">
-        <div className="container about-block">
-          <div>
+        <div className="container about-feature-grid">
+          <div
+            className="about-feature-media"
+            style={features.bringPeopleImage ? { backgroundImage: `url('${features.bringPeopleImage}')` } : undefined}
+          />
+          <div className="about-feature-text">
             <Title as="h2" text={bringPeopleTitle.text} fontSize={bringPeopleTitle.fontSize} color={bringPeopleTitle.color} />
-          </div>
-          <div>
             <p className="about-copy">
               To create exceptional social experiences that bring people together through fun,
               interactive, and thoughtfully curated events, fostering genuine connections,
@@ -87,11 +92,13 @@ export default function About() {
       </section>
 
       <section className="section">
-        <div className="container about-block">
-          <div>
+        <div className="container about-feature-grid about-feature-image-left">
+          <div
+            className="about-feature-media"
+            style={features.redefineImage ? { backgroundImage: `url('${features.redefineImage}')` } : undefined}
+          />
+          <div className="about-feature-text">
             <Title as="h2" text={redefineTitle.text} fontSize={redefineTitle.fontSize} color={redefineTitle.color} />
-          </div>
-          <div>
             <p className="about-copy">
               To become the leading lifestyle and experience brand known for redefining how people
               connect, celebrate, and create memories through innovative events that inspire

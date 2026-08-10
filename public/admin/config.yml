@@ -158,6 +158,15 @@ collections:
               - { label: "Show banner?", name: "enabled", widget: "boolean", default: false }
               - { label: "Banner Image", name: "image", widget: "image", required: false }
               - { label: "Banner Text", name: "text", widget: "string", required: false }
+          - label: "Who We Are — Feature Images"
+            name: "aboutFeatures"
+            widget: "object"
+            collapsed: true
+            hint: "The photo shown next to each of the 3 purple headings on the Who We Are page (Great People / Bring People Together / Redefine Connection). Leave blank to keep the current placeholder."
+            fields:
+              - { label: "\"Great People. Great Experiences.\" Image", name: "greatPeopleImage", widget: "image", required: false }
+              - { label: "\"Bring People Together.\" Image", name: "bringPeopleImage", widget: "image", required: false }
+              - { label: "\"Redefine Connection.\" Image", name: "redefineImage", widget: "image", required: false }
           - label: "Text Weights & Styles"
             name: "typography"
             widget: "object"

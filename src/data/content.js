@@ -31,6 +31,11 @@ export const site = Object.values(siteModule)[0]?.default ?? {
   heroTicker: { enabled: true, words: [] },
   nextEventBg: { color: "" },
   aboutBanner: { enabled: false, image: "", text: "" },
+  aboutFeatures: {
+    greatPeopleImage: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
+    bringPeopleImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    redefineImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85",
+  },
   typography: {
     footerWeight: "",
     aboutBodyWeight: "",
@@ -49,6 +54,11 @@ const siteDefaults = {
   heroTicker: { enabled: true, words: [] },
   nextEventBg: { color: "" },
   aboutBanner: { enabled: false, image: "", text: "" },
+  aboutFeatures: {
+    greatPeopleImage: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
+    bringPeopleImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    redefineImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85",
+  },
   typography: {
     footerWeight: "",
     aboutBodyWeight: "",

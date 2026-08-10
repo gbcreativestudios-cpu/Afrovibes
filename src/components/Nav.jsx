@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { site } from "../data/content";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const navRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -12,8 +13,26 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Expose the nav's real rendered height as a CSS variable so sections
+  // like the homepage hero and the Who We Are banner can start right
+  // after it (instead of guessing a fixed pixel value that breaks if the
+  // logo image or padding ever changes).
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+
+    const setHeight = () => {
+      document.documentElement.style.setProperty("--nav-height", `${el.offsetHeight}px`);
+    };
+
+    setHeight();
+    const observer = new ResizeObserver(setHeight);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <nav className={`nav${scrolled ? " scrolled" : ""}`}>
+    <nav className={`nav${scrolled ? " scrolled" : ""}`} ref={navRef}>
       <div className="container nav-inner">
         <Link className="logo" to="/">
           {site.logoImage ? (
