@@ -6,7 +6,7 @@ import { site } from "../data/content";
 // cards are narrower there — same time, less travel, so it reads as
 // almost frozen. Deriving the duration from the track's real scrollWidth
 // keeps the visual speed constant across every screen size.
-const PX_PER_SECOND = 70;
+const PX_PER_SECOND = 125;
 
 // Deterministic shuffle (no external deps, stable across re-renders for the
 // same input) so the order looks "random" without reshuffling on every

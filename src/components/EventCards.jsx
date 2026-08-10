@@ -2,14 +2,20 @@ import { Link } from "react-router-dom";
 import { formatEventDate, isNextEvent, site } from "../data/content";
 import Title from "./Title";
 
+const AVAILABLE_RATIOS = new Set(["1:1", "4:5", "3:4", "2:3", "3:2", "4:3", "16:9", "21:9"]);
+
 function thumbnailMode(type) {
   const value = site.eventThumbnails?.[type];
-  return value === "square" ? "square" : "adapt";
+  return value === "adapt" || AVAILABLE_RATIOS.has(value) ? value : "adapt";
 }
 
 function EventImage({ e, mode, className = "event-img" }) {
+  const ratioStyle = mode !== "adapt" ? { aspectRatio: mode.replace(":", "/") } : undefined;
   return (
-    <div className={`${className} ${mode === "square" ? "thumbnail-square" : "thumbnail-adapt"}`}>
+    <div
+      className={`${className} ${mode === "adapt" ? "thumbnail-adapt" : "thumbnail-ratio"}`}
+      style={ratioStyle}
+    >
       <img src={e.image} alt={e.title} />
       {className === "event-img" && isNextEvent(e) && <span className="event-status">{e.status}</span>}
     </div>
@@ -17,7 +23,12 @@ function EventImage({ e, mode, className = "event-img" }) {
 }
 
 function TicketButton({ e }) {
-  if (!isNextEvent(e) || e.status !== "TICKETS AVAILABLE" || !e.url) return null;
+  if (!isNextEvent(e) || e.status !== "TICKETS AVAILABLE") return null;
+
+  if (!e.url) {
+    return <span className="btn btn-primary">Get Ticket</span>;
+  }
+
   return (
     <a
       className="btn btn-primary"

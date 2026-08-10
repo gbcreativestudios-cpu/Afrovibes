@@ -44,6 +44,7 @@ export const site = Object.values(siteModule)[0]?.default ?? {
   },
   typography: {
     footerWeight: "",
+    footerBodyColor: "",
     aboutBodyWeight: "",
     homeBodyWeight: "",
     eventsBodyWeight: "",
@@ -51,10 +52,17 @@ export const site = Object.values(siteModule)[0]?.default ?? {
     merchBodyWeight: "",
     productDetailBodyWeight: "",
     connectBodyWeight: "",
+    homeBodyColor: "",
+    eventsBodyColor: "",
+    eventDetailBodyColor: "",
+    aboutBodyColor: "",
+    merchBodyColor: "",
+    productDetailBodyColor: "",
+    connectBodyColor: "",
     valuesHeadingWeight: "",
     valuesHeadingColor: "",
     valuesHeadingSize: "",
-  },
+  }
 };
 
 // Content JSON files predating a given round won't have every new nested
@@ -79,6 +87,7 @@ const siteDefaults = {
   },
   typography: {
     footerWeight: "",
+    footerBodyColor: "",
     aboutBodyWeight: "",
     homeBodyWeight: "",
     eventsBodyWeight: "",
@@ -86,10 +95,17 @@ const siteDefaults = {
     merchBodyWeight: "",
     productDetailBodyWeight: "",
     connectBodyWeight: "",
+    homeBodyColor: "",
+    eventsBodyColor: "",
+    eventDetailBodyColor: "",
+    aboutBodyColor: "",
+    merchBodyColor: "",
+    productDetailBodyColor: "",
+    connectBodyColor: "",
     valuesHeadingWeight: "",
     valuesHeadingColor: "",
     valuesHeadingSize: "",
-  },
+  }
 };
 for (const key of Object.keys(siteDefaults)) {
   if (!site[key]) site[key] = siteDefaults[key];

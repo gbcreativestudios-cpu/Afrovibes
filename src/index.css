@@ -91,3 +91,58 @@
 
 .media-link{display:inline-flex;margin-top:22px;color:var(--white);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;text-decoration:underline;text-underline-offset:5px;transition:.2s}
 .media-link:hover{color:var(--purple)}
+
+/* Round 8: event aspect-ratio controls, ticker speed/loop fixes, paragraph colors */
+.event-card .event-img.thumbnail-ratio,
+.past-row-thumb.thumbnail-ratio,
+.past-gallery-main.thumbnail-ratio{
+  overflow:hidden;
+}
+.event-card .event-img.thumbnail-ratio img,
+.past-row-thumb.thumbnail-ratio img,
+.past-gallery-main.thumbnail-ratio img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.event-card.featured .event-img.thumbnail-adapt img,
+.event-card.featured .event-img.thumbnail-ratio img{
+  width:100%;
+}
+.event-card.featured>.event-actions{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:10px;
+  flex-wrap:nowrap;
+}
+
+/* The ticker uses two identical groups so -50% lands on an exact copy,
+   without the extra half-gap that caused the old loop to jump. */
+.ticker-track{
+  display:flex;
+  width:max-content;
+  gap:0;
+  animation:ticker-scroll 42s linear infinite;
+}
+.ticker-group{
+  display:flex;
+  flex:0 0 auto;
+  gap:18px;
+  padding-right:18px;
+}
+.ticker-item{flex:0 0 clamp(280px,32vw,380px)}
+
+/* CMS paragraph color controls. Empty CMS values remove these variables and
+   fall back to the site's existing per-section colors. */
+.home-page p{color:var(--color-home-body,inherit)}
+.events-page p{color:var(--color-events-body,inherit)}
+.event-detail p{color:var(--color-event-detail-body,inherit)}
+.about-page p{color:var(--color-about-body,inherit)}
+.merch-page p{color:var(--color-merch-body,inherit)}
+.product-detail p{color:var(--color-product-detail-body,inherit)}
+.connect-page p{color:var(--color-connect-body,inherit)}
+.footer p{color:var(--color-footer-body,inherit)}
+
+.past-card.past-thumb-ratio>img{height:100%;object-fit:cover}
+.past-card.past-thumb-adapt>img{height:auto}

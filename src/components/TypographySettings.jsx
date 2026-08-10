@@ -22,6 +22,7 @@ export default function TypographySettings() {
     };
 
     apply("--weight-footer", t.footerWeight);
+    apply("--color-footer-body", t.footerBodyColor);
     apply("--weight-about-body", t.aboutBodyWeight);
     apply("--weight-home-body", t.homeBodyWeight);
     apply("--weight-events-body", t.eventsBodyWeight);
@@ -29,6 +30,13 @@ export default function TypographySettings() {
     apply("--weight-merch-body", t.merchBodyWeight);
     apply("--weight-product-detail-body", t.productDetailBodyWeight);
     apply("--weight-connect-body", t.connectBodyWeight);
+    apply("--color-home-body", t.homeBodyColor);
+    apply("--color-events-body", t.eventsBodyColor);
+    apply("--color-event-detail-body", t.eventDetailBodyColor);
+    apply("--color-about-body", t.aboutBodyColor);
+    apply("--color-merch-body", t.merchBodyColor);
+    apply("--color-product-detail-body", t.productDetailBodyColor);
+    apply("--color-connect-body", t.connectBodyColor);
     apply("--values-heading-weight", t.valuesHeadingWeight);
     apply("--values-heading-color", t.valuesHeadingColor);
     apply("--values-heading-size", t.valuesHeadingSize);

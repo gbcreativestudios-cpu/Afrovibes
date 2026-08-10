@@ -7,9 +7,14 @@ import HeroBackground from "../components/HeroBackground";
 import Title from "../components/Title";
 
 function PastHomeCard({ e, small = false }) {
-  const mode = site.eventThumbnails?.pastHome === "square" ? "square" : "adapt";
+  const mode = site.eventThumbnails?.pastHome || "adapt";
+  const ratioStyle = mode !== "adapt" ? { aspectRatio: mode.replace(":", "/") } : undefined;
   return (
-    <Link className={`past-card${small ? " small" : ""} past-thumb-${mode}`} to={`/event/${e.id}`}>
+    <Link
+      className={`past-card${small ? " small" : ""} ${mode === "adapt" ? "past-thumb-adapt" : "past-thumb-ratio"}`}
+      to={`/event/${e.id}`}
+      style={ratioStyle}
+    >
       <img src={e.image} alt={e.title} />
       <div className="past-card-content">
         <div className="event-meta" style={{ color: "var(--white)", marginBottom: 8 }}>

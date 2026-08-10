@@ -186,7 +186,7 @@ collections:
             name: "eventThumbnails"
             widget: "object"
             collapsed: true
-            hint: "Choose how each event thumbnail displays. 1:1 crops the image to a square; Adapt to image preserves the uploaded image ratio. Past Event controls are independent for the Events page and Home page."
+            hint: "Choose the aspect ratio for each event thumbnail. Adapt preserves the uploaded image ratio; fixed ratios crop the image to the selected frame. Past Event controls are independent for the Events page and Home page."
             fields:
               - label: "Next Event Thumbnail"
                 name: "next"
@@ -194,7 +194,14 @@ collections:
                 default: "adapt"
                 options:
                   - { label: "Adapt to image", value: "adapt" }
-                  - { label: "1:1", value: "square" }
+                  - { label: "1:1", value: "1:1" }
+                  - { label: "4:5", value: "4:5" }
+                  - { label: "3:4", value: "3:4" }
+                  - { label: "2:3", value: "2:3" }
+                  - { label: "3:2", value: "3:2" }
+                  - { label: "4:3", value: "4:3" }
+                  - { label: "16:9", value: "16:9" }
+                  - { label: "21:9", value: "21:9" }
               - label: "Upcoming Event Thumbnails"
                 name: "upcoming"
                 widget: "select"
@@ -208,14 +215,28 @@ collections:
                 default: "adapt"
                 options:
                   - { label: "Adapt to image", value: "adapt" }
-                  - { label: "1:1", value: "square" }
+                  - { label: "1:1", value: "1:1" }
+                  - { label: "4:5", value: "4:5" }
+                  - { label: "3:4", value: "3:4" }
+                  - { label: "2:3", value: "2:3" }
+                  - { label: "3:2", value: "3:2" }
+                  - { label: "4:3", value: "4:3" }
+                  - { label: "16:9", value: "16:9" }
+                  - { label: "21:9", value: "21:9" }
               - label: "Past Events — Home Page"
                 name: "pastHome"
                 widget: "select"
                 default: "adapt"
                 options:
                   - { label: "Adapt to image", value: "adapt" }
-                  - { label: "1:1", value: "square" }
+                  - { label: "1:1", value: "1:1" }
+                  - { label: "4:5", value: "4:5" }
+                  - { label: "3:4", value: "3:4" }
+                  - { label: "2:3", value: "2:3" }
+                  - { label: "3:2", value: "3:2" }
+                  - { label: "4:3", value: "4:3" }
+                  - { label: "16:9", value: "16:9" }
+                  - { label: "21:9", value: "21:9" }
           - label: "Text Weights & Styles"
             name: "typography"
             widget: "object"
@@ -235,6 +256,13 @@ collections:
                   - { label: "Demi / Semi Bold", value: "600" }
                   - { label: "Bold", value: "700" }
                   - { label: "Heavy", value: "800" }
+              - label: "Footer Paragraph Color"
+                name: "footerBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color inside the footer. Leave blank to keep the current color."
               - label: "\"Who We Are\" Body Text Weight"
                 name: "aboutBodyWeight"
                 widget: "select"
@@ -248,6 +276,13 @@ collections:
                   - { label: "Demi / Semi Bold", value: "600" }
                   - { label: "Bold", value: "700" }
                   - { label: "Heavy", value: "800" }
+              - label: "Who We Are Body Text Color"
+                name: "aboutBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Who We Are page only."
               - label: "Home Page Paragraph Weight"
                 name: "homeBodyWeight"
                 widget: "select"
@@ -261,36 +296,78 @@ collections:
                   - { label: "Demi / Semi Bold", value: "600" }
                   - { label: "Bold", value: "700" }
                   - { label: "Heavy", value: "800" }
+              - label: "Home Page Paragraph Color"
+                name: "homeBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Home page only."
               - label: "Events Page Paragraph Weight"
                 name: "eventsBodyWeight"
                 widget: "select"
                 required: false
                 hint: "Affects paragraph text on the Events page only."
                 options: *weight_options
+              - label: "Events Page Paragraph Color"
+                name: "eventsBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Events page only."
               - label: "Event Detail Page Paragraph Weight"
                 name: "eventDetailBodyWeight"
                 widget: "select"
                 required: false
                 hint: "Affects paragraph text on individual Event Detail pages only."
                 options: *weight_options
+              - label: "Event Detail Page Paragraph Color"
+                name: "eventDetailBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on individual Event Detail pages only."
               - label: "Merch Page Paragraph Weight"
                 name: "merchBodyWeight"
                 widget: "select"
                 required: false
                 hint: "Affects paragraph text on the Merch page only."
                 options: *weight_options
+              - label: "Merch Page Paragraph Color"
+                name: "merchBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Merch page only."
               - label: "Product Detail Page Paragraph Weight"
                 name: "productDetailBodyWeight"
                 widget: "select"
                 required: false
                 hint: "Affects paragraph text on individual Product Detail pages only."
                 options: *weight_options
+              - label: "Product Detail Page Paragraph Color"
+                name: "productDetailBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on individual Product Detail pages only."
               - label: "Connect Page Paragraph Weight"
                 name: "connectBodyWeight"
                 widget: "select"
                 required: false
                 hint: "Affects paragraph text on the Connect page only."
                 options: *weight_options
+              - label: "Connect Page Paragraph Color"
+                name: "connectBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Connect page only."
               - label: "\"Connection / Adventure / Community / Memories\" Weight"
                 name: "valuesHeadingWeight"
                 widget: "select"
