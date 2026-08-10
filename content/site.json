@@ -1,4 +1,10 @@
 {
+  "eventThumbnails": {
+    "next": "square",
+    "upcoming": "square",
+    "pastEvents": "square",
+    "pastHome": "square"
+  },
   "heroTicker": {
     "enabled": true,
     "words": [
@@ -33,17 +39,17 @@
     "color": "#0d0d0d"
   },
   "typography": {
-    "footerWeight": "600",
-    "aboutBodyWeight": "600",
-    "valuesHeadingWeight": "",
-    "valuesHeadingColor": "#ff2d95",
     "valuesHeadingSize": "",
-    "homeBodyWeight": "",
-    "eventsBodyWeight": "",
+    "valuesHeadingColor": "#ff2d95",
+    "connectBodyWeight": "",
     "eventDetailBodyWeight": "",
+    "aboutBodyWeight": "600",
+    "eventsBodyWeight": "",
+    "footerWeight": "600",
+    "valuesHeadingWeight": "",
+    "homeBodyWeight": "",
     "merchBodyWeight": "",
-    "productDetailBodyWeight": "",
-    "connectBodyWeight": ""
+    "productDetailBodyWeight": ""
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "favicon": "/uploads/favicon-6-.webp",
@@ -58,11 +64,5 @@
   "whatsappNumber": "15550000000",
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
-  "galleryTickerLimit": 10,
-  "eventThumbnails": {
-    "next": "adapt",
-    "upcoming": "adapt",
-    "pastEvents": "adapt",
-    "pastHome": "adapt"
-  }
+  "galleryTickerLimit": 10
 }
