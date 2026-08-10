@@ -3,7 +3,7 @@
     "next": "1:1",
     "upcoming": "square",
     "pastEvents": "1:1",
-    "pastHome": "4:3"
+    "pastHome": "16:9"
   },
   "heroTicker": {
     "enabled": true,
