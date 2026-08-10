@@ -6,6 +6,21 @@ import EventsTicker from "../components/EventsTicker";
 import HeroBackground from "../components/HeroBackground";
 import Title from "../components/Title";
 
+function PastHomeCard({ e, small = false }) {
+  const mode = site.eventThumbnails?.pastHome === "square" ? "square" : "adapt";
+  return (
+    <Link className={`past-card${small ? " small" : ""} past-thumb-${mode}`} to={`/event/${e.id}`}>
+      <img src={e.image} alt={e.title} />
+      <div className="past-card-content">
+        <div className="event-meta" style={{ color: "var(--white)", marginBottom: 8 }}>
+          {formatEventDate(e.date)}
+        </div>
+        <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
+      </div>
+    </Link>
+  );
+}
+
 export default function Home() {
   const upcoming = events.filter((e) => !isPastEvent(e));
   const next = upcoming[0];
@@ -26,7 +41,7 @@ export default function Home() {
   const nextEventBg = site.nextEventBg?.color || undefined;
 
   return (
-    <main>
+    <main className="home-page">
       <section className="hero">
         <HeroBackground
           enabled={site.heroBackground?.enabled}
@@ -105,37 +120,11 @@ export default function Home() {
               className="grid past-grid"
               style={past.length < 2 ? { gridTemplateColumns: "1fr" } : undefined}
             >
-              <Link
-                className="past-card"
-                to={`/event/${past[0].id}`}
-                style={{ backgroundImage: `url('${past[0].image}')` }}
-              >
-                <div className="past-card-content">
-                  <div className="event-meta" style={{ color: "var(--white)", marginBottom: 8 }}>
-                    {formatEventDate(past[0].date)}
-                  </div>
-                  <Title as="h3" text={past[0].title} fontSize={past[0].titleFontSize} color={past[0].titleColor} />
-                </div>
-              </Link>
+              <PastHomeCard e={past[0]} />
               {past.length > 1 && (
                 <div className="past-stack">
                   {past.slice(1).map((e) => (
-                    <Link
-                      key={e.id}
-                      className="past-card small"
-                      to={`/event/${e.id}`}
-                      style={{ backgroundImage: `url('${e.image}')` }}
-                    >
-                      <div className="past-card-content">
-                        <div
-                          className="event-meta"
-                          style={{ color: "var(--white)", marginBottom: 8 }}
-                        >
-                          {formatEventDate(e.date)}
-                        </div>
-                        <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
-                      </div>
-                    </Link>
+                    <PastHomeCard key={e.id} e={e} small />
                   ))}
                 </div>
               )}
@@ -151,6 +140,7 @@ export default function Home() {
             We create experiences that give people a reason to step away from routine, connect
             with others, try something new, and leave with stories worth telling.
           </p>
+          <Link className="media-link" to="/events#past-events">View Our Media</Link>
         </div>
       </section>
 

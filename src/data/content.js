@@ -36,9 +36,21 @@ export const site = Object.values(siteModule)[0]?.default ?? {
     bringPeopleImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
     redefineImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85",
   },
+  eventThumbnails: {
+    next: "adapt",
+    upcoming: "adapt",
+    pastEvents: "adapt",
+    pastHome: "adapt",
+  },
   typography: {
     footerWeight: "",
     aboutBodyWeight: "",
+    homeBodyWeight: "",
+    eventsBodyWeight: "",
+    eventDetailBodyWeight: "",
+    merchBodyWeight: "",
+    productDetailBodyWeight: "",
+    connectBodyWeight: "",
     valuesHeadingWeight: "",
     valuesHeadingColor: "",
     valuesHeadingSize: "",
@@ -59,9 +71,21 @@ const siteDefaults = {
     bringPeopleImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
     redefineImage: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=85",
   },
+  eventThumbnails: {
+    next: "adapt",
+    upcoming: "adapt",
+    pastEvents: "adapt",
+    pastHome: "adapt",
+  },
   typography: {
     footerWeight: "",
     aboutBodyWeight: "",
+    homeBodyWeight: "",
+    eventsBodyWeight: "",
+    eventDetailBodyWeight: "",
+    merchBodyWeight: "",
+    productDetailBodyWeight: "",
+    connectBodyWeight: "",
     valuesHeadingWeight: "",
     valuesHeadingColor: "",
     valuesHeadingSize: "",
@@ -69,6 +93,9 @@ const siteDefaults = {
 };
 for (const key of Object.keys(siteDefaults)) {
   if (!site[key]) site[key] = siteDefaults[key];
+  else if (typeof siteDefaults[key] === "object" && !Array.isArray(siteDefaults[key])) {
+    site[key] = { ...siteDefaults[key], ...site[key] };
+  }
 }
 
 export const titles = Object.values(titlesModule)[0]?.default ?? {};
@@ -95,13 +122,13 @@ const MONTHS = [
 ];
 
 // Events store date as an ISO "YYYY-MM-DD" string (reliable to sort/compare
-// across every browser). This turns that into the "August 2026" display
-// format used throughout the site, without ever constructing a Date object
+// across every browser). This turns that into the full "August 19, 2026"
+// display format used throughout the site, without ever constructing a Date object
 // (Safari/WebKit parses non-ISO date strings inconsistently, which is what
 // caused events to display out of order before).
 export function formatEventDate(iso) {
-  const [year, month] = iso.split("-").map(Number);
-  return `${MONTHS[month - 1]} ${year}`;
+  const [year, month, day] = iso.split("-").map(Number);
+  return `${MONTHS[month - 1]} ${day}, ${year}`;
 }
 
 // Today as a local "YYYY-MM-DD" string. Built from local date parts (not
@@ -121,4 +148,17 @@ function todayISO() {
 // there's no manual "PAST" status to keep in sync by hand.
 export function isPastEvent(e) {
   return e.date < todayISO();
+}
+
+export function getUpcomingEvents(list = events) {
+  return list.filter((e) => !isPastEvent(e)).sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export function getNextEvent(list = events) {
+  return getUpcomingEvents(list)[0] ?? null;
+}
+
+export function isNextEvent(e, list = events) {
+  const next = getNextEvent(list);
+  return Boolean(next && e?.id === next.id);
 }

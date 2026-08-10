@@ -28,7 +28,7 @@ export default function ProductDetail() {
 
   return (
     <main>
-      <div className="container product-detail">
+      <div className="container product-detail product-detail-page">
         <div className="product-gallery">
           <img className="product-main" src={p.image} alt={p.name} />
           <img src={p.image} alt={`${p.name} detail`} />

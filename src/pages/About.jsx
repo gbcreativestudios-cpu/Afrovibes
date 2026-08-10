@@ -14,7 +14,7 @@ export default function About() {
   const features = site.aboutFeatures || {};
 
   return (
-    <main>
+    <main className="about-page">
       {banner?.enabled && (
         <section
           ref={parallaxRef}

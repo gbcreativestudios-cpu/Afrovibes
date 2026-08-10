@@ -18,7 +18,7 @@ export default function Connect() {
   };
 
   return (
-    <main>
+    <main className="connect-page">
       <section className="page-hero">
         <div className="container">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />

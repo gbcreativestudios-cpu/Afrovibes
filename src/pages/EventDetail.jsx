@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { events, formatEventDate, getTitle, isPastEvent } from "../data/content";
+import { events, formatEventDate, getNextEvent, getTitle, isPastEvent } from "../data/content";
 import NotFound from "./NotFound";
 import Title from "../components/Title";
 import useParallax from "../hooks/useParallax";
@@ -11,6 +11,8 @@ export default function EventDetail() {
   if (!e) return <NotFound />;
 
   const past = isPastEvent(e);
+  const next = getNextEvent(events);
+  const isNext = Boolean(next && next.id === e.id);
   const momentsTitle = getTitle("eventDetail", "momentsTitle", "The Moments.");
   const videosTitle = getTitle("eventDetail", "videosTitle", "The Videos.");
 
@@ -41,8 +43,8 @@ export default function EventDetail() {
         <div className="detail-content">
           <aside>
             <h3 className="aside-label">Experience</h3>
-            <p className="muted">{e.status}</p>
-            {e.status === "TICKETS AVAILABLE" && (
+            {isNext && <p className="muted">{e.status}</p>}
+            {isNext && e.status === "TICKETS AVAILABLE" && e.url && (
               <a className="btn btn-primary" href={e.url} target="_blank" rel="noreferrer">
                 Get Ticket
               </a>

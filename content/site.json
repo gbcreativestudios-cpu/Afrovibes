@@ -37,7 +37,13 @@
     "aboutBodyWeight": "600",
     "valuesHeadingWeight": "",
     "valuesHeadingColor": "#ff2d95",
-    "valuesHeadingSize": ""
+    "valuesHeadingSize": "",
+    "homeBodyWeight": "",
+    "eventsBodyWeight": "",
+    "eventDetailBodyWeight": "",
+    "merchBodyWeight": "",
+    "productDetailBodyWeight": "",
+    "connectBodyWeight": ""
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "favicon": "/uploads/favicon-6-.webp",
@@ -52,5 +58,11 @@
   "whatsappNumber": "15550000000",
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
-  "galleryTickerLimit": 10
+  "galleryTickerLimit": 10,
+  "eventThumbnails": {
+    "next": "adapt",
+    "upcoming": "adapt",
+    "pastEvents": "adapt",
+    "pastHome": "adapt"
+  }
 }

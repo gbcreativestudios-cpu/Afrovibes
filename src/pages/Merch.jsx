@@ -28,7 +28,7 @@ export default function Merch() {
   const heroTitle = getTitle("merch", "heroTitle", "Wear The Vibe.");
 
   return (
-    <main>
+    <main className="merch-page">
       <section className="page-hero">
         <div className="container">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />

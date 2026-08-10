@@ -23,6 +23,12 @@ export default function TypographySettings() {
 
     apply("--weight-footer", t.footerWeight);
     apply("--weight-about-body", t.aboutBodyWeight);
+    apply("--weight-home-body", t.homeBodyWeight);
+    apply("--weight-events-body", t.eventsBodyWeight);
+    apply("--weight-event-detail-body", t.eventDetailBodyWeight);
+    apply("--weight-merch-body", t.merchBodyWeight);
+    apply("--weight-product-detail-body", t.productDetailBodyWeight);
+    apply("--weight-connect-body", t.connectBodyWeight);
     apply("--values-heading-weight", t.valuesHeadingWeight);
     apply("--values-heading-color", t.valuesHeadingColor);
     apply("--values-heading-size", t.valuesHeadingSize);

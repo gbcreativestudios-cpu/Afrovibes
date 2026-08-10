@@ -16,7 +16,7 @@ export default function Events() {
   const nextEventBg = site.nextEventBg?.color || undefined;
 
   return (
-    <main>
+    <main className="events-page">
       {next && (
         <section className="section" style={{ paddingTop: 160, backgroundColor: nextEventBg || "var(--purple)" }}>
           <div className="container">
@@ -49,7 +49,7 @@ export default function Events() {
         </section>
       )}
 
-      <section className="section" style={{ paddingTop: 20 }}>
+      <section id="past-events" className="section" style={{ paddingTop: 20 }}>
         <div className="container">
           <div className="section-head">
             <div>

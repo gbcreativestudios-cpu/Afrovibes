@@ -23,7 +23,13 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Title Font Size (e.g. 3rem, 48px — leave blank for default)", name: "titleFontSize", widget: "string", required: false }
       - { label: "Title Color", name: "titleColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
-      - { label: "Event Date", name: "date", widget: "date", format: "YYYY-MM-DD", hint: "Whether this shows as upcoming or past is now automatic — the site compares this date to today, no need to set that yourself." }
+      - label: "Event Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: true
+        hint: "Set the exact event day. Before today = Past; today or later = Upcoming. The earliest future date automatically becomes Next Event."
       - { label: "Time", name: "time", widget: "string", required: false, hint: "e.g. 7:00 PM" }
       - { label: "Location", name: "location", widget: "string", required: false }
       - { label: "Venue", name: "venue", widget: "string", required: false, hint: "Specific venue name or address, if different from Location." }
@@ -176,6 +182,40 @@ collections:
               - { label: "\"Great People. Great Experiences.\" Image", name: "greatPeopleImage", widget: "image", required: false }
               - { label: "\"Bring People Together.\" Image", name: "bringPeopleImage", widget: "image", required: false }
               - { label: "\"Redefine Connection.\" Image", name: "redefineImage", widget: "image", required: false }
+          - label: "Event Thumbnail Controls"
+            name: "eventThumbnails"
+            widget: "object"
+            collapsed: true
+            hint: "Choose how each event thumbnail displays. 1:1 crops the image to a square; Adapt to image preserves the uploaded image ratio. Past Event controls are independent for the Events page and Home page."
+            fields:
+              - label: "Next Event Thumbnail"
+                name: "next"
+                widget: "select"
+                default: "adapt"
+                options:
+                  - { label: "Adapt to image", value: "adapt" }
+                  - { label: "1:1", value: "square" }
+              - label: "Upcoming Event Thumbnails"
+                name: "upcoming"
+                widget: "select"
+                default: "adapt"
+                options:
+                  - { label: "Adapt to image", value: "adapt" }
+                  - { label: "1:1", value: "square" }
+              - label: "Past Events — Events Page"
+                name: "pastEvents"
+                widget: "select"
+                default: "adapt"
+                options:
+                  - { label: "Adapt to image", value: "adapt" }
+                  - { label: "1:1", value: "square" }
+              - label: "Past Events — Home Page"
+                name: "pastHome"
+                widget: "select"
+                default: "adapt"
+                options:
+                  - { label: "Adapt to image", value: "adapt" }
+                  - { label: "1:1", value: "square" }
           - label: "Text Weights & Styles"
             name: "typography"
             widget: "object"
@@ -208,6 +248,49 @@ collections:
                   - { label: "Demi / Semi Bold", value: "600" }
                   - { label: "Bold", value: "700" }
                   - { label: "Heavy", value: "800" }
+              - label: "Home Page Paragraph Weight"
+                name: "homeBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on the Home page only."
+                options: &weight_options
+                  - { label: "Default", value: "" }
+                  - { label: "Light", value: "300" }
+                  - { label: "Regular", value: "400" }
+                  - { label: "Medium", value: "500" }
+                  - { label: "Demi / Semi Bold", value: "600" }
+                  - { label: "Bold", value: "700" }
+                  - { label: "Heavy", value: "800" }
+              - label: "Events Page Paragraph Weight"
+                name: "eventsBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on the Events page only."
+                options: *weight_options
+              - label: "Event Detail Page Paragraph Weight"
+                name: "eventDetailBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on individual Event Detail pages only."
+                options: *weight_options
+              - label: "Merch Page Paragraph Weight"
+                name: "merchBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on the Merch page only."
+                options: *weight_options
+              - label: "Product Detail Page Paragraph Weight"
+                name: "productDetailBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on individual Product Detail pages only."
+                options: *weight_options
+              - label: "Connect Page Paragraph Weight"
+                name: "connectBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on the Connect page only."
+                options: *weight_options
               - label: "\"Connection / Adventure / Community / Memories\" Weight"
                 name: "valuesHeadingWeight"
                 widget: "select"
