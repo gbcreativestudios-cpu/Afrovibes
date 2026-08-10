@@ -1,9 +1,9 @@
 {
   "eventThumbnails": {
-    "next": "square",
+    "next": "1:1",
     "upcoming": "square",
-    "pastEvents": "square",
-    "pastHome": "square"
+    "pastEvents": "1:1",
+    "pastHome": "4:3"
   },
   "heroTicker": {
     "enabled": true,
