@@ -158,6 +158,15 @@ collections:
               - { label: "Show banner?", name: "enabled", widget: "boolean", default: false }
               - { label: "Banner Image", name: "image", widget: "image", required: false }
               - { label: "Banner Text", name: "text", widget: "string", required: false }
+              - label: "Banner Size"
+                name: "size"
+                widget: "select"
+                required: false
+                default: "compact"
+                hint: "Compact is the current default height. Landscape is a taller, more cinematic banner."
+                options:
+                  - { label: "Compact (default)", value: "compact" }
+                  - { label: "Landscape (taller)", value: "landscape" }
           - label: "Who We Are — Feature Images"
             name: "aboutFeatures"
             widget: "object"

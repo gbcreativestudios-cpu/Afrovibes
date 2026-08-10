@@ -46,7 +46,8 @@
   "aboutBanner": {
     "enabled": true,
     "image": "/uploads/afv-47.jpg",
-    "text": ""
+    "text": "",
+    "size": "compact"
   },
   "whatsappNumber": "15550000000",
   "contactEmail": "hello@afrovibes.ca",

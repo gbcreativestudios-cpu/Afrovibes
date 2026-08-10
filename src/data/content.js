@@ -30,7 +30,7 @@ export const site = Object.values(siteModule)[0]?.default ?? {
   heroBackground: { enabled: false, interval: 4, images: [] },
   heroTicker: { enabled: true, words: [] },
   nextEventBg: { color: "" },
-  aboutBanner: { enabled: false, image: "", text: "" },
+  aboutBanner: { enabled: false, image: "", text: "", size: "compact" },
   aboutFeatures: {
     greatPeopleImage: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
     bringPeopleImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
@@ -53,7 +53,7 @@ const siteDefaults = {
   heroBackground: { enabled: false, interval: 4, images: [] },
   heroTicker: { enabled: true, words: [] },
   nextEventBg: { color: "" },
-  aboutBanner: { enabled: false, image: "", text: "" },
+  aboutBanner: { enabled: false, image: "", text: "", size: "compact" },
   aboutFeatures: {
     greatPeopleImage: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
     bringPeopleImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",

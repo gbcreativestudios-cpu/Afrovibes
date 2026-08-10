@@ -18,7 +18,7 @@ export default function About() {
       {banner?.enabled && (
         <section
           ref={parallaxRef}
-          className="about-banner"
+          className={`about-banner${banner.size === "landscape" ? " about-banner-landscape" : ""}`}
           style={banner.image ? { backgroundImage: `url('${banner.image}')` } : undefined}
         >
           {banner.text && (
