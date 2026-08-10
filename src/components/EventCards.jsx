@@ -4,7 +4,7 @@ import Title from "./Title";
 
 const AVAILABLE_RATIOS = new Set(["1:1", "4:5", "3:4", "2:3", "3:2", "4:3", "16:9", "21:9"]);
 
-function thumbnailMode(type) {
+export function thumbnailMode(type) {
   const value = site.eventThumbnails?.[type];
   return value === "adapt" || AVAILABLE_RATIOS.has(value) ? value : "adapt";
 }

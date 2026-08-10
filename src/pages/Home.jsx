@@ -1,17 +1,17 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { events, products, money, formatEventDate, getTitle, isPastEvent, site } from "../data/content";
-import { FeaturedEventCard } from "../components/EventCards";
+import { FeaturedEventCard, thumbnailMode } from "../components/EventCards";
 import EventsTicker from "../components/EventsTicker";
 import HeroBackground from "../components/HeroBackground";
 import Title from "../components/Title";
 
 function PastHomeCard({ e, small = false }) {
-  const mode = site.eventThumbnails?.pastHome || "adapt";
+  const mode = thumbnailMode("pastHome");
   const ratioStyle = mode !== "adapt" ? { aspectRatio: mode.replace(":", "/") } : undefined;
   return (
     <Link
-      className={`past-card${small ? " small" : ""} ${mode === "adapt" ? "past-thumb-adapt" : "past-thumb-ratio"}`}
+      className={`past-card${small ? " small" : ""} ${mode === "adapt" ? "thumbnail-adapt" : "thumbnail-ratio"}`}
       to={`/event/${e.id}`}
       style={ratioStyle}
     >

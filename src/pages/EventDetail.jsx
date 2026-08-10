@@ -44,10 +44,14 @@ export default function EventDetail() {
           <aside>
             <h3 className="aside-label">Experience</h3>
             {isNext && <p className="muted">{e.status}</p>}
-            {isNext && e.status === "TICKETS AVAILABLE" && e.url && (
-              <a className="btn btn-primary" href={e.url} target="_blank" rel="noreferrer">
-                Get Ticket
-              </a>
+            {isNext && e.status === "TICKETS AVAILABLE" && (
+              e.url ? (
+                <a className="btn btn-primary" href={e.url} target="_blank" rel="noreferrer">
+                  Get Ticket
+                </a>
+              ) : (
+                <span className="btn btn-primary">Get Ticket</span>
+              )
             )}
           </aside>
           <div>
