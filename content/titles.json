@@ -5,6 +5,7 @@
     "upcomingEventTitle": { "text": "Upcoming Event.", "fontSize": "", "color": "" },
     "pastVibesTitle": { "text": "Past Vibes.", "fontSize": "", "color": "" },
     "statementTitle": { "text": "The Best Memories Are Shared.", "fontSize": "", "color": "" },
+    "mediaLinkText": { "text": "View Our Media", "fontSize": "", "color": "" },
     "merchTeaserTitle": { "text": "Wear The Vibe.", "fontSize": "", "color": "" }
   },
   "about": {

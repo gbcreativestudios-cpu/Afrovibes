@@ -433,6 +433,10 @@ collections:
                 label: "\"Best Memories Are Shared\" Statement"
                 widget: "object"
                 fields: *title_fields
+              - name: "mediaLinkText"
+                label: "\"View Our Media\" Link (under the statement, links to Past Events)"
+                widget: "object"
+                fields: *title_fields
               - name: "merchTeaserTitle"
                 label: "\"Wear The Vibe\" Merch Teaser Title"
                 widget: "object"

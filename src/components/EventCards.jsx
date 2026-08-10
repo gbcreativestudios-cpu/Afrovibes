@@ -67,20 +67,24 @@ export function EventCard({ e }) {
 export function FeaturedEventCard({ e }) {
   return (
     <article className="event-card featured">
-      <Link className="event-card-link" to={`/event/${e.id}`}>
+      <Link className="event-card-media" to={`/event/${e.id}`}>
         <EventImage e={e} mode={thumbnailMode("next")} />
-        <div className="event-info">
-          <div className="event-meta">
-            {formatEventDate(e.date)} · {e.location}
-          </div>
-          <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
-        </div>
       </Link>
-      <div className="event-actions">
-        <TicketButton e={e} />
-        <Link className="btn btn-outline" to={`/event/${e.id}`}>
-          Details
+      <div className="event-body">
+        <Link className="event-card-link" to={`/event/${e.id}`}>
+          <div className="event-info">
+            <div className="event-meta">
+              {formatEventDate(e.date)} · {e.location}
+            </div>
+            <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
+          </div>
         </Link>
+        <div className="event-actions">
+          <TicketButton e={e} />
+          <Link className="btn btn-outline" to={`/event/${e.id}`}>
+            Details
+          </Link>
+        </div>
       </div>
     </article>
   );

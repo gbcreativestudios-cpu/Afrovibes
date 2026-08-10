@@ -37,6 +37,7 @@ export default function Home() {
   const upcomingEventTitle = getTitle("home", "upcomingEventTitle", "Upcoming Event.");
   const pastVibesTitle = getTitle("home", "pastVibesTitle", "Past Vibes.");
   const statementTitle = getTitle("home", "statementTitle", "The Best Memories Are Shared.");
+  const mediaLinkText = getTitle("home", "mediaLinkText", "View Our Media");
   const merchTeaserTitle = getTitle("home", "merchTeaserTitle", "Wear The Vibe.");
 
   const tickerWords = (site.heroTicker?.words || []).map((w) => w.text).filter(Boolean);
@@ -145,7 +146,13 @@ export default function Home() {
             We create experiences that give people a reason to step away from routine, connect
             with others, try something new, and leave with stories worth telling.
           </p>
-          <Link className="media-link" to="/events#past-events">View Our Media</Link>
+          <Link
+            className="media-link"
+            to="/events#past-events"
+            style={mediaLinkText.color ? { color: mediaLinkText.color } : undefined}
+          >
+            {mediaLinkText.text}
+          </Link>
         </div>
       </section>
 

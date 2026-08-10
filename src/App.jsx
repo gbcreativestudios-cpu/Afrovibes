@@ -17,10 +17,28 @@ import NotFound from "./pages/NotFound";
 import { site } from "./data/content";
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      // Give the new page a moment to render so the target section
+      // actually exists before we try to scroll to it.
+      const id = hash.slice(1);
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          // Offset by the fixed nav's height so the section heading
+          // isn't hidden underneath it.
+          const navHeight = 96;
+          const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+          window.scrollTo({ top, behavior: "smooth" });
+          return;
+        }
+        window.scrollTo(0, 0);
+      });
+      return;
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 

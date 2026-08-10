@@ -1,0 +1,299 @@
+diff --git a/content/titles.json b/content/titles.json
+index 5b3bf1e..520ebe7 100644
+--- a/content/titles.json
++++ b/content/titles.json
+@@ -5,6 +5,7 @@
+     "upcomingEventTitle": { "text": "Upcoming Event.", "fontSize": "", "color": "" },
+     "pastVibesTitle": { "text": "Past Vibes.", "fontSize": "", "color": "" },
+     "statementTitle": { "text": "The Best Memories Are Shared.", "fontSize": "", "color": "" },
++    "mediaLinkText": { "text": "View Our Media", "fontSize": "", "color": "" },
+     "merchTeaserTitle": { "text": "Wear The Vibe.", "fontSize": "", "color": "" }
+   },
+   "about": {
+diff --git a/public/admin/config.yml b/public/admin/config.yml
+index 3689d9f..aed1c45 100644
+--- a/public/admin/config.yml
++++ b/public/admin/config.yml
+@@ -433,6 +433,10 @@ collections:
+                 label: "\"Best Memories Are Shared\" Statement"
+                 widget: "object"
+                 fields: *title_fields
++              - name: "mediaLinkText"
++                label: "\"View Our Media\" Link (under the statement, links to Past Events)"
++                widget: "object"
++                fields: *title_fields
+               - name: "merchTeaserTitle"
+                 label: "\"Wear The Vibe\" Merch Teaser Title"
+                 widget: "object"
+diff --git a/src/App.jsx b/src/App.jsx
+index 25ddba6..927bd09 100644
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -17,10 +17,28 @@ import NotFound from "./pages/NotFound";
+ import { site } from "./data/content";
+ 
+ function ScrollToTop() {
+-  const { pathname } = useLocation();
++  const { pathname, hash } = useLocation();
+   useEffect(() => {
++    if (hash) {
++      // Give the new page a moment to render so the target section
++      // actually exists before we try to scroll to it.
++      const id = hash.slice(1);
++      requestAnimationFrame(() => {
++        const el = document.getElementById(id);
++        if (el) {
++          // Offset by the fixed nav's height so the section heading
++          // isn't hidden underneath it.
++          const navHeight = 96;
++          const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
++          window.scrollTo({ top, behavior: "smooth" });
++          return;
++        }
++        window.scrollTo(0, 0);
++      });
++      return;
++    }
+     window.scrollTo(0, 0);
+-  }, [pathname]);
++  }, [pathname, hash]);
+   return null;
+ }
+ 
+diff --git a/src/components/EventCards.jsx b/src/components/EventCards.jsx
+index a126c72..98ffb25 100644
+--- a/src/components/EventCards.jsx
++++ b/src/components/EventCards.jsx
+@@ -67,20 +67,24 @@ export function EventCard({ e }) {
+ export function FeaturedEventCard({ e }) {
+   return (
+     <article className="event-card featured">
+-      <Link className="event-card-link" to={`/event/${e.id}`}>
++      <Link className="event-card-media" to={`/event/${e.id}`}>
+         <EventImage e={e} mode={thumbnailMode("next")} />
+-        <div className="event-info">
+-          <div className="event-meta">
+-            {formatEventDate(e.date)} · {e.location}
+-          </div>
+-          <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
+-        </div>
+       </Link>
+-      <div className="event-actions">
+-        <TicketButton e={e} />
+-        <Link className="btn btn-outline" to={`/event/${e.id}`}>
+-          Details
++      <div className="event-body">
++        <Link className="event-card-link" to={`/event/${e.id}`}>
++          <div className="event-info">
++            <div className="event-meta">
++              {formatEventDate(e.date)} · {e.location}
++            </div>
++            <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
++          </div>
+         </Link>
++        <div className="event-actions">
++          <TicketButton e={e} />
++          <Link className="btn btn-outline" to={`/event/${e.id}`}>
++            Details
++          </Link>
++        </div>
+       </div>
+     </article>
+   );
+diff --git a/src/components/EventsTicker.jsx b/src/components/EventsTicker.jsx
+index a7af68f..d62eb48 100644
+--- a/src/components/EventsTicker.jsx
++++ b/src/components/EventsTicker.jsx
+@@ -1,8 +1,16 @@
+-import { useState } from "react";
++import { useEffect, useRef, useState } from "react";
+ import { EventCard } from "./EventCards";
+ 
++// Constant on-screen speed in px/second, same approach as GalleryTicker:
++// deriving the animation duration from the track's real rendered width
++// keeps the visual speed identical on every screen size and card count,
++// instead of a fixed-time animation that reads faster or slower as the
++// content width changes.
++const PX_PER_SECOND = 70;
++
+ export default function EventsTicker({ events }) {
+   const [paused, setPaused] = useState(false);
++  const trackRef = useRef(null);
+ 
+   // Tapping the ticker toggles pause/play. Tapping an actual link/button
+   // inside a card (Details, Get Ticket) should still navigate normally
+@@ -12,6 +20,24 @@ export default function EventsTicker({ events }) {
+     setPaused((p) => !p);
+   };
+ 
++  useEffect(() => {
++    const el = trackRef.current;
++    if (!el) return;
++
++    const setSpeed = () => {
++      // scrollWidth spans both duplicated groups; translateX(-50%) only
++      // needs to travel one group's worth of distance per loop.
++      const distance = el.scrollWidth / 2;
++      if (distance > 0) {
++        el.style.animationDuration = `${distance / PX_PER_SECOND}s`;
++      }
++    };
++
++    setSpeed();
++    window.addEventListener("resize", setSpeed);
++    return () => window.removeEventListener("resize", setSpeed);
++  }, [events]);
++
+   if (!events.length) return null;
+ 
+   const renderGroup = (suffix = "") => (
+@@ -27,7 +53,7 @@ export default function EventsTicker({ events }) {
+   return (
+     <div className="ticker-bleed">
+       <div className="ticker" onClick={handleClick} role="button" tabIndex={0} aria-label="Upcoming events, tap to pause">
+-        <div className={`ticker-track${paused ? " paused" : ""}`}>
++        <div className={`ticker-track${paused ? " paused" : ""}`} ref={trackRef}>
+           {renderGroup()}
+           {renderGroup("b")}
+         </div>
+diff --git a/src/components/GalleryTicker.jsx b/src/components/GalleryTicker.jsx
+index b89b4ee..83010be 100644
+--- a/src/components/GalleryTicker.jsx
++++ b/src/components/GalleryTicker.jsx
+@@ -6,7 +6,7 @@ import { site } from "../data/content";
+ // cards are narrower there — same time, less travel, so it reads as
+ // almost frozen. Deriving the duration from the track's real scrollWidth
+ // keeps the visual speed constant across every screen size.
+-const PX_PER_SECOND = 125;
++const PX_PER_SECOND = 190;
+ 
+ // Deterministic shuffle (no external deps, stable across re-renders for the
+ // same input) so the order looks "random" without reshuffling on every
+@@ -57,18 +57,25 @@ export default function GalleryTicker({ events }) {
+ 
+   if (images.length === 0) return null;
+ 
+-  // Always duplicate the list, even for a single image, so
+-  // translateX(-50%) always has a matching second copy to scroll into
+-  // instead of snapping back at the loop point.
+-  const track = [...images, ...images];
++  // Two identical groups, each carrying its own trailing gap (via CSS
++  // padding-right on .gallery-ticker-group), so translateX(-50%) always
++  // travels exactly one group's width and lands on an exact copy —
++  // no leftover half-gap at the wrap point, which is what produced the
++  // blank flash before the next copy caught up.
++  const renderGroup = (suffix) => (
++    <div className="gallery-ticker-group" aria-hidden={suffix ? "true" : undefined}>
++      {images.map((src, i) => (
++        <div className="gallery-ticker-item" key={`${suffix || "a"}-${i}`} style={{ backgroundImage: `url('${src}')` }} />
++      ))}
++    </div>
++  );
+ 
+   return (
+     <div className="gallery-ticker-bleed">
+       <div className="gallery-ticker" aria-label="Photos from past events">
+         <div className="gallery-ticker-track" ref={trackRef}>
+-          {track.map((src, i) => (
+-            <div className="gallery-ticker-item" key={i} style={{ backgroundImage: `url('${src}')` }} />
+-          ))}
++          {renderGroup()}
++          {renderGroup("b")}
+         </div>
+       </div>
+     </div>
+diff --git a/src/index.css b/src/index.css
+index b6ae85b..24ca7d5 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -13,10 +13,10 @@
+     @media(prefers-reduced-motion:no-preference){.hero-slide{animation:hero-kenburns 18s ease-in-out infinite alternate}}
+     @keyframes hero-kenburns{0%{transform:scale(1)}100%{transform:scale(1.12)}}.hero-bg{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(13,13,13,.82) 0%,rgba(13,13,13,.4) 48%,rgba(13,13,13,.18) 100%),linear-gradient(0deg,rgba(13,13,13,.8),transparent 55%)}.hero:after{content:"";position:absolute;inset:auto 0 0;height:30%;background:linear-gradient(transparent,var(--black));z-index:1}.hero-content{position:relative;z-index:2;padding:100px 0;max-width:1100px;margin:0 auto;text-align:center}.hero h1{font-weight:900;font-size:clamp(2.6rem,6.5vw,6.5rem);line-height:.9;letter-spacing:-.06em;margin:18px 0 28px;max-width:1100px}.hero h1 em{font-style:normal;color:var(--white)}.hero-copy{max-width:540px;color:#ddd;font-size:1.1rem;font-weight:700;margin:0 auto}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;justify-content:center}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:1px solid transparent;text-transform:uppercase;letter-spacing:.08em;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;font-size:.74rem;transition:.25s}.btn-primary{background:var(--pink);color:var(--white)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,45,149,.25)}.btn-primary.btn-purple{background:var(--purple)}.btn-primary.btn-purple:hover{box-shadow:0 10px 30px rgba(123,47,247,.35)}.btn-outline{border-color:rgba(255,255,255,.35);background:rgba(13,13,13,.2)}.btn-outline:hover{border-color:var(--purple);color:var(--purple)}
+     .grid{display:grid;gap:18px}.events-grid{grid-template-columns:repeat(3,1fr)}.event-card{background:#151416;border:1px solid var(--line);overflow:hidden;transition:.3s}.event-card:hover{transform:translateY(-5px);border-color:rgba(123,47,247,.55)}.event-img{aspect-ratio:4/5;background-size:cover;background-position:center;position:relative}.event-status{position:absolute;top:14px;left:14px;background:var(--purple);color:#fff;padding:7px 10px;font-size:.68rem;font-weight:700;letter-spacing:.08em}.event-info{padding:20px}.event-info h3{font-weight:900;font-size:1.5rem;margin:0 0 8px;letter-spacing:-.03em}.event-meta{font-weight:500;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.event-desc{color:#c5c1c7;margin:12px 0 20px;font-size:.95rem;font-weight:700}.event-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+-    .events-grid.single{grid-template-columns:1fr}.event-card.featured>a{display:flex;flex-direction:row}.event-card.featured .event-img{flex:0 0 50%;aspect-ratio:4/3;height:auto}.event-card.featured .event-info{flex:1;display:flex;flex-direction:column;justify-content:center;padding:45px 55px;min-width:0}.event-card.featured .event-info h3{font-size:2.2rem}.event-card.featured .event-desc{font-size:1rem;max-width:420px}@media(max-width:480px){.event-card.featured>a{flex-direction:column}.event-card.featured .event-img{flex:0 0 auto;width:100%;aspect-ratio:4/5}.event-card.featured .event-info{padding:20px}}
++    .events-grid.single{grid-template-columns:1fr}.event-card.featured .event-info h3{font-size:2.2rem}.event-card.featured .event-desc{font-size:1rem;max-width:420px}
+     .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;white-space:nowrap}.marquee-track{display:inline-flex;gap:40px;animation:scroll 22s linear infinite;font-size:clamp(1.5rem,4vw,3.5rem);font-weight:900;letter-spacing:-.04em}.marquee-track span{color:var(--white)}@keyframes scroll{to{transform:translateX(-50%)}}
+-    .ticker-bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw}.ticker{overflow:hidden;cursor:pointer;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);padding:0 4vw}.ticker-track{display:flex;gap:18px;width:max-content;animation:ticker-scroll 26s linear infinite}.ticker-track.paused{animation-play-state:paused}.ticker-item{flex:0 0 clamp(280px,32vw,380px)}.ticker-item .event-card{height:100%}@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+-    .gallery-ticker-bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;margin-top:50px}.gallery-ticker{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);padding:0 4vw}.gallery-ticker-track{display:flex;gap:14px;width:max-content;animation:gallery-ticker-scroll 40s linear infinite}.gallery-ticker-item{flex:0 0 clamp(160px,20vw,240px);aspect-ratio:4/5;background-size:cover;background-position:center;border:1px solid var(--line)}@keyframes gallery-ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
++    .ticker-bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw}.ticker{overflow:hidden;cursor:pointer;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);padding:0 4vw}.ticker-track.paused{animation-play-state:paused}.ticker-item .event-card{height:100%}@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
++    .gallery-ticker-bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;margin-top:50px}.gallery-ticker{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);padding:0 4vw}.gallery-ticker-item{flex:0 0 clamp(160px,20vw,240px);aspect-ratio:4/5;background-size:cover;background-position:center;border:1px solid var(--line)}@keyframes gallery-ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+     .past-gallery-card{display:block;background:#151416;border:1px solid var(--line);overflow:hidden;transition:.3s}.past-gallery-card:hover{transform:translateY(-5px);border-color:rgba(123,47,247,.55)}.past-gallery-main{aspect-ratio:16/10;background-size:cover;background-position:center;position:relative}.past-gallery-main:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(13,13,13,.85))}.past-gallery-overlay{position:absolute;z-index:2;left:18px;right:18px;bottom:16px}.past-gallery-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}.past-thumb{aspect-ratio:1;background-size:cover;background-position:center}
+     .past-list{display:flex;flex-direction:column}.past-row{display:flex;align-items:center;gap:28px;padding:28px 0;text-decoration:none;color:inherit}.past-row:not(:first-child){border-top:1px solid var(--line)}.past-row-meta{display:contents}.past-row-date{flex:0 0 130px;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}.past-row-title{flex:1;font-weight:900;font-size:1.7rem;letter-spacing:-.03em;margin:0;text-align:center;color:var(--purple);transition:.25s}.past-row:hover .past-row-title{color:var(--white)}.past-row-thumb{flex:0 0 170px;aspect-ratio:4/3;background-size:cover;background-position:center}.past-grid{grid-template-columns:1.2fr .8fr}.past-card{position:relative;min-height:360px;background-size:cover;background-position:center;overflow:hidden}.past-card:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(13,13,13,.88))}.past-card-content{position:absolute;z-index:2;left:24px;right:24px;bottom:24px}.past-card h3{font-weight:900;font-size:2rem;margin:8px 0}.past-card.small{min-height:170px}.past-stack{display:grid;gap:18px}
+     .statement{background:linear-gradient(115deg,#151018,#0d0d0d 55%,#170b18);position:relative;overflow:hidden}.statement:before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:rgba(123,47,247,.2);filter:blur(80px);right:-180px;top:-220px}.statement-inner{position:relative;z-index:1;max-width:1000px}.statement h2{font-weight:900;font-size:clamp(2.4rem,5.5vw,5.5rem);line-height:.9;letter-spacing:-.06em;margin:10px 0 28px}.statement h2 span{color:var(--white)}.statement p{max-width:650px;color:#ccc;font-size:1.1rem}
+@@ -67,17 +67,18 @@
+    to a fixed pixel offset that drifts out of place when title length
+    or screen size changes. */
+ .event-card:not(.featured)>.event-actions{padding:0 20px 20px;margin-top:0}
+-.event-card.featured{position:relative;background:transparent;border:1px solid var(--line)}
+-.event-card.featured>.event-card-link{display:flex;flex-direction:row}
+-.event-card.featured .event-img{flex:0 0 50%;width:50%;aspect-ratio:auto;height:auto}
+-.event-card.featured .event-info{flex:1;min-width:0;padding:45px 55px 14px;display:flex;flex-direction:column;justify-content:center}
+-.event-card.featured>.event-actions{margin:0 0 0 50%;padding:10px 55px 45px;display:flex;align-items:center;justify-content:flex-start;gap:10px;flex-wrap:wrap}
++.event-card.featured{position:relative;background:transparent;border:1px solid var(--line);display:flex;flex-direction:row}
++.event-card.featured .event-card-media{flex:0 0 50%;width:50%;display:block}
++.event-card.featured .event-img{aspect-ratio:auto;height:auto}
++.event-card.featured .event-body{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:45px 55px}
++.event-card.featured .event-card-link{display:block}
++.event-card.featured .event-info{padding:0}
++.event-card.featured>.event-body>.event-actions{margin-top:18px;padding:0;display:flex;align-items:center;justify-content:flex-start;gap:10px;flex-wrap:wrap}
+ 
+ @media(max-width:480px){
+-  .event-card.featured>.event-card-link{flex-direction:column}
+-  .event-card.featured .event-img{flex:0 0 auto;width:100%}
+-  .event-card.featured .event-info{padding:20px 20px 8px}
+-  .event-card.featured>.event-actions{margin-left:0;padding:0 20px 20px}
++  .event-card.featured{flex-direction:column}
++  .event-card.featured .event-card-media{flex:0 0 auto;width:100%}
++  .event-card.featured .event-body{padding:20px}
+ }
+ @media(max-width:600px){
+   .past-row-thumb{width:100%;flex:0 0 auto}
+@@ -111,6 +112,21 @@
+ }
+ .ticker-item{flex:0 0 clamp(280px,32vw,380px)}
+ 
++/* Gallery ticker (Events page, under Past Events) — same two-group,
++   trailing-padding technique as the events ticker above. */
++.gallery-ticker-track{
++  display:flex;
++  width:max-content;
++  gap:0;
++  animation:gallery-ticker-scroll 40s linear infinite;
++}
++.gallery-ticker-group{
++  display:flex;
++  flex:0 0 auto;
++  gap:14px;
++  padding-right:14px;
++}
++
+ /* CMS paragraph color controls. Empty CMS values remove these variables and
+    fall back to the site's existing per-section colors. */
+ .home-page p{color:var(--color-home-body,inherit)}
+diff --git a/src/pages/Home.jsx b/src/pages/Home.jsx
+index b012767..27eb2e6 100644
+--- a/src/pages/Home.jsx
++++ b/src/pages/Home.jsx
+@@ -37,6 +37,7 @@ export default function Home() {
+   const upcomingEventTitle = getTitle("home", "upcomingEventTitle", "Upcoming Event.");
+   const pastVibesTitle = getTitle("home", "pastVibesTitle", "Past Vibes.");
+   const statementTitle = getTitle("home", "statementTitle", "The Best Memories Are Shared.");
++  const mediaLinkText = getTitle("home", "mediaLinkText", "View Our Media");
+   const merchTeaserTitle = getTitle("home", "merchTeaserTitle", "Wear The Vibe.");
+ 
+   const tickerWords = (site.heroTicker?.words || []).map((w) => w.text).filter(Boolean);
+@@ -145,7 +146,13 @@ export default function Home() {
+             We create experiences that give people a reason to step away from routine, connect
+             with others, try something new, and leave with stories worth telling.
+           </p>
+-          <Link className="media-link" to="/events#past-events">View Our Media</Link>
++          <Link
++            className="media-link"
++            to="/events#past-events"
++            style={mediaLinkText.color ? { color: mediaLinkText.color } : undefined}
++          >
++            {mediaLinkText.text}
++          </Link>
+         </div>
+       </section>
+ 

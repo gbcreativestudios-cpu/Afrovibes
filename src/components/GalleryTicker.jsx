@@ -6,7 +6,7 @@ import { site } from "../data/content";
 // cards are narrower there — same time, less travel, so it reads as
 // almost frozen. Deriving the duration from the track's real scrollWidth
 // keeps the visual speed constant across every screen size.
-const PX_PER_SECOND = 125;
+const PX_PER_SECOND = 190;
 
 // Deterministic shuffle (no external deps, stable across re-renders for the
 // same input) so the order looks "random" without reshuffling on every
@@ -57,18 +57,25 @@ export default function GalleryTicker({ events }) {
 
   if (images.length === 0) return null;
 
-  // Always duplicate the list, even for a single image, so
-  // translateX(-50%) always has a matching second copy to scroll into
-  // instead of snapping back at the loop point.
-  const track = [...images, ...images];
+  // Two identical groups, each carrying its own trailing gap (via CSS
+  // padding-right on .gallery-ticker-group), so translateX(-50%) always
+  // travels exactly one group's width and lands on an exact copy —
+  // no leftover half-gap at the wrap point, which is what produced the
+  // blank flash before the next copy caught up.
+  const renderGroup = (suffix) => (
+    <div className="gallery-ticker-group" aria-hidden={suffix ? "true" : undefined}>
+      {images.map((src, i) => (
+        <div className="gallery-ticker-item" key={`${suffix || "a"}-${i}`} style={{ backgroundImage: `url('${src}')` }} />
+      ))}
+    </div>
+  );
 
   return (
     <div className="gallery-ticker-bleed">
       <div className="gallery-ticker" aria-label="Photos from past events">
         <div className="gallery-ticker-track" ref={trackRef}>
-          {track.map((src, i) => (
-            <div className="gallery-ticker-item" key={i} style={{ backgroundImage: `url('${src}')` }} />
-          ))}
+          {renderGroup()}
+          {renderGroup("b")}
         </div>
       </div>
     </div>
