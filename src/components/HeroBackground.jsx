@@ -6,7 +6,14 @@ import useParallax from "../hooks/useParallax";
 // disabled or no images are set.
 export default function HeroBackground({ enabled, interval, images }) {
   const [active, setActive] = useState(0);
-  const list = (images || []).map((i) => i.url).filter(Boolean).slice(0, 3);
+  // Decap's list widget (single sub-field, no wrapper) saves each entry as
+  // a plain URL string, not `{ url }` — this handles both shapes so
+  // existing data (either format) always resolves to real strings instead
+  // of silently filtering everything out and falling back to black.
+  const list = (images || [])
+    .map((i) => (typeof i === "string" ? i : i?.url))
+    .filter(Boolean)
+    .slice(0, 3);
   const parallaxRef = useParallax(50);
 
   useEffect(() => {
