@@ -30,14 +30,14 @@ function ScrollToTop() {
           // isn't hidden underneath it.
           const navHeight = 96;
           const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
-          window.scrollTo({ top, behavior: "smooth" });
+          window.scrollTo({ top, behavior: "instant" });
           return;
         }
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: "instant" });
       });
       return;
     }
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname, hash]);
   return null;
 }
