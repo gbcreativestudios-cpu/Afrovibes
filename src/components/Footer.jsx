@@ -1,9 +1,18 @@
 import { Link } from "react-router-dom";
 import { site } from "../data/content";
+import SocialIcon from "./SocialIcon";
+
+function socialHref(link) {
+  if (link.platform === "email" && link.url && !link.url.startsWith("mailto:")) {
+    return `mailto:${link.url}`;
+  }
+  return link.url;
+}
 
 export default function Footer() {
   const footerLogo = site.footerLogoImage || site.logoImage;
   const footerLogoHeight = site.footerLogoSize ? `${site.footerLogoSize}px` : undefined;
+  const socialLinks = (site.socialLinks || []).filter((l) => l.url);
 
   return (
     <footer className="footer">
@@ -24,10 +33,6 @@ export default function Footer() {
                 </>
               )}
             </Link>
-            <p className="muted">
-              Experiences worth showing up for. Bringing people together through fun, interactive
-              and unforgettable moments.
-            </p>
           </div>
 
           <div className="footer-bottom-row">
@@ -43,15 +48,21 @@ export default function Footer() {
 
             <div className="footer-col footer-social">
               <h4>Social</h4>
-              <div className="footer-links">
-                <a href={site.instagramUrl} target="_blank" rel="noreferrer">
-                  Instagram
-                </a>
-                <a href={site.tiktokUrl} target="_blank" rel="noreferrer">
-                  TikTok
-                </a>
-                <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
-              </div>
+              {socialLinks.length > 0 && (
+                <div className="social-icons">
+                  {socialLinks.map((l, i) => (
+                    <a
+                      key={i}
+                      href={socialHref(l)}
+                      target={l.platform === "email" ? undefined : "_blank"}
+                      rel="noreferrer"
+                      aria-label={l.platform}
+                    >
+                      <SocialIcon platform={l.platform} />
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

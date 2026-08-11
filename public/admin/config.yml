@@ -156,6 +156,55 @@ collections:
             collapsed: true
             fields:
               - { label: "Background Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank for the default purple." }
+          - label: "Buttons (Nav Bar + Hero)"
+            name: "buttonSlots"
+            widget: "object"
+            collapsed: true
+            hint: "Each spot below is a button on the site. Pick which of the 3 destinations it points to, an optional custom label, and whether it shows at all. The destinations themselves never change — only what fills each spot."
+            fields:
+              - label: "Nav Bar Button"
+                name: "navCta"
+                widget: "object"
+                fields: &button_slot_fields
+                  - { label: "Show this button?", name: "enabled", widget: "boolean", default: true }
+                  - label: "Which destination?"
+                    name: "action"
+                    widget: "select"
+                    default: "tickets"
+                    options:
+                      - { label: "Get Tickets", value: "tickets" }
+                      - { label: "Explore Events", value: "events" }
+                      - { label: "Shop Merch", value: "merch" }
+                  - { label: "Custom label (optional)", name: "label", widget: "string", required: false, hint: "Leave blank to use the destination's default text (e.g. \"Get Tickets\")." }
+              - label: "Hero Button 1 (left/first)"
+                name: "heroPrimary"
+                widget: "object"
+                fields: *button_slot_fields
+              - label: "Hero Button 2 (right/second)"
+                name: "heroSecondary"
+                widget: "object"
+                fields: *button_slot_fields
+          - label: "Social Links (Footer)"
+            name: "socialLinks"
+            widget: "list"
+            required: false
+            hint: "Shown as icon buttons in the footer. Add, remove, or reorder as needed."
+            fields:
+              - label: "Platform"
+                name: "platform"
+                widget: "select"
+                options:
+                  - { label: "Facebook", value: "facebook" }
+                  - { label: "Instagram", value: "instagram" }
+                  - { label: "TikTok", value: "tiktok" }
+                  - { label: "WhatsApp", value: "whatsapp" }
+                  - { label: "X / Twitter", value: "x" }
+                  - { label: "YouTube", value: "youtube" }
+                  - { label: "Threads", value: "threads" }
+                  - { label: "Snapchat", value: "snapchat" }
+                  - { label: "Email", value: "email" }
+                  - { label: "Other / Link", value: "other" }
+              - { label: "URL (or mailto:/wa.me link)", name: "url", widget: "string" }
           - label: "Who We Are — Top Banner"
             name: "aboutBanner"
             widget: "object"

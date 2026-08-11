@@ -5,6 +5,7 @@ import { FeaturedEventCard, thumbnailMode } from "../components/EventCards";
 import EventsTicker from "../components/EventsTicker";
 import HeroBackground from "../components/HeroBackground";
 import Title from "../components/Title";
+import ActionButton from "../components/ActionButton";
 
 function PastHomeCard({ e, small = false }) {
   const mode = thumbnailMode("pastHome");
@@ -58,12 +59,8 @@ export default function Home() {
         <div className="container hero-content">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
           <div className="actions actions-stack-mobile">
-            <Link className="btn btn-primary btn-purple" to="/events">
-              Explore Events
-            </Link>
-            <Link className="btn btn-outline" to="/merch">
-              Shop Merch
-            </Link>
+            <ActionButton slot={site.buttonSlots?.heroPrimary} className="btn btn-primary btn-purple" />
+            <ActionButton slot={site.buttonSlots?.heroSecondary} className="btn btn-outline" />
           </div>
         </div>
       </section>

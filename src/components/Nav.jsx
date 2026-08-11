@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { site } from "../data/content";
+import ActionButton from "./ActionButton";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -56,13 +57,9 @@ export default function Nav() {
           <Link to="/connect" onClick={() => setOpen(false)}>
             Connect
           </Link>
-          <Link className="nav-cta" to="/events" onClick={() => setOpen(false)}>
-            Get Tickets
-          </Link>
+          <ActionButton slot={site.buttonSlots?.navCta} className="nav-cta" onClick={() => setOpen(false)} />
         </div>
-        <Link className="nav-cta" to="/events">
-          Get Tickets
-        </Link>
+        <ActionButton slot={site.buttonSlots?.navCta} className="nav-cta" />
         <button className="menu" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
           {open ? (
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">

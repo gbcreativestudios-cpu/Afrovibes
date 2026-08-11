@@ -42,6 +42,12 @@ export const site = Object.values(siteModule)[0]?.default ?? {
     pastEvents: "adapt",
     pastHome: "adapt",
   },
+  buttonSlots: {
+    navCta: { action: "tickets", label: "", enabled: true },
+    heroPrimary: { action: "events", label: "", enabled: true },
+    heroSecondary: { action: "merch", label: "", enabled: true },
+  },
+  socialLinks: [],
   typography: {
     footerWeight: "",
     footerBodyColor: "",
@@ -85,6 +91,11 @@ const siteDefaults = {
     pastEvents: "adapt",
     pastHome: "adapt",
   },
+  buttonSlots: {
+    navCta: { action: "tickets", label: "", enabled: true },
+    heroPrimary: { action: "events", label: "", enabled: true },
+    heroSecondary: { action: "merch", label: "", enabled: true },
+  },
   typography: {
     footerWeight: "",
     footerBodyColor: "",
@@ -107,6 +118,7 @@ const siteDefaults = {
     valuesHeadingSize: "",
   }
 };
+if (!Array.isArray(site.socialLinks)) site.socialLinks = [];
 for (const key of Object.keys(siteDefaults)) {
   if (!site[key]) site[key] = siteDefaults[key];
   else if (typeof siteDefaults[key] === "object" && !Array.isArray(siteDefaults[key])) {

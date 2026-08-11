@@ -1,6 +1,6 @@
 {
   "eventThumbnails": {
-    "next": "adapt",
+    "next": "1:1",
     "upcoming": "1:1",
     "pastEvents": "1:1",
     "pastHome": "16:9"
@@ -64,5 +64,15 @@
   "whatsappNumber": "15550000000",
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
-  "galleryTickerLimit": 10
+  "galleryTickerLimit": 10,
+  "buttonSlots": {
+    "navCta": { "action": "tickets", "label": "", "enabled": true },
+    "heroPrimary": { "action": "events", "label": "", "enabled": true },
+    "heroSecondary": { "action": "merch", "label": "", "enabled": true }
+  },
+  "socialLinks": [
+    { "platform": "facebook", "url": "" },
+    { "platform": "instagram", "url": "https://instagram.com/" },
+    { "platform": "tiktok", "url": "https://tiktok.com/" }
+  ]
 }
