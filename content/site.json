@@ -5,6 +5,23 @@
     "pastEvents": "1:1",
     "pastHome": "16:9"
   },
+  "buttonSlots": {
+    "navCta": {
+      "action": "tickets",
+      "label": "",
+      "enabled": true
+    },
+    "heroPrimary": {
+      "action": "events",
+      "label": "",
+      "enabled": false
+    },
+    "heroSecondary": {
+      "action": "merch",
+      "label": "",
+      "enabled": false
+    }
+  },
   "heroTicker": {
     "enabled": true,
     "words": [
@@ -25,31 +42,46 @@
       }
     ]
   },
-  "footerLogoSize": 20,
+  "footerLogoSize": 60,
   "heroBackground": {
     "enabled": true,
     "interval": 4,
     "images": [
-      "/uploads/afv-23.jpg",
       "/uploads/afv-48.jpg",
-      "/uploads/afv-125.jpg"
+      "/uploads/afv-125.jpg",
+      "/uploads/afv-27.jpg",
+      "/uploads/afv-24.jpg"
     ]
   },
+  "aboutFeatures": {
+    "greatPeopleImage": "/uploads/afv-84.jpg",
+    "bringPeopleImage": "/uploads/afv-23.jpg"
+  },
+  "socialLinks": [
+    {
+      "platform": "instagram",
+      "url": "https://instagram.com/"
+    },
+    {
+      "platform": "tiktok",
+      "url": "https://tiktok.com/"
+    }
+  ],
   "nextEventBg": {
     "color": "#0d0d0d"
   },
   "typography": {
     "valuesHeadingSize": "",
     "valuesHeadingColor": "#ff2d95",
-    "connectBodyWeight": "",
-    "eventDetailBodyWeight": "",
-    "aboutBodyWeight": "600",
-    "eventsBodyWeight": "",
-    "footerWeight": "600",
+    "connectBodyWeight": "700",
+    "eventDetailBodyWeight": "700",
+    "aboutBodyWeight": "700",
+    "eventsBodyWeight": "700",
+    "footerWeight": "700",
     "valuesHeadingWeight": "",
-    "homeBodyWeight": "",
-    "merchBodyWeight": "",
-    "productDetailBodyWeight": ""
+    "homeBodyWeight": "700",
+    "merchBodyWeight": "700",
+    "productDetailBodyWeight": "700"
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "favicon": "/uploads/favicon-6-.webp",
@@ -64,15 +96,5 @@
   "whatsappNumber": "15550000000",
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
-  "galleryTickerLimit": 10,
-  "buttonSlots": {
-    "navCta": { "action": "tickets", "label": "", "enabled": true },
-    "heroPrimary": { "action": "events", "label": "", "enabled": true },
-    "heroSecondary": { "action": "merch", "label": "", "enabled": true }
-  },
-  "socialLinks": [
-    { "platform": "facebook", "url": "" },
-    { "platform": "instagram", "url": "https://instagram.com/" },
-    { "platform": "tiktok", "url": "https://tiktok.com/" }
-  ]
+  "galleryTickerLimit": 10
 }
