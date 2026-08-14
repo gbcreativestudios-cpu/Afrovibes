@@ -73,15 +73,15 @@
   "typography": {
     "valuesHeadingSize": "",
     "valuesHeadingColor": "#ff2d95",
-    "connectBodyWeight": "700",
-    "eventDetailBodyWeight": "700",
-    "aboutBodyWeight": "700",
+    "connectBodyWeight": "600",
+    "eventDetailBodyWeight": "600",
+    "aboutBodyWeight": "600",
     "eventsBodyWeight": "700",
-    "footerWeight": "700",
-    "valuesHeadingWeight": "",
-    "homeBodyWeight": "700",
-    "merchBodyWeight": "700",
-    "productDetailBodyWeight": "700"
+    "footerWeight": "600",
+    "valuesHeadingWeight": "700",
+    "homeBodyWeight": "600",
+    "merchBodyWeight": "600",
+    "productDetailBodyWeight": "600"
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "favicon": "/uploads/favicon-6-.webp",
@@ -93,7 +93,7 @@
     "text": "",
     "size": "compact"
   },
-  "whatsappNumber": "15550000000",
+  "whatsappNumber": "+1 (587) 889-0297",
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
   "galleryTickerLimit": 10
