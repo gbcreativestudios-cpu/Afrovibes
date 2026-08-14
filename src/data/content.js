@@ -80,6 +80,7 @@ export const site = Object.values(siteModule)[0]?.default ?? {
 const siteDefaults = {
   heroBackground: { enabled: false, interval: 4, images: [] },
   heroScrollIndicator: { enabled: true },
+  upcomingEventsViewAll: { enabled: false },
   partners: { enabled: true, bgColor: "", logos: [] },
   customSection: { enabled: false, paragraph: "" },
   nextEventBg: { color: "" },

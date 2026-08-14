@@ -145,6 +145,13 @@ collections:
             hint: "The small breathing down-arrow at the bottom of the hero banner, hinting there's more below."
             fields:
               - { label: "Show scroll arrow?", name: "enabled", widget: "boolean", default: true }
+          - label: "Upcoming Events — \"View All Events\" Button"
+            name: "upcomingEventsViewAll"
+            widget: "object"
+            collapsed: true
+            hint: "The button next to the Upcoming Events title on the homepage that links to the full Events page. Hidden by default."
+            fields:
+              - { label: "Show this button?", name: "enabled", widget: "boolean", default: false }
           - label: "Our Partners (Homepage Logo Strip)"
             name: "partners"
             widget: "object"

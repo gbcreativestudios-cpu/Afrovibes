@@ -25,6 +25,9 @@
   "heroScrollIndicator": {
     "enabled": true
   },
+  "upcomingEventsViewAll": {
+    "enabled": false
+  },
   "partners": {
     "enabled": true,
     "bgColor": "",

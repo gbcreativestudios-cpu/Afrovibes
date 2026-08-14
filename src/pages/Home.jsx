@@ -101,9 +101,11 @@ export default function Home() {
               <div>
                 <Title as="h2" text={upcomingEventTitle.text} fontSize={upcomingEventTitle.fontSize} color={upcomingEventTitle.color} />
               </div>
-              <Link className="btn btn-outline" to="/events">
-                View All Events
-              </Link>
+              {site.upcomingEventsViewAll?.enabled && (
+                <Link className="btn btn-outline" to="/events">
+                  View All Events
+                </Link>
+              )}
             </div>
             <EventsTicker events={rest} />
           </div>
@@ -161,7 +163,7 @@ export default function Home() {
             <div>
               <Title as="h2" text={merchTeaserTitle.text} fontSize={merchTeaserTitle.fontSize} color={merchTeaserTitle.color} />
             </div>
-            <Link className="btn btn-primary" to="/merch">
+            <Link className="btn btn-primary merch-shop-btn-desktop" to="/merch">
               Shop Merch
             </Link>
           </div>
@@ -177,6 +179,9 @@ export default function Home() {
               </Link>
             ))}
           </div>
+          <Link className="btn btn-primary merch-shop-btn-mobile" to="/merch">
+            Shop Merch
+          </Link>
         </div>
       </section>
     </main>
