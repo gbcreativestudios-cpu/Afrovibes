@@ -24,26 +24,52 @@ export default function EventsTicker({ events }) {
     const el = trackRef.current;
     if (!el) return;
 
-    // Only recompute when the viewport's WIDTH actually changes. Mobile
-    // browsers fire "resize" when the address bar shows/hides during
-    // scroll (a height-only change) — reacting to that reassigns
-    // animation-duration on an already-running animation, which browsers
-    // visibly jump/restart. Ignoring height-only resizes, plus a short
-    // debounce, is what stops the mid-scroll glitch.
+    // Ignoring resize noise isn't enough on its own: mobile browsers can
+    // still report a genuinely different innerWidth mid-scroll (address
+    // bar collapse, rotation, etc). Whenever that happens we DO need to
+    // recompute the duration to keep px/second constant — but simply
+    // reassigning animation-duration on a running CSS animation makes the
+    // browser restart it from 0%, which is what read as the ticker
+    // "going blank and resuming". The fix: read exactly how far through
+    // the current loop the animation is (via the Web Animations API)
+    // before changing the duration, then apply a matching negative
+    // animation-delay so playback continues from the same visual spot
+    // instead of snapping back to the start.
     let lastWidth = window.innerWidth;
     let debounceId = null;
+    let currentDuration = null;
+
+    const getProgress = () => {
+      if (currentDuration == null || !el.getAnimations) return 0;
+      const anim = el.getAnimations().find((a) => a.animationName === "ticker-scroll");
+      const currentTimeMs = anim && typeof anim.currentTime === "number" ? anim.currentTime : null;
+      if (currentTimeMs == null) return 0;
+      const durationMs = currentDuration * 1000;
+      return durationMs > 0 ? (currentTimeMs % durationMs) / durationMs : 0;
+    };
 
     const setSpeed = () => {
       // scrollWidth spans both duplicated groups; translateX(-50%) only
       // needs to travel one group's worth of distance per loop.
       const distance = el.scrollWidth / 2;
-      if (distance > 0) {
-        el.style.animationDuration = `${distance / PX_PER_SECOND}s`;
-      }
+      if (distance <= 0) return;
+
+      const progress = getProgress();
+      const newDuration = distance / PX_PER_SECOND;
+
+      el.style.animationDuration = `${newDuration}s`;
+      // Re-enter the new duration at the same relative position instead
+      // of restarting at 0% — a negative delay is treated as "already
+      // this far into the animation".
+      el.style.animationDelay = `-${(progress * newDuration).toFixed(3)}s`;
+
+      currentDuration = newDuration;
     };
 
     const handleResize = () => {
-      if (window.innerWidth === lastWidth) return;
+      // A few px of noise (rounding, scrollbar show/hide) isn't worth
+      // reacting to — only genuine width changes need a new speed.
+      if (Math.abs(window.innerWidth - lastWidth) < 5) return;
       lastWidth = window.innerWidth;
       clearTimeout(debounceId);
       debounceId = setTimeout(setSpeed, 150);
