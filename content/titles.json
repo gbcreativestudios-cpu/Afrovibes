@@ -1,34 +1,14 @@
 {
   "home": {
-    "heroTitle": {
-      "text": "COME FOR THE VIBE. STAY FOR THE MEMORIES",
-      "fontSize": "",
-      "color": ""
-    },
-    "partnersTitle": {
-      "text": "OUR PARTNERS",
-      "fontSize": "",
-      "color": ""
-    },
     "customSectionTitle": {
-      "text": "",
+      "text": "OUR MISSION",
       "fontSize": "",
       "color": ""
     },
-    "nextEventTitle": {
-      "text": "NEXT EVENT",
+    "merchTeaserTitle": {
+      "text": "TAKE THE VIBE WITH YOU",
       "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": "#7b2ff7"
-    },
-    "upcomingEventTitle": {
-      "text": "UPCOMING EVENTS",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": "#7b2ff7"
-    },
-    "pastVibesTitle": {
-      "text": "PAST EVENTS",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": "#7b2ff7"
+      "color": ""
     },
     "statementTitle": {
       "text": "THE BEST MOMENTS ARE THE ONE WE SHARE",
@@ -40,15 +20,35 @@
       "fontSize": "",
       "color": "#ff2d95"
     },
-    "merchTeaserTitle": {
-      "text": "TAKE THE VIBE WITH YOU",
+    "partnersTitle": {
+      "text": "OUR PARTNERS",
+      "fontSize": "",
+      "color": ""
+    },
+    "pastVibesTitle": {
+      "text": "PAST EVENTS",
       "fontSize": "clamp(1.6rem,3vw,4rem)",
+      "color": "#7b2ff7"
+    },
+    "nextEventTitle": {
+      "text": "NEXT EVENT",
+      "fontSize": "clamp(1.6rem,3vw,4rem)",
+      "color": "#7b2ff7"
+    },
+    "upcomingEventTitle": {
+      "text": "UPCOMING EVENTS",
+      "fontSize": "clamp(1.6rem,3vw,4rem)",
+      "color": "#7b2ff7"
+    },
+    "heroTitle": {
+      "text": "COME FOR THE | VIBE. STAY FOR THE |  MEMORIES",
+      "fontSize": "",
       "color": ""
     }
   },
   "about": {
     "heroTitle": {
-      "text": "WHY AFROVIBES",
+      "text": "WHY AFROVIBES?",
       "fontSize": "clamp(1.6rem,3vw,4rem)",
       "color": ""
     },
