@@ -22,25 +22,10 @@
       "enabled": false
     }
   },
-  "heroScrollIndicator": {
-    "enabled": true
-  },
   "upcomingEventsViewAll": {
     "enabled": false
   },
-  "newsletter": {
-    "paragraph": "Stay in the loop. Get first access to upcoming experiences, events and drops."
-  },
-  "partners": {
-    "enabled": true,
-    "bgColor": "",
-    "logos": []
-  },
-  "customSection": {
-    "enabled": false,
-    "paragraph": ""
-  },
-  "footerLogoSize": 60,
+  "footerLogoSize": 100,
   "heroBackground": {
     "enabled": true,
     "interval": 4,
@@ -51,9 +36,17 @@
       "/uploads/afv-24.jpg"
     ]
   },
+  "heroScrollIndicator": {
+    "enabled": true
+  },
   "aboutFeatures": {
     "greatPeopleImage": "/uploads/afv-84.jpg",
     "bringPeopleImage": "/uploads/afv-23.jpg"
+  },
+  "partners": {
+    "enabled": true,
+    "bgColor": "",
+    "logos": []
   },
   "socialLinks": [
     {
@@ -83,15 +76,22 @@
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "favicon": "/uploads/favicon-6-.webp",
+  "customSection": {
+    "enabled": false,
+    "paragraph": ""
+  },
   "tiktokUrl": "https://tiktok.com/",
   "footerLogoImage": "/uploads/av-mark-white.webp",
+  "newsletter": {
+    "paragraph": "Stay in the loop. Get first access to upcoming experiences, events and drops."
+  },
   "aboutBanner": {
     "enabled": true,
     "image": "/uploads/afv-47.jpg",
     "text": "",
     "size": "compact"
   },
-  "whatsappNumber": "+1 (587) 889-0297",
+  "whatsappNumber": "+15878890297",
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
   "galleryTickerLimit": 10
