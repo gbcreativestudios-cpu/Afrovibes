@@ -146,6 +146,7 @@ export function getTitle(group, key, fallbackText = "") {
   return {
     text: entry.text || fallbackText,
     fontSize: entry.fontSize || undefined,
+    fontWeight: entry.fontWeight || undefined,
     color: entry.color || undefined,
   };
 }

@@ -41,6 +41,14 @@ export default function GalleryTicker({ events }) {
     const el = trackRef.current;
     if (!el) return;
 
+    // Same fix as EventsTicker: only recompute when the viewport's WIDTH
+    // actually changes, not just its height (mobile browsers fire
+    // "resize" when the address bar shows/hides during scroll). Reacting
+    // to a height-only change reassigns animation-duration on an
+    // already-running animation, which browsers visibly jump/restart.
+    let lastWidth = window.innerWidth;
+    let debounceId = null;
+
     const setSpeed = () => {
       // scrollWidth spans both duplicated copies; translateX(-50%) only
       // needs to travel one copy's worth of distance per loop.
@@ -50,9 +58,19 @@ export default function GalleryTicker({ events }) {
       }
     };
 
+    const handleResize = () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      clearTimeout(debounceId);
+      debounceId = setTimeout(setSpeed, 150);
+    };
+
     setSpeed();
-    window.addEventListener("resize", setSpeed);
-    return () => window.removeEventListener("resize", setSpeed);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(debounceId);
+    };
   }, [images]);
 
   if (images.length === 0) return null;

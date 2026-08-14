@@ -30,7 +30,7 @@ export default function Connect() {
       </section>
 
       <section className="section">
-        <div className="container about-block">
+        <div className="container about-block connect-services">
           <div>
             <Title
               as="h2"

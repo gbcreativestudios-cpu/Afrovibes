@@ -562,15 +562,19 @@ collections:
               - name: "nextEventTitle"
                 label: "\"Next Event\" Section Title"
                 widget: "object"
-                fields: *title_fields
+                fields: &title_fields_with_weight
+                  - { label: "Text", name: "text", widget: "string", hint: "Type it exactly how you want it to appear — any casing." }
+                  - { label: "Font Size (e.g. 3rem, 48px — leave blank for default)", name: "fontSize", widget: "string", required: false }
+                  - { label: "Font Weight", name: "fontWeight", widget: "select", required: false, options: ["300", "400", "500", "600", "700", "800", "900"], hint: "Leave blank to use the default (900, bold)." }
+                  - { label: "Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
               - name: "calendarTitle"
                 label: "\"Our Calendar\" Section Title"
                 widget: "object"
-                fields: *title_fields
+                fields: *title_fields_with_weight
               - name: "pastEventsTitle"
                 label: "\"Past Events\" Section Title"
                 widget: "object"
-                fields: *title_fields
+                fields: *title_fields_with_weight
           - label: "Merch Page"
             name: "merch"
             widget: "object"

@@ -77,17 +77,20 @@
     "nextEventTitle": {
       "text": "NEXT EVENT",
       "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": ""
+      "color": "",
+      "fontWeight": ""
     },
     "calendarTitle": {
       "text": "EVENT LINE UP",
       "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": ""
+      "color": "",
+      "fontWeight": ""
     },
     "pastEventsTitle": {
       "text": "THE MOMENT WE HAVE SHARED",
       "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": ""
+      "color": "",
+      "fontWeight": ""
     }
   },
   "merch": {
