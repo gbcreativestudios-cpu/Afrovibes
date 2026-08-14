@@ -152,7 +152,7 @@ collections:
             hint: "The scrolling strip of partner/sponsor logos below the hero. The section title is set under Page & Section Titles → Home Page → \"Our Partners\" Title."
             fields:
               - { label: "Show this section?", name: "enabled", widget: "boolean", default: true }
-              - { label: "Strip Background Color", name: "bgColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default dark background." }
+              - { label: "Section Background Color", name: "bgColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Colors the whole Partners section — the logos sit directly on it (no separate strip background or border). Leave blank to use the default dark background." }
               - label: "Partner Logos"
                 name: "logos"
                 widget: "list"

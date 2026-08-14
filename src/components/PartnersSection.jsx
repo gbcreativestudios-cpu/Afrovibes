@@ -17,13 +17,13 @@ export default function PartnersSection({ enabled, bgColor, logos, title }) {
   const track = [...list, ...list];
 
   return (
-    <section className="section partners-section">
+    <section className="section partners-section" style={bgColor ? { backgroundColor: bgColor } : undefined}>
       <div className="container">
         <div className="section-head partners-head">
           <Title as="h2" text={title.text} fontSize={title.fontSize} color={title.color} />
         </div>
       </div>
-      <div className="partners-strip" style={bgColor ? { backgroundColor: bgColor } : undefined}>
+      <div className="partners-strip">
         <div className="partners-track">
           {track.map((url, i) => (
             <div className="partners-logo" key={i}>

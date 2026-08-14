@@ -24,6 +24,15 @@ export default function EventsTicker({ events }) {
     const el = trackRef.current;
     if (!el) return;
 
+    // Only recompute when the viewport's WIDTH actually changes. Mobile
+    // browsers fire "resize" when the address bar shows/hides during
+    // scroll (a height-only change) — reacting to that reassigns
+    // animation-duration on an already-running animation, which browsers
+    // visibly jump/restart. Ignoring height-only resizes, plus a short
+    // debounce, is what stops the mid-scroll glitch.
+    let lastWidth = window.innerWidth;
+    let debounceId = null;
+
     const setSpeed = () => {
       // scrollWidth spans both duplicated groups; translateX(-50%) only
       // needs to travel one group's worth of distance per loop.
@@ -33,9 +42,19 @@ export default function EventsTicker({ events }) {
       }
     };
 
+    const handleResize = () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      clearTimeout(debounceId);
+      debounceId = setTimeout(setSpeed, 150);
+    };
+
     setSpeed();
-    window.addEventListener("resize", setSpeed);
-    return () => window.removeEventListener("resize", setSpeed);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(debounceId);
+    };
   }, [events]);
 
   if (!events.length) return null;
