@@ -28,6 +28,9 @@
   "upcomingEventsViewAll": {
     "enabled": false
   },
+  "newsletter": {
+    "paragraph": "Stay in the loop. Get first access to upcoming experiences, events and drops."
+  },
   "partners": {
     "enabled": true,
     "bgColor": "",

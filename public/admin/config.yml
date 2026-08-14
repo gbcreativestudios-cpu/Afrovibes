@@ -152,6 +152,13 @@ collections:
             hint: "The button next to the Upcoming Events title on the homepage that links to the full Events page. Hidden by default."
             fields:
               - { label: "Show this button?", name: "enabled", widget: "boolean", default: false }
+          - label: "Newsletter Section (Text)"
+            name: "newsletter"
+            widget: "object"
+            collapsed: true
+            hint: "The paragraph shown under the Newsletter title (found at the bottom of multiple pages). The title itself is set under Page & Section Titles → Newsletter Section → Title."
+            fields:
+              - { label: "Paragraph", name: "paragraph", widget: "text", required: false }
           - label: "Our Partners (Homepage Logo Strip)"
             name: "partners"
             widget: "object"
