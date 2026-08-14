@@ -1,0 +1,636 @@
+backend:
+  name: github
+  repo: gbcreativestudios-cpu/Afrovibes
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: "events"
+    label: "Events"
+    folder: "content/events"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    slug: "{{fields.id}}"
+    summary: "{{title}} — {{date}} ({{status}})"
+    fields:
+      - { label: "ID (used in the URL — lowercase-with-hyphens)", name: "id", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Title Font Size (e.g. 3rem, 48px — leave blank for default)", name: "titleFontSize", widget: "string", required: false }
+      - { label: "Title Color", name: "titleColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
+      - label: "Event Date"
+        name: "date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: true
+        hint: "Set the exact event day. Before today = Past; today or later = Upcoming. The earliest future date automatically becomes Next Event."
+      - { label: "Time", name: "time", widget: "string", required: false, hint: "e.g. 7:00 PM" }
+      - { label: "Location", name: "location", widget: "string", required: false }
+      - { label: "Venue", name: "venue", widget: "string", required: false, hint: "Specific venue name or address, if different from Location." }
+      - label: "Additional Details"
+        name: "customFields"
+        widget: "list"
+        required: false
+        hint: "Add any extra event details as your own label + text — e.g. \"Dress Code\" / \"Smart casual\"."
+        label_singular: "Detail"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Content", name: "content", widget: "text" }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["TICKETS AVAILABLE", "COMING SOON"]
+        hint: "Only shown for upcoming events. \"Tickets Available\" shows the pink Get Ticket button (using the URL below) and the badge on the card; \"Coming Soon\" shows the outline badge with no ticket button."
+      - { label: "Ticket URL", name: "url", widget: "string", required: false }
+      - { label: "Cover Image", name: "image", widget: "image" }
+      - { label: "Short Description", name: "desc", widget: "text" }
+      - label: "Gallery Images"
+        name: "gallery"
+        widget: "list"
+        required: false
+        hint: "Photos only. These automatically appear on the event page once the event's date has passed, and feed the past-events ticker."
+        field: { label: "Image", name: "url", widget: "image" }
+      - { label: "Show Video Section?", name: "showVideos", widget: "boolean", default: false, hint: "Turns the video section on/off once the event has passed. Leave off if you don't have a video yet." }
+      - label: "Gallery Videos"
+        name: "galleryVideos"
+        widget: "list"
+        required: false
+        hint: "Video links only — keep these out of Gallery Images so the photo ticker doesn't pick them up."
+        field: { label: "Video URL", name: "url", widget: "string" }
+      - { label: "Instagram / Video Link", name: "instagram", widget: "string", required: false }
+
+  - name: "products"
+    label: "Merch"
+    folder: "content/products"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    slug: "{{fields.id}}"
+    summary: "{{name}} — CAD ${{price}}"
+    fields:
+      - { label: "ID (used in the URL — lowercase-with-hyphens)", name: "id", widget: "string" }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Category", name: "category", widget: "string" }
+      - { label: "Price (CAD)", name: "price", widget: "number", value_type: "float" }
+      - { label: "Product Image", name: "image", widget: "image" }
+      - label: "Available Sizes"
+        name: "sizes"
+        widget: "list"
+        field: { label: "Size", name: "size", widget: "string" }
+      - label: "Available Colors"
+        name: "colors"
+        widget: "list"
+        fields:
+          - { label: "Color Name", name: "name", widget: "string" }
+          - { label: "Hex Code", name: "hex", widget: "string" }
+      - label: "Customization Options"
+        name: "custom"
+        widget: "list"
+        field: { label: "Option", name: "option", widget: "string" }
+
+  - name: "team"
+    label: "Team"
+    folder: "content/team"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Role", name: "role", widget: "string" }
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
+
+  - name: "site"
+    label: "Site Settings"
+    files:
+      - name: "settings"
+        label: "General Settings"
+        file: "content/site.json"
+        fields:
+          - { label: "WhatsApp Number (digits only, with country code)", name: "whatsappNumber", widget: "string" }
+          - { label: "Contact Email", name: "contactEmail", widget: "string" }
+          - { label: "Instagram URL", name: "instagramUrl", widget: "string" }
+          - { label: "TikTok URL", name: "tiktokUrl", widget: "string" }
+          - { label: "Logo Image", name: "logoImage", widget: "image", required: false, hint: "Used in the nav bar, and in the footer too unless a separate Footer Logo is set below. Leave empty to keep the default AFROVIBES text logo." }
+          - { label: "Footer Logo Image", name: "footerLogoImage", widget: "image", required: false, hint: "Optional — only needed if you want a different logo in the footer than the nav bar. Leave empty to reuse the Logo Image above." }
+          - { label: "Footer Logo Height (px)", name: "footerLogoSize", widget: "number", value_type: "int", required: false, hint: "Leave blank for the default size." }
+          - { label: "Favicon", name: "favicon", widget: "image", required: false, hint: "Small square image, shown in the browser tab. Leave empty to keep the default." }
+          - { label: "Past-Events Ticker — Max Images", name: "galleryTickerLimit", widget: "number", value_type: "int", default: 10, hint: "Caps how many photos the moving ticker on the Events page pulls in total, no matter how many are in the galleries." }
+          - label: "Homepage Hero Background"
+            name: "heroBackground"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Rotate through images?", name: "enabled", widget: "boolean", default: false, hint: "Off = solid black background (current look). On = crossfades through the images below." }
+              - { label: "Seconds Between Images", name: "interval", widget: "number", value_type: "int", default: 4, min: 3, max: 5 }
+              - label: "Images"
+                name: "images"
+                widget: "list"
+                required: false
+                hint: "Add up to 3 images to rotate through."
+                field: { label: "Image", name: "url", widget: "image" }
+          - label: "Hero Scroll-Down Arrow"
+            name: "heroScrollIndicator"
+            widget: "object"
+            collapsed: true
+            hint: "The small breathing down-arrow at the bottom of the hero banner, hinting there's more below."
+            fields:
+              - { label: "Show scroll arrow?", name: "enabled", widget: "boolean", default: true }
+          - label: "Upcoming Events — \"View All Events\" Button"
+            name: "upcomingEventsViewAll"
+            widget: "object"
+            collapsed: true
+            hint: "The button next to the Upcoming Events title on the homepage that links to the full Events page. Hidden by default."
+            fields:
+              - { label: "Show this button?", name: "enabled", widget: "boolean", default: false }
+          - label: "Newsletter Section (Text)"
+            name: "newsletter"
+            widget: "object"
+            collapsed: true
+            hint: "The paragraph shown under the Newsletter title (found at the bottom of multiple pages). The title itself is set under Page & Section Titles → Newsletter Section → Title."
+            fields:
+              - { label: "Paragraph", name: "paragraph", widget: "text", required: false }
+          - label: "Our Partners (Homepage Logo Strip)"
+            name: "partners"
+            widget: "object"
+            collapsed: true
+            hint: "The scrolling strip of partner/sponsor logos below the hero. The section title is set under Page & Section Titles → Home Page → \"Our Partners\" Title."
+            fields:
+              - { label: "Show this section?", name: "enabled", widget: "boolean", default: true }
+              - { label: "Section Background Color", name: "bgColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Colors the whole Partners section — the logos sit directly on it (no separate strip background or border). Leave blank to use the default dark background." }
+              - label: "Partner Logos"
+                name: "logos"
+                widget: "list"
+                required: false
+                hint: "Add one image per partner. They scroll in an infinite loop, in the order listed here."
+                field: { label: "Logo Image", name: "url", widget: "image" }
+          - label: "Optional Info Section (Homepage)"
+            name: "customSection"
+            widget: "object"
+            collapsed: true
+            hint: "A fully optional section right after the Partners strip. Leave off if you don't need it. The title is set under Page & Section Titles → Home Page → \"Optional Info Section\" Title."
+            fields:
+              - { label: "Show this section?", name: "enabled", widget: "boolean", default: false }
+              - { label: "Paragraph", name: "paragraph", widget: "text", required: false }
+          - label: "\"Next Event\" Section Background"
+            name: "nextEventBg"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Background Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank for the default purple." }
+          - label: "Buttons (Nav Bar + Hero)"
+            name: "buttonSlots"
+            widget: "object"
+            collapsed: true
+            hint: "Each spot below is a button on the site. Pick which of the 3 destinations it points to, an optional custom label, and whether it shows at all. The destinations themselves never change — only what fills each spot."
+            fields:
+              - label: "Nav Bar Button"
+                name: "navCta"
+                widget: "object"
+                fields: &button_slot_fields
+                  - { label: "Show this button?", name: "enabled", widget: "boolean", default: true }
+                  - label: "Which destination?"
+                    name: "action"
+                    widget: "select"
+                    default: "tickets"
+                    options:
+                      - { label: "Get Tickets", value: "tickets" }
+                      - { label: "Explore Events", value: "events" }
+                      - { label: "Shop Merch", value: "merch" }
+                  - { label: "Custom label (optional)", name: "label", widget: "string", required: false, hint: "Leave blank to use the destination's default text (e.g. \"Get Tickets\")." }
+              - label: "Hero Button 1 (left/first)"
+                name: "heroPrimary"
+                widget: "object"
+                fields: *button_slot_fields
+              - label: "Hero Button 2 (right/second)"
+                name: "heroSecondary"
+                widget: "object"
+                fields: *button_slot_fields
+          - label: "Social Links (Footer)"
+            name: "socialLinks"
+            widget: "list"
+            required: false
+            hint: "Shown as icon buttons in the footer. Add, remove, or reorder as needed."
+            fields:
+              - label: "Platform"
+                name: "platform"
+                widget: "select"
+                options:
+                  - { label: "Facebook", value: "facebook" }
+                  - { label: "Instagram", value: "instagram" }
+                  - { label: "TikTok", value: "tiktok" }
+                  - { label: "WhatsApp", value: "whatsapp" }
+                  - { label: "X / Twitter", value: "x" }
+                  - { label: "YouTube", value: "youtube" }
+                  - { label: "Threads", value: "threads" }
+                  - { label: "Snapchat", value: "snapchat" }
+                  - { label: "Email", value: "email" }
+                  - { label: "Other / Link", value: "other" }
+              - { label: "URL (or mailto:/wa.me link)", name: "url", widget: "string" }
+          - label: "Who We Are — Top Banner"
+            name: "aboutBanner"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Show banner?", name: "enabled", widget: "boolean", default: false }
+              - { label: "Banner Image", name: "image", widget: "image", required: false }
+              - { label: "Banner Text", name: "text", widget: "string", required: false }
+              - label: "Banner Size"
+                name: "size"
+                widget: "select"
+                required: false
+                default: "compact"
+                hint: "Compact is the current default height. Landscape is a taller, more cinematic banner."
+                options:
+                  - { label: "Compact (default)", value: "compact" }
+                  - { label: "Landscape (taller)", value: "landscape" }
+          - label: "Who We Are — Feature Images"
+            name: "aboutFeatures"
+            widget: "object"
+            collapsed: true
+            hint: "The photo shown next to each of the 3 purple headings on the Who We Are page (Great People / Bring People Together / Redefine Connection). Leave blank to keep the current placeholder."
+            fields:
+              - { label: "\"Great People. Great Experiences.\" Image", name: "greatPeopleImage", widget: "image", required: false }
+              - { label: "\"Bring People Together.\" Image", name: "bringPeopleImage", widget: "image", required: false }
+              - { label: "\"Redefine Connection.\" Image", name: "redefineImage", widget: "image", required: false }
+          - label: "Event Thumbnail Controls"
+            name: "eventThumbnails"
+            widget: "object"
+            collapsed: true
+            hint: "Choose the aspect ratio for each event thumbnail. Adapt preserves the uploaded image ratio; fixed ratios crop the image to the selected frame. Past Event controls are independent for the Events page and Home page."
+            fields:
+              - label: "Next Event Thumbnail"
+                name: "next"
+                widget: "select"
+                default: "adapt"
+                options:
+                  - { label: "Adapt to image", value: "adapt" }
+                  - { label: "1:1", value: "1:1" }
+                  - { label: "4:5", value: "4:5" }
+                  - { label: "3:4", value: "3:4" }
+                  - { label: "2:3", value: "2:3" }
+                  - { label: "3:2", value: "3:2" }
+                  - { label: "4:3", value: "4:3" }
+                  - { label: "16:9", value: "16:9" }
+                  - { label: "21:9", value: "21:9" }
+              - label: "Upcoming Event Thumbnails"
+                name: "upcoming"
+                widget: "select"
+                default: "adapt"
+                options:
+                  - { label: "Adapt to image", value: "adapt" }
+                  - { label: "1:1", value: "1:1" }
+                  - { label: "4:5", value: "4:5" }
+                  - { label: "3:4", value: "3:4" }
+                  - { label: "2:3", value: "2:3" }
+                  - { label: "3:2", value: "3:2" }
+                  - { label: "4:3", value: "4:3" }
+                  - { label: "16:9", value: "16:9" }
+                  - { label: "21:9", value: "21:9" }
+              - label: "Past Events — Events Page"
+                name: "pastEvents"
+                widget: "select"
+                default: "adapt"
+                options:
+                  - { label: "Adapt to image", value: "adapt" }
+                  - { label: "1:1", value: "1:1" }
+                  - { label: "4:5", value: "4:5" }
+                  - { label: "3:4", value: "3:4" }
+                  - { label: "2:3", value: "2:3" }
+                  - { label: "3:2", value: "3:2" }
+                  - { label: "4:3", value: "4:3" }
+                  - { label: "16:9", value: "16:9" }
+                  - { label: "21:9", value: "21:9" }
+              - label: "Past Events — Home Page"
+                name: "pastHome"
+                widget: "select"
+                default: "adapt"
+                options:
+                  - { label: "Adapt to image", value: "adapt" }
+                  - { label: "1:1", value: "1:1" }
+                  - { label: "4:5", value: "4:5" }
+                  - { label: "3:4", value: "3:4" }
+                  - { label: "2:3", value: "2:3" }
+                  - { label: "3:2", value: "3:2" }
+                  - { label: "4:3", value: "4:3" }
+                  - { label: "16:9", value: "16:9" }
+                  - { label: "21:9", value: "21:9" }
+          - label: "Text Weights & Styles"
+            name: "typography"
+            widget: "object"
+            collapsed: true
+            hint: "Each control below only affects its own section — changing one never changes the others."
+            fields:
+              - label: "Footer Text Weight"
+                name: "footerWeight"
+                widget: "select"
+                required: false
+                hint: "Affects every line of text inside the footer (links, tagline, copyright) at once. Leave blank for the default look."
+                options:
+                  - { label: "Default", value: "" }
+                  - { label: "Light", value: "300" }
+                  - { label: "Regular", value: "400" }
+                  - { label: "Medium", value: "500" }
+                  - { label: "Demi / Semi Bold", value: "600" }
+                  - { label: "Bold", value: "700" }
+                  - { label: "Heavy", value: "800" }
+              - label: "Footer Paragraph Color"
+                name: "footerBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color inside the footer. Leave blank to keep the current color."
+              - label: "\"Who We Are\" Body Text Weight"
+                name: "aboutBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects the paragraph text on the Who We Are page only (the intro, and the text under Great People / Bring People Together / Redefine Connection)."
+                options:
+                  - { label: "Default", value: "" }
+                  - { label: "Light", value: "300" }
+                  - { label: "Regular", value: "400" }
+                  - { label: "Medium", value: "500" }
+                  - { label: "Demi / Semi Bold", value: "600" }
+                  - { label: "Bold", value: "700" }
+                  - { label: "Heavy", value: "800" }
+              - label: "Who We Are Body Text Color"
+                name: "aboutBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Who We Are page only."
+              - label: "Home Page Paragraph Weight"
+                name: "homeBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on the Home page only."
+                options: &weight_options
+                  - { label: "Default", value: "" }
+                  - { label: "Light", value: "300" }
+                  - { label: "Regular", value: "400" }
+                  - { label: "Medium", value: "500" }
+                  - { label: "Demi / Semi Bold", value: "600" }
+                  - { label: "Bold", value: "700" }
+                  - { label: "Heavy", value: "800" }
+              - label: "Home Page Paragraph Color"
+                name: "homeBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Home page only."
+              - label: "Events Page Paragraph Weight"
+                name: "eventsBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on the Events page only."
+                options: *weight_options
+              - label: "Events Page Paragraph Color"
+                name: "eventsBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Events page only."
+              - label: "Event Detail Page Paragraph Weight"
+                name: "eventDetailBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on individual Event Detail pages only."
+                options: *weight_options
+              - label: "Event Detail Page Paragraph Color"
+                name: "eventDetailBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on individual Event Detail pages only."
+              - label: "Merch Page Paragraph Weight"
+                name: "merchBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on the Merch page only."
+                options: *weight_options
+              - label: "Merch Page Paragraph Color"
+                name: "merchBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Merch page only."
+              - label: "Product Detail Page Paragraph Weight"
+                name: "productDetailBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on individual Product Detail pages only."
+                options: *weight_options
+              - label: "Product Detail Page Paragraph Color"
+                name: "productDetailBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on individual Product Detail pages only."
+              - label: "Connect Page Paragraph Weight"
+                name: "connectBodyWeight"
+                widget: "select"
+                required: false
+                hint: "Affects paragraph text on the Connect page only."
+                options: *weight_options
+              - label: "Connect Page Paragraph Color"
+                name: "connectBodyColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "Affects paragraph text color on the Connect page only."
+              - label: "\"Connection / Adventure / Community / Memories\" Weight"
+                name: "valuesHeadingWeight"
+                widget: "select"
+                required: false
+                hint: "One control for all 4 words at once."
+                options:
+                  - { label: "Default", value: "" }
+                  - { label: "Light", value: "300" }
+                  - { label: "Regular", value: "400" }
+                  - { label: "Medium", value: "500" }
+                  - { label: "Demi / Semi Bold", value: "600" }
+                  - { label: "Bold", value: "700" }
+                  - { label: "Heavy", value: "800" }
+              - label: "\"Connection / Adventure / Community / Memories\" Color"
+                name: "valuesHeadingColor"
+                widget: "color"
+                required: false
+                allowInput: true
+                enableAlpha: false
+                hint: "One control for all 4 words at once. Leave blank for the default white."
+              - label: "\"Connection / Adventure / Community / Memories\" Size"
+                name: "valuesHeadingSize"
+                widget: "string"
+                required: false
+                hint: "One control for all 4 words at once, e.g. 1.3rem or 22px. Leave blank for the default size."
+
+      - name: "titles"
+        label: "Page & Section Titles"
+        file: "content/titles.json"
+        fields:
+          - label: "Home Page"
+            name: "home"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: &title_fields
+                  - { label: "Text", name: "text", widget: "string", hint: "Type it exactly how you want it to appear — any casing. To force a fixed line break (so it stays put on both desktop and mobile), put a | where each line should end, e.g. \"Come for the|vibe. stay for the|memories\"." }
+                  - { label: "Font Size (e.g. 3rem, 48px — leave blank for default)", name: "fontSize", widget: "string", required: false }
+                  - { label: "Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
+              - name: "partnersTitle"
+                label: "\"Our Partners\" Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "customSectionTitle"
+                label: "Optional Info Section Title (leave text blank to hide just the title)"
+                widget: "object"
+                fields: *title_fields
+              - name: "nextEventTitle"
+                label: "\"Next Event\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "upcomingEventTitle"
+                label: "\"Upcoming Event\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "pastVibesTitle"
+                label: "\"Past Vibes\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "statementTitle"
+                label: "\"Best Memories Are Shared\" Statement"
+                widget: "object"
+                fields: *title_fields
+              - name: "mediaLinkText"
+                label: "\"View Our Media\" Link (under the statement, links to Past Events)"
+                widget: "object"
+                fields: *title_fields
+              - name: "merchTeaserTitle"
+                label: "\"Wear The Vibe\" Merch Teaser Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Who We Are Page"
+            name: "about"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "greatPeopleTitle"
+                label: "\"Great People\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "bringPeopleTitle"
+                label: "\"Bring People Together\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "redefineTitle"
+                label: "\"Redefine Connection\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "teamTitle"
+                label: "\"Meet The Team\" Section Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Events Page"
+            name: "events"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "nextEventTitle"
+                label: "\"Next Event\" Section Title"
+                widget: "object"
+                fields: &title_fields_with_weight
+                  - { label: "Text", name: "text", widget: "string", hint: "Type it exactly how you want it to appear — any casing. To force a fixed line break (so it stays put on both desktop and mobile), put a | where each line should end, e.g. \"Come for the|vibe. stay for the|memories\"." }
+                  - { label: "Font Size (e.g. 3rem, 48px — leave blank for default)", name: "fontSize", widget: "string", required: false }
+                  - { label: "Font Weight", name: "fontWeight", widget: "select", required: false, options: ["300", "400", "500", "600", "700", "800", "900"], hint: "Leave blank to use the default (900, bold)." }
+                  - { label: "Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
+              - name: "calendarTitle"
+                label: "\"Our Calendar\" Section Title"
+                widget: "object"
+                fields: *title_fields_with_weight
+              - name: "pastEventsTitle"
+                label: "\"Past Events\" Section Title"
+                widget: "object"
+                fields: *title_fields_with_weight
+          - label: "Merch Page"
+            name: "merch"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Connect Page"
+            name: "connect"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "createTitle"
+                label: "\"Let's Create Something\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "messageTitle"
+                label: "\"Send Us A Message\" Section Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Event Detail Pages"
+            name: "eventDetail"
+            widget: "object"
+            collapsed: true
+            hint: "Shown on every individual event's page."
+            fields:
+              - name: "momentsTitle"
+                label: "\"The Moments\" Section Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "videosTitle"
+                label: "\"The Videos\" Section Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "Newsletter Section"
+            name: "newsletter"
+            widget: "object"
+            collapsed: true
+            hint: "Shown at the bottom of multiple pages."
+            fields:
+              - name: "title"
+                label: "Title"
+                widget: "object"
+                fields: *title_fields
+          - label: "404 Page"
+            name: "notFound"
+            widget: "object"
+            collapsed: true
+            fields:
+              - name: "title"
+                label: "Title"
+                widget: "object"
+                fields: *title_fields
