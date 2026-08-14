@@ -5,6 +5,16 @@
       "fontSize": "",
       "color": ""
     },
+    "partnersTitle": {
+      "text": "OUR PARTNERS",
+      "fontSize": "",
+      "color": ""
+    },
+    "customSectionTitle": {
+      "text": "",
+      "fontSize": "",
+      "color": ""
+    },
     "nextEventTitle": {
       "text": "NEXT EVENT",
       "fontSize": "clamp(1.6rem,3vw,4rem)",

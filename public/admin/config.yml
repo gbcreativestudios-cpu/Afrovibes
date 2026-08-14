@@ -138,18 +138,35 @@ collections:
                 required: false
                 hint: "Add up to 3 images to rotate through."
                 field: { label: "Image", name: "url", widget: "image" }
-          - label: "Homepage Scrolling Ticker"
-            name: "heroTicker"
+          - label: "Hero Scroll-Down Arrow"
+            name: "heroScrollIndicator"
             widget: "object"
             collapsed: true
-            hint: "The scrolling marquee text right below the hero banner."
+            hint: "The small breathing down-arrow at the bottom of the hero banner, hinting there's more below."
             fields:
-              - { label: "Show this ticker?", name: "enabled", widget: "boolean", default: true }
-              - label: "Words"
-                name: "words"
+              - { label: "Show scroll arrow?", name: "enabled", widget: "boolean", default: true }
+          - label: "Our Partners (Homepage Logo Strip)"
+            name: "partners"
+            widget: "object"
+            collapsed: true
+            hint: "The scrolling strip of partner/sponsor logos below the hero. The section title is set under Page & Section Titles → Home Page → \"Our Partners\" Title."
+            fields:
+              - { label: "Show this section?", name: "enabled", widget: "boolean", default: true }
+              - { label: "Strip Background Color", name: "bgColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default dark background." }
+              - label: "Partner Logos"
+                name: "logos"
                 widget: "list"
-                hint: "Each word/phrase shown in the loop, in order."
-                field: { label: "Word", name: "text", widget: "string" }
+                required: false
+                hint: "Add one image per partner. They scroll in an infinite loop, in the order listed here."
+                field: { label: "Logo Image", name: "url", widget: "image" }
+          - label: "Optional Info Section (Homepage)"
+            name: "customSection"
+            widget: "object"
+            collapsed: true
+            hint: "A fully optional section right after the Partners strip. Leave off if you don't need it. The title is set under Page & Section Titles → Home Page → \"Optional Info Section\" Title."
+            fields:
+              - { label: "Show this section?", name: "enabled", widget: "boolean", default: false }
+              - { label: "Paragraph", name: "paragraph", widget: "text", required: false }
           - label: "\"Next Event\" Section Background"
             name: "nextEventBg"
             widget: "object"
@@ -466,6 +483,14 @@ collections:
                   - { label: "Text", name: "text", widget: "string", hint: "Type it exactly how you want it to appear — any casing." }
                   - { label: "Font Size (e.g. 3rem, 48px — leave blank for default)", name: "fontSize", widget: "string", required: false }
                   - { label: "Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
+              - name: "partnersTitle"
+                label: "\"Our Partners\" Title"
+                widget: "object"
+                fields: *title_fields
+              - name: "customSectionTitle"
+                label: "Optional Info Section Title (leave text blank to hide just the title)"
+                widget: "object"
+                fields: *title_fields
               - name: "nextEventTitle"
                 label: "\"Next Event\" Section Title"
                 widget: "object"

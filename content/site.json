@@ -22,25 +22,17 @@
       "enabled": false
     }
   },
-  "heroTicker": {
+  "heroScrollIndicator": {
+    "enabled": true
+  },
+  "partners": {
     "enabled": true,
-    "words": [
-      {
-        "text": "CONNECTION"
-      },
-      {
-        "text": "ENERGY"
-      },
-      {
-        "text": "MEMORIES"
-      },
-      {
-        "text": "ADVENTURE"
-      },
-      {
-        "text": "COMMUNITY"
-      }
-    ]
+    "bgColor": "",
+    "logos": []
+  },
+  "customSection": {
+    "enabled": false,
+    "paragraph": ""
   },
   "footerLogoSize": 60,
   "heroBackground": {

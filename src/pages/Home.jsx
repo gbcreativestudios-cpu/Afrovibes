@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { events, products, money, formatEventDate, getTitle, isPastEvent, site } from "../data/content";
 import { FeaturedEventCard, thumbnailMode } from "../components/EventCards";
@@ -6,6 +5,9 @@ import EventsTicker from "../components/EventsTicker";
 import HeroBackground from "../components/HeroBackground";
 import Title from "../components/Title";
 import ActionButton from "../components/ActionButton";
+import PartnersSection from "../components/PartnersSection";
+import CustomSection from "../components/CustomSection";
+import ScrollIndicator from "../components/ScrollIndicator";
 
 function PastHomeCard({ e, small = false }) {
   const mode = thumbnailMode("pastHome");
@@ -40,10 +42,8 @@ export default function Home() {
   const statementTitle = getTitle("home", "statementTitle", "The Best Memories Are Shared.");
   const mediaLinkText = getTitle("home", "mediaLinkText", "View Our Media");
   const merchTeaserTitle = getTitle("home", "merchTeaserTitle", "Wear The Vibe.");
-
-  const tickerWords = (site.heroTicker?.words || []).map((w) => w.text).filter(Boolean);
-  const tickerEnabled = (site.heroTicker?.enabled ?? true) && tickerWords.length > 0;
-  const tickerTrack = tickerEnabled ? [...tickerWords, ...tickerWords] : [];
+  const partnersTitle = getTitle("home", "partnersTitle", "Our Partners");
+  const customSectionTitle = getTitle("home", "customSectionTitle", "");
 
   const nextEventBg = site.nextEventBg?.color || undefined;
 
@@ -56,26 +56,28 @@ export default function Home() {
           images={site.heroBackground?.images}
         />
         <div className="hero-bg" />
-        <div className="container hero-content">
+        <div className="container hero-content hero-content-pushed">
           <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
           <div className="actions actions-stack-mobile">
             <ActionButton slot={site.buttonSlots?.heroPrimary} className="btn btn-primary btn-purple" />
             <ActionButton slot={site.buttonSlots?.heroSecondary} className="btn btn-outline" />
           </div>
         </div>
+        <ScrollIndicator enabled={site.heroScrollIndicator?.enabled ?? true} />
       </section>
 
-      {tickerEnabled && (
-        <div className="marquee">
-          <div className="marquee-track">
-            {tickerTrack.map((w, i) => (
-              <Fragment key={i}>
-                {w} <span>✦</span>
-              </Fragment>
-            ))}
-          </div>
-        </div>
-      )}
+      <PartnersSection
+        enabled={site.partners?.enabled ?? true}
+        bgColor={site.partners?.bgColor}
+        logos={site.partners?.logos}
+        title={partnersTitle}
+      />
+
+      <CustomSection
+        enabled={site.customSection?.enabled ?? false}
+        title={customSectionTitle}
+        paragraph={site.customSection?.paragraph}
+      />
 
       {next && (
         <section className="section" style={{ backgroundColor: nextEventBg || "var(--purple)" }}>

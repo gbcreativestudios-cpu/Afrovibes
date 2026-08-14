@@ -28,7 +28,9 @@ export const site = Object.values(siteModule)[0]?.default ?? {
   favicon: "",
   galleryTickerLimit: 10,
   heroBackground: { enabled: false, interval: 4, images: [] },
-  heroTicker: { enabled: true, words: [] },
+  heroScrollIndicator: { enabled: true },
+  partners: { enabled: true, bgColor: "", logos: [] },
+  customSection: { enabled: false, paragraph: "" },
   nextEventBg: { color: "" },
   aboutBanner: { enabled: false, image: "", text: "", size: "compact" },
   aboutFeatures: {
@@ -77,7 +79,9 @@ export const site = Object.values(siteModule)[0]?.default ?? {
 // never crashes reading `site.heroBackground.images` etc. on older data.
 const siteDefaults = {
   heroBackground: { enabled: false, interval: 4, images: [] },
-  heroTicker: { enabled: true, words: [] },
+  heroScrollIndicator: { enabled: true },
+  partners: { enabled: true, bgColor: "", logos: [] },
+  customSection: { enabled: false, paragraph: "" },
   nextEventBg: { color: "" },
   aboutBanner: { enabled: false, image: "", text: "", size: "compact" },
   aboutFeatures: {
