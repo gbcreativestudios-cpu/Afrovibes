@@ -7,7 +7,7 @@
   },
   "buttonSlots": {
     "navCta": {
-      "action": "tickets",
+      "action": "merch",
       "label": "",
       "enabled": true
     },
@@ -46,7 +46,7 @@
   },
   "partners": {
     "enabled": true,
-    "bgColor": "#2e2e2e",
+    "bgColor": "#212133",
     "logos": [
       "/uploads/chatgpt-image-aug-15-2026-01_03_57-am.png",
       "/uploads/full-stacked-logo-white-500x.webp",
