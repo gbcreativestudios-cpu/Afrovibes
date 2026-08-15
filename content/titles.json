@@ -120,19 +120,19 @@
   "eventDetail": {
     "momentsTitle": {
       "text": "THE HIGHLIGHTS",
-      "fontSize": "",
+      "fontSize": "clamp(1.2rem,3vw,4rem)",
       "color": ""
     },
     "videosTitle": {
       "text": "MOMENTS IN MOTION",
-      "fontSize": "",
+      "fontSize": "clamp(1.2rem,3vw,4rem)",
       "color": ""
     }
   },
   "newsletter": {
     "title": {
       "text": "STAY IN THE LOOP",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
+      "fontSize": "clamp(1.2rem,3vw,4rem)",
       "color": ""
     }
   },
