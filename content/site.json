@@ -41,7 +41,8 @@
   },
   "aboutFeatures": {
     "greatPeopleImage": "/uploads/afv-84.jpg",
-    "bringPeopleImage": "/uploads/afv-23.jpg"
+    "bringPeopleImage": "/uploads/afv-23.jpg",
+    "redefineImage": "/uploads/afv-95.jpg"
   },
   "partners": {
     "enabled": true,
