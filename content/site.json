@@ -45,8 +45,13 @@
   },
   "partners": {
     "enabled": true,
-    "bgColor": "",
-    "logos": []
+    "bgColor": "#2e2e2e",
+    "logos": [
+      "/uploads/chatgpt-image-aug-15-2026-01_03_57-am.png",
+      "/uploads/full-stacked-logo-white-500x.webp",
+      "/uploads/chatgpt-image-aug-15-2026-01_06_13-am.png",
+      "/uploads/artboard-9.webp"
+    ]
   },
   "socialLinks": [
     {
