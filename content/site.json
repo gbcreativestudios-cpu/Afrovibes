@@ -14,7 +14,7 @@
     "heroPrimary": {
       "action": "events",
       "label": "",
-      "enabled": false
+      "enabled": true
     },
     "heroSecondary": {
       "action": "merch",
