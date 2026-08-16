@@ -17,9 +17,22 @@ export default function Title({ as: Tag = "h2", text, color, category, className
   const merged = { ...style };
   if (finalColor) merged.color = finalColor;
 
+  // Editors can force fixed line breaks (independent of viewport width /
+  // natural text wrap) by typing "|" where each line should end, e.g.
+  // "Come for the|vibe. stay for the|memories". Titles without a "|"
+  // render exactly as before.
+  const content = text ?? children;
+  const lines = typeof content === "string" ? content.split("|") : null;
+
   return (
     <Tag className={className} style={merged}>
-      {text || children}
+      {lines && lines.length > 1
+        ? lines.map((line, i) => (
+            <span key={i} style={{ display: "block" }}>
+              {line.trim()}
+            </span>
+          ))
+        : content}
     </Tag>
   );
 }
