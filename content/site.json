@@ -7,19 +7,19 @@
   },
   "buttonSlots": {
     "navCta": {
-      "action": "tickets",
+      "action": "merch",
       "label": "",
       "enabled": true
     },
     "heroPrimary": {
       "action": "events",
       "label": "",
-      "enabled": false
+      "enabled": true
     },
     "heroSecondary": {
       "action": "merch",
       "label": "",
-      "enabled": false
+      "enabled": true
     }
   },
   "upcomingEventsViewAll": {
