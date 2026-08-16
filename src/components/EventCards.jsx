@@ -51,7 +51,7 @@ export function EventCard({ e }) {
           <div className="event-meta">
             {formatEventDate(e.date)} · {e.location}
           </div>
-          <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
+          <Title as="h3" text={e.title} color={e.titleColor} category="subheading" />
         </div>
       </Link>
       <div className="event-actions">
@@ -76,7 +76,7 @@ export function FeaturedEventCard({ e }) {
             <div className="event-meta">
               {formatEventDate(e.date)} · {e.location}
             </div>
-            <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
+            <Title as="h3" text={e.title} color={e.titleColor} category="subheading" />
           </div>
         </Link>
         <div className="event-actions">
@@ -95,13 +95,7 @@ export function PastEventRow({ e }) {
     <Link className="past-row" to={`/event/${e.id}`}>
       <div className="past-row-meta">
         <div className="past-row-date">{formatEventDate(e.date)}</div>
-        <Title
-          as="h3"
-          className="past-row-title"
-          text={e.title}
-          fontSize={e.titleFontSize}
-          color={e.titleColor}
-        />
+        <Title as="h3" className="past-row-title" text={e.title} color={e.titleColor} category="subheading" />
       </div>
       <EventImage e={e} mode={thumbnailMode("pastEvents")} className="past-row-thumb" />
     </Link>
@@ -117,13 +111,7 @@ export function PastEventGalleryCard({ e }) {
         <div className="event-meta" style={{ color: "var(--white)", marginBottom: 6 }}>
           {formatEventDate(e.date)} · {e.location}
         </div>
-        <Title
-          as="h3"
-          text={e.title}
-          fontSize={e.titleFontSize}
-          color={e.titleColor}
-          style={{ fontWeight: 900, fontSize: "1.4rem", margin: 0 }}
-        />
+        <Title as="h3" text={e.title} color={e.titleColor} category="subheading" style={{ margin: 0 }} />
       </div>
       {thumbs.length > 0 && (
         <div className="past-gallery-strip">

@@ -37,7 +37,7 @@ export default function EventDetail() {
             <div className="event-meta" style={{ color: "var(--white)", marginBottom: 12 }}>
               {formatEventDate(e.date)} · {e.location}
             </div>
-            <Title as="h1" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
+            <Title as="h1" text={e.title} color={e.titleColor} category="hero-page" />
           </div>
         </div>
         <div className="detail-content">
@@ -70,13 +70,7 @@ export default function EventDetail() {
 
             {past && (
               <>
-                <Title
-                  as="h2"
-                  text={momentsTitle.text}
-                  fontSize={momentsTitle.fontSize}
-                  color={momentsTitle.color}
-                  style={{ fontWeight: 900, fontSize: "2rem", marginTop: 55 }}
-                />
+                <Title as="h2" text={momentsTitle.text} color={momentsTitle.color} category="headline" style={{ marginTop: 55 }} />
                 <div className="gallery">
                   {(e.gallery || []).map((x, i) => (
                     <img key={i} src={x} alt={`${e.title} experience`} />
@@ -84,13 +78,7 @@ export default function EventDetail() {
                 </div>
                 {e.showVideos && e.galleryVideos && e.galleryVideos.length > 0 && (
                   <>
-                    <Title
-                      as="h2"
-                      text={videosTitle.text}
-                      fontSize={videosTitle.fontSize}
-                      color={videosTitle.color}
-                      style={{ fontWeight: 900, fontSize: "2rem", marginTop: 55 }}
-                    />
+                    <Title as="h2" text={videosTitle.text} color={videosTitle.color} category="headline" style={{ marginTop: 55 }} />
                     <div className="gallery video-gallery">
                       {e.galleryVideos.map((v, i) =>
                         /\.(mp4|webm|mov)(\?.*)?$/i.test(v) ? (

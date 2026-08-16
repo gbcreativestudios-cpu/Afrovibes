@@ -1,145 +1,117 @@
 {
   "home": {
-    "customSectionTitle": {
-      "text": "OUR MISSION",
-      "fontSize": "",
+    "heroTitle": {
+      "text": "COME FOR THE VIBE. STAY FOR THE MEMORIES",
       "color": ""
-    },
-    "merchTeaserTitle": {
-      "text": "TAKE THE VIBE WITH YOU",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": ""
-    },
-    "statementTitle": {
-      "text": "THE BEST MOMENTS ARE THE ONE WE SHARE",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": ""
-    },
-    "mediaLinkText": {
-      "text": "VIEW OUR MEDIA",
-      "fontSize": "",
-      "color": "#ff2d95"
     },
     "partnersTitle": {
       "text": "OUR PARTNERS",
-      "fontSize": "",
-      "color": "#e3e3e3"
+      "color": ""
     },
-    "pastVibesTitle": {
-      "text": "PAST EVENTS",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": "#7b2ff7"
+    "customSectionTitle": {
+      "text": "",
+      "color": ""
     },
     "nextEventTitle": {
       "text": "NEXT EVENT",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
       "color": "#7b2ff7"
     },
     "upcomingEventTitle": {
       "text": "UPCOMING EVENTS",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
       "color": "#7b2ff7"
     },
-    "heroTitle": {
-      "text": "COME FOR THE | VIBE. STAY FOR THE |  MEMORIES",
-      "fontSize": "",
+    "pastVibesTitle": {
+      "text": "PAST EVENTS",
+      "color": "#7b2ff7"
+    },
+    "statementTitle": {
+      "text": "THE BEST MOMENTS ARE THE ONE WE SHARE",
+      "color": ""
+    },
+    "mediaLinkText": {
+      "text": "VIEW OUR MEDIA",
+      "color": "#ff2d95"
+    },
+    "merchTeaserTitle": {
+      "text": "TAKE THE VIBE WITH YOU",
       "color": ""
     }
   },
   "about": {
     "heroTitle": {
-      "text": "WHY AFROVIBES?",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
+      "text": "WHY AFROVIBES",
       "color": ""
     },
     "greatPeopleTitle": {
       "text": "EXPERIENCES THAT BRING PEOPLE TOGETHER",
-      "fontSize": "clamp(1.6rem,3vw,2.4rem)",
       "color": "#7B2FF7"
     },
     "bringPeopleTitle": {
       "text": "BRING PEOPLE TOGETHER",
-      "fontSize": "clamp(1.6rem,3vw,2.4rem)",
       "color": "#7B2FF7"
     },
     "redefineTitle": {
       "text": " A DIFFERENT WAY TO CONNECT",
-      "fontSize": "clamp(1.6rem,3vw,2.4rem)",
       "color": "#7B2FF7"
     },
     "teamTitle": {
       "text": "MEET THE TEAM",
-      "fontSize": "clamp(1.6rem,3vw,2.4rem)",
       "color": "#7B2FF7"
     }
   },
   "events": {
     "nextEventTitle": {
       "text": "NEXT EVENT",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": "",
-      "fontWeight": ""
+      "color": ""
     },
     "calendarTitle": {
       "text": "EVENT LINE UP",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": "",
-      "fontWeight": ""
+      "color": ""
     },
     "pastEventsTitle": {
       "text": "THE MOMENT WE HAVE SHARED",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
-      "color": "",
-      "fontWeight": ""
+      "color": ""
     }
   },
   "merch": {
     "heroTitle": {
       "text": "SHOP THE VIBE",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
       "color": ""
     }
   },
   "connect": {
     "heroTitle": {
       "text": "CONNECT WITH US",
-      "fontSize": "clamp(1.6rem,3vw,4rem)",
       "color": ""
     },
     "createTitle": {
       "text": "LET'S CREATE SOMETHING",
-      "fontSize": "clamp(1.6rem,3vw,2.4rem)",
       "color": "#7B2FF7"
     },
     "messageTitle": {
       "text": "SEND US A MESSAGE",
-      "fontSize": "clamp(1.6rem,3vw,2.4rem)",
       "color": "#7B2FF7"
     }
   },
   "eventDetail": {
     "momentsTitle": {
       "text": "THE HIGHLIGHTS",
-      "fontSize": "clamp(1.2rem,3vw,4rem)",
       "color": ""
     },
     "videosTitle": {
       "text": "MOMENTS IN MOTION",
-      "fontSize": "clamp(1.2rem,3vw,4rem)",
       "color": ""
     }
   },
   "newsletter": {
     "title": {
       "text": "STAY IN THE LOOP",
-      "fontSize": "clamp(1.2rem,3vw,4rem)",
       "color": ""
     }
   },
   "notFound": {
     "title": {
       "text": "Page Not Found",
-      "fontSize": "",
       "color": ""
     }
   }

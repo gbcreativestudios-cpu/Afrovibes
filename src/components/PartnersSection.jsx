@@ -20,7 +20,7 @@ export default function PartnersSection({ enabled, bgColor, logos, title }) {
     <section className="section partners-section" style={bgColor ? { backgroundColor: bgColor } : undefined}>
       <div className="container">
         <div className="section-head partners-head">
-          <Title as="h2" text={title.text} fontSize={title.fontSize} color={title.color} />
+          <Title as="h2" text={title.text} color={title.color} category="headline" />
         </div>
       </div>
       <div className="partners-strip">

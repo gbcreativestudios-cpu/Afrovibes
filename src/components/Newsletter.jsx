@@ -15,7 +15,7 @@ export default function Newsletter() {
   return (
     <section className="newsletter">
       <div className="container">
-        <Title as="h2" text={title.text} fontSize={title.fontSize} color={title.color} />
+        <Title as="h2" text={title.text} color={title.color} category="headline" />
         <p>{paragraph}</p>
         <form className="newsletter-form" onSubmit={onSubmit}>
           <input type="email" placeholder="Enter your email" required />

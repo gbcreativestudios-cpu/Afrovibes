@@ -11,7 +11,7 @@ export default function CustomSection({ enabled, title, paragraph }) {
     <section className="section custom-section">
       <div className="container custom-section-inner">
         {title?.text && (
-          <Title as="h2" text={title.text} fontSize={title.fontSize} color={title.color} />
+          <Title as="h2" text={title.text} color={title.color} category="headline" />
         )}
         {paragraph && <p>{paragraph}</p>}
       </div>

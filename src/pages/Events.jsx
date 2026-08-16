@@ -22,7 +22,7 @@ export default function Events() {
           <div className="container">
             <div className="section-head">
               <div>
-                <Title as="h2" text={nextEventTitle.text} fontSize={nextEventTitle.fontSize} fontWeight={nextEventTitle.fontWeight} color={nextEventTitle.color} />
+                <Title as="h2" text={nextEventTitle.text} color={nextEventTitle.color} category="headline" />
               </div>
             </div>
             <div className="grid events-grid single">
@@ -37,7 +37,7 @@ export default function Events() {
           <div className="container">
             <div className="section-head">
               <div>
-                <Title as="h2" text={calendarTitle.text} fontSize={calendarTitle.fontSize} fontWeight={calendarTitle.fontWeight} color={calendarTitle.color} />
+                <Title as="h2" text={calendarTitle.text} color={calendarTitle.color} category="headline" />
               </div>
             </div>
             <div className="grid events-grid">
@@ -53,7 +53,7 @@ export default function Events() {
         <div className="container">
           <div className="section-head">
             <div>
-              <Title as="h2" text={pastEventsTitle.text} fontSize={pastEventsTitle.fontSize} fontWeight={pastEventsTitle.fontWeight} color={pastEventsTitle.color} />
+              <Title as="h2" text={pastEventsTitle.text} color={pastEventsTitle.color} category="headline" />
             </div>
           </div>
           {past.length > 0 ? (

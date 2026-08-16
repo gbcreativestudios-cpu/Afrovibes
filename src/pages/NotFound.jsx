@@ -8,7 +8,7 @@ export default function NotFound() {
   return (
     <main className="empty">
       <div className="container">
-        <Title as="h1" text={title.text} fontSize={title.fontSize} color={title.color} />
+        <Title as="h1" text={title.text} color={title.color} category="hero-page" />
         <Link className="btn btn-primary" to="/">
           Back Home
         </Link>

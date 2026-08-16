@@ -21,7 +21,7 @@ export default function Connect() {
     <main className="connect-page">
       <section className="page-hero">
         <div className="container">
-          <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
+          <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-page" />
           <p className="connect-copy">Have a brand, idea or collaboration in mind? Let's create something people will want to show up for.</p>
           <a className="btn btn-primary btn-mobile-fill" style={{ marginTop: 20 }} href="#message-section">
             Let's Talk
@@ -32,13 +32,7 @@ export default function Connect() {
       <section className="section">
         <div className="container about-block connect-services">
           <div>
-            <Title
-              as="h2"
-              text={createTitle.text}
-              fontSize={createTitle.fontSize}
-              color={createTitle.color}
-              style={{ letterSpacing: "-.02em" }}
-            />
+            <Title as="h2" text={createTitle.text} color={createTitle.color} category="headline" />
           </div>
           <div>
             <div className="values" style={{ marginTop: 0 }}>
@@ -66,13 +60,7 @@ export default function Connect() {
       <section id="message-section" className="section statement">
         <div className="container about-block">
           <div>
-            <Title
-              as="h2"
-              text={messageTitle.text}
-              fontSize={messageTitle.fontSize}
-              color={messageTitle.color}
-              style={{ letterSpacing: "-.02em" }}
-            />
+            <Title as="h2" text={messageTitle.text} color={messageTitle.color} category="headline" />
             <p className="connect-copy">
               Tell us what you're thinking. Whether it's a partnership, collaboration, sponsorship
               or something completely new, we'd love to hear from you.

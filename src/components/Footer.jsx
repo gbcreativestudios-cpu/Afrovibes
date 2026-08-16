@@ -37,7 +37,6 @@ export default function Footer() {
 
           <div className="footer-bottom-row">
             <div className="footer-col">
-              <h4>Explore</h4>
               <div className="footer-links">
                 <Link to="/events">Events</Link>
                 <Link to="/merch">Merch</Link>
@@ -47,7 +46,6 @@ export default function Footer() {
             </div>
 
             <div className="footer-col footer-social">
-              <h4>Social</h4>
               {socialLinks.length > 0 && (
                 <div className="social-icons">
                   {socialLinks.map((l, i) => (

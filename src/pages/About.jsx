@@ -31,7 +31,7 @@ export default function About() {
 
       <section className="page-hero">
         <div className="container">
-          <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
+          <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-page" />
           <p className="about-copy">
             Afrovibes is a social experience brand dedicated to bringing people together through
             unforgettable events that inspire connection, excitement, and lasting memories.
@@ -46,7 +46,7 @@ export default function About() {
             style={features.greatPeopleImage ? { backgroundImage: `url('${features.greatPeopleImage}')` } : undefined}
           />
           <div className="about-feature-text">
-            <Title as="h2" text={greatPeopleTitle.text} fontSize={greatPeopleTitle.fontSize} color={greatPeopleTitle.color} />
+            <Title as="h2" text={greatPeopleTitle.text} color={greatPeopleTitle.color} category="headline" />
             <p className="about-copy">
               We believe the best moments happen when great people share great experiences.
               That's why we create events that are engaging, inclusive, and designed to leave
@@ -81,7 +81,7 @@ export default function About() {
             style={features.bringPeopleImage ? { backgroundImage: `url('${features.bringPeopleImage}')` } : undefined}
           />
           <div className="about-feature-text">
-            <Title as="h2" text={bringPeopleTitle.text} fontSize={bringPeopleTitle.fontSize} color={bringPeopleTitle.color} />
+            <Title as="h2" text={bringPeopleTitle.text} color={bringPeopleTitle.color} category="headline" />
             <p className="about-copy">
               To create exceptional social experiences that bring people together through fun,
               interactive, and thoughtfully curated events, fostering genuine connections,
@@ -98,7 +98,7 @@ export default function About() {
             style={features.redefineImage ? { backgroundImage: `url('${features.redefineImage}')` } : undefined}
           />
           <div className="about-feature-text">
-            <Title as="h2" text={redefineTitle.text} fontSize={redefineTitle.fontSize} color={redefineTitle.color} />
+            <Title as="h2" text={redefineTitle.text} color={redefineTitle.color} category="headline" />
             <p className="about-copy">
               To become the leading lifestyle and experience brand known for redefining how people
               connect, celebrate, and create memories through innovative events that inspire
@@ -112,7 +112,7 @@ export default function About() {
         <div className="container">
           <div className="section-head">
             <div>
-              <Title as="h2" text={teamTitle.text} fontSize={teamTitle.fontSize} color={teamTitle.color} />
+              <Title as="h2" text={teamTitle.text} color={teamTitle.color} category="headline" />
             </div>
           </div>
           <div className="grid team-grid">

@@ -23,7 +23,7 @@ function PastHomeCard({ e, small = false }) {
         <div className="event-meta" style={{ color: "var(--white)", marginBottom: 8 }}>
           {formatEventDate(e.date)}
         </div>
-        <Title as="h3" text={e.title} fontSize={e.titleFontSize} color={e.titleColor} />
+        <Title as="h3" text={e.title} color={e.titleColor} category="subheading" />
       </div>
     </Link>
   );
@@ -57,7 +57,7 @@ export default function Home() {
         />
         <div className="hero-bg" />
         <div className="container hero-content hero-content-pushed">
-          <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
+          <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-home" />
           <div className="actions actions-stack-mobile">
             <ActionButton slot={site.buttonSlots?.heroPrimary} className="btn btn-primary btn-purple" />
             <ActionButton slot={site.buttonSlots?.heroSecondary} className="btn btn-outline" />
@@ -84,7 +84,7 @@ export default function Home() {
           <div className="container">
             <div className="section-head">
               <div>
-                <Title as="h2" text={nextEventTitle.text} fontSize={nextEventTitle.fontSize} color={nextEventTitle.color} />
+                <Title as="h2" text={nextEventTitle.text} color={nextEventTitle.color} category="headline" />
               </div>
             </div>
             <div className="grid events-grid single">
@@ -99,7 +99,7 @@ export default function Home() {
           <div className="container">
             <div className="section-head">
               <div>
-                <Title as="h2" text={upcomingEventTitle.text} fontSize={upcomingEventTitle.fontSize} color={upcomingEventTitle.color} />
+                <Title as="h2" text={upcomingEventTitle.text} color={upcomingEventTitle.color} category="headline" />
               </div>
               {site.upcomingEventsViewAll?.enabled && (
                 <Link className="btn btn-outline" to="/events">
@@ -117,7 +117,7 @@ export default function Home() {
           <div className="container">
             <div className="section-head">
               <div>
-                <Title as="h2" text={pastVibesTitle.text} fontSize={pastVibesTitle.fontSize} color={pastVibesTitle.color} />
+                <Title as="h2" text={pastVibesTitle.text} color={pastVibesTitle.color} category="headline" />
               </div>
               <Link className="btn btn-outline" to="/events">
                 View All Events
@@ -142,7 +142,7 @@ export default function Home() {
 
       <section className="section statement">
         <div className="container statement-inner">
-          <Title as="h2" text={statementTitle.text} fontSize={statementTitle.fontSize} color={statementTitle.color} />
+          <Title as="h2" text={statementTitle.text} color={statementTitle.color} category="headline" />
           <p>
             We create experiences that give people a reason to step away from routine, connect
             with others, try something new, and leave with stories worth telling.
@@ -161,7 +161,7 @@ export default function Home() {
         <div className="container">
           <div className="section-head">
             <div>
-              <Title as="h2" text={merchTeaserTitle.text} fontSize={merchTeaserTitle.fontSize} color={merchTeaserTitle.color} />
+              <Title as="h2" text={merchTeaserTitle.text} color={merchTeaserTitle.color} category="headline" />
             </div>
             <Link className="btn btn-primary merch-shop-btn-desktop" to="/merch">
               Shop Merch

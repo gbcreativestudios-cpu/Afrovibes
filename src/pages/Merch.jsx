@@ -31,7 +31,7 @@ export default function Merch() {
     <main className="merch-page">
       <section className="page-hero">
         <div className="container">
-          <Title as="h1" text={heroTitle.text} fontSize={heroTitle.fontSize} color={heroTitle.color} />
+          <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-page" />
           <p className="merch-copy">Afrovibes merch made for the moments before, during and after the experience.</p>
         </div>
       </section>
