@@ -17,7 +17,16 @@
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
+          if (user) {
+            // Invite/recovery/confirmation links authenticate you as part
+            // of processing the link itself, before this code even runs —
+            // so "user" is already set here, and we'd otherwise be stuck
+            // on whatever page the link landed on (usually the homepage)
+            // with no way into the CMS.
+            if (!window.location.pathname.startsWith("/admin")) {
+              document.location.href = "/admin/";
+            }
+          } else {
             window.netlifyIdentity.on("login", () => {
               document.location.href = "/admin/";
             });
