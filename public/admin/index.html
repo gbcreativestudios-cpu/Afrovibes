@@ -1,12 +1,45 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Content Manager</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0D0D0D" />
+    <title>Afrovibes — Experiences Worth Showing Up For</title>
+    <meta
+      name="description"
+      content="Afrovibes creates unforgettable social experiences that bring people together."
+    />
   </head>
-  <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <body class="bg-black text-offwhite font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      if (window.netlifyIdentity) {
+        // Netlify Identity's invite/recovery/confirmation email links land
+        // on the site with a hash like #invite_token=... or
+        // #recovery_token=..., and the widget authenticates you as part of
+        // processing that token — before this code even runs. Only THAT
+        // case should bounce straight to /admin. Without this check, any
+        // ordinary visit to the site (including deploy preview links)
+        // would also redirect to /admin just because a login session
+        // happened to persist from before, which hijacks normal browsing.
+        var authTokenInUrl = /(confirmation_token|invite_token|recovery_token|email_change_token)=/.test(
+          window.location.hash
+        );
+
+        window.netlifyIdentity.on("init", (user) => {
+          if (user && authTokenInUrl) {
+            if (!window.location.pathname.startsWith("/admin")) {
+              document.location.href = "/admin/";
+            }
+          } else if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>
