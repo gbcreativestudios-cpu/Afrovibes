@@ -1,12 +1,18 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo } from "react";
+import { motion } from "framer-motion";
 import { site } from "../data/content";
 
-// Constant on-screen speed in px/second. A fixed animation *duration*
-// (the old approach) covers a much shorter distance on mobile, since the
-// cards are narrower there — same time, less travel, so it reads as
-// almost frozen. Deriving the duration from the track's real scrollWidth
-// keeps the visual speed constant across every screen size.
-const PX_PER_SECOND = 190;
+// Exact same technique as the GB Studios site's Process-section ticker:
+// framer-motion animates a plain 0% -> -50% transform, linear, on
+// infinite repeat. No JS width measurement or resize listener needed —
+// percentage transforms already adapt to the track's real width.
+//
+// If the gallery has few images, two groups aren't wide enough to fill a
+// wide viewport on their own, so each of the two groups repeats the
+// image list enough times to guarantee the track always overflows the
+// viewport.
+const MIN_ITEMS_PER_HALF = 16;
+const DURATION = 40; // seconds per loop, matches the previous CSS timing
 
 // Deterministic shuffle (no external deps, stable across re-renders for the
 // same input) so the order looks "random" without reshuffling on every
@@ -35,54 +41,18 @@ export default function GalleryTicker({ events }) {
     return shuffle(all).slice(0, limit);
   }, [events, limit]);
 
-  const trackRef = useRef(null);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-
-    // Same fix as EventsTicker: only recompute when the viewport's WIDTH
-    // actually changes, not just its height (mobile browsers fire
-    // "resize" when the address bar shows/hides during scroll). Reacting
-    // to a height-only change reassigns animation-duration on an
-    // already-running animation, which browsers visibly jump/restart.
-    let lastWidth = window.innerWidth;
-    let debounceId = null;
-
-    const setSpeed = () => {
-      // scrollWidth spans both duplicated copies; translateX(-50%) only
-      // needs to travel one copy's worth of distance per loop.
-      const distance = el.scrollWidth / 2;
-      if (distance > 0) {
-        el.style.animationDuration = `${distance / PX_PER_SECOND}s`;
-      }
-    };
-
-    const handleResize = () => {
-      if (window.innerWidth === lastWidth) return;
-      lastWidth = window.innerWidth;
-      clearTimeout(debounceId);
-      debounceId = setTimeout(setSpeed, 150);
-    };
-
-    setSpeed();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(debounceId);
-    };
-  }, [images]);
-
   if (images.length === 0) return null;
+
+  const repeats = Math.max(1, Math.ceil(MIN_ITEMS_PER_HALF / images.length));
+  const repeatedImages = Array.from({ length: repeats }, () => images).flat();
 
   // Two identical groups, each carrying its own trailing gap (via CSS
   // padding-right on .gallery-ticker-group), so translateX(-50%) always
-  // travels exactly one group's width and lands on an exact copy —
-  // no leftover half-gap at the wrap point, which is what produced the
-  // blank flash before the next copy caught up.
+  // travels exactly one group's width and lands on an exact copy — no
+  // leftover half-gap at the wrap point.
   const renderGroup = (suffix) => (
     <div className="gallery-ticker-group" aria-hidden={suffix ? "true" : undefined}>
-      {images.map((src, i) => (
+      {repeatedImages.map((src, i) => (
         <div className="gallery-ticker-item" key={`${suffix || "a"}-${i}`} style={{ backgroundImage: `url('${src}')` }} />
       ))}
     </div>
@@ -91,10 +61,14 @@ export default function GalleryTicker({ events }) {
   return (
     <div className="gallery-ticker-bleed">
       <div className="gallery-ticker" aria-label="Photos from past events">
-        <div className="gallery-ticker-track" ref={trackRef}>
+        <motion.div
+          className="gallery-ticker-track"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ ease: "linear", duration: DURATION, repeat: Infinity }}
+        >
           {renderGroup()}
           {renderGroup("b")}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
