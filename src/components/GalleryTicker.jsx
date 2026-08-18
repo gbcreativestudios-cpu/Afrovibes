@@ -1,24 +1,15 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { site } from "../data/content";
-import useIsMobile from "../hooks/useIsMobile";
+import useTickerSpeed from "../hooks/useTickerSpeed";
 
 // Exact same technique as the GB Studios site's Process-section ticker:
 // framer-motion animates a plain 0% -> -50% transform, linear, on
-// infinite repeat. No JS width measurement or resize listener needed —
-// percentage transforms already adapt to the track's real width.
-//
-// If the gallery has few images, two groups aren't wide enough to fill a
-// wide viewport on their own, so each of the two groups repeats the
-// image list enough times to guarantee the track always overflows the
-// viewport.
-const MIN_ITEMS_PER_HALF = 16;
-// Image items are narrower on mobile (clamp floor vs desktop's wider
-// ceiling), so the same fixed duration covers noticeably less distance —
-// it reads as sluggish and, since the content repeats, almost smeared/
-// overlapping. Mobile gets a shorter duration so it actually moves.
-const DURATION_DESKTOP = 40;
-const DURATION_MOBILE = 20;
+// infinite repeat. The duration comes from useTickerSpeed, which
+// measures this ticker's real rendered width once and converts it to a
+// duration matching the same px/second speed as every other ticker on
+// the site — that's what keeps this feeling identical to the partner
+// logos strip instead of reading as sluggish on some screens.
 
 // Deterministic shuffle (no external deps, stable across re-renders for the
 // same input) so the order looks "random" without reshuffling on every
@@ -39,8 +30,6 @@ function shuffle(arr) {
 
 export default function GalleryTicker({ events }) {
   const limit = Number(site.galleryTickerLimit) > 0 ? Number(site.galleryTickerLimit) : 10;
-  const isMobile = useIsMobile();
-  const duration = isMobile ? DURATION_MOBILE : DURATION_DESKTOP;
 
   const images = useMemo(() => {
     // Only ever pull from each event's image gallery — video links live in
@@ -49,9 +38,10 @@ export default function GalleryTicker({ events }) {
     return shuffle(all).slice(0, limit);
   }, [events, limit]);
 
+  const { trackRef, repeats, duration } = useTickerSpeed(images.length);
+
   if (images.length === 0) return null;
 
-  const repeats = Math.max(1, Math.ceil(MIN_ITEMS_PER_HALF / images.length));
   const repeatedImages = Array.from({ length: repeats }, () => images).flat();
 
   // Two identical groups, each carrying its own trailing gap (via CSS
@@ -70,6 +60,7 @@ export default function GalleryTicker({ events }) {
     <div className="gallery-ticker-bleed">
       <div className="gallery-ticker" aria-label="Photos from past events">
         <motion.div
+          ref={trackRef}
           className="gallery-ticker-track"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ ease: "linear", duration, repeat: Infinity }}

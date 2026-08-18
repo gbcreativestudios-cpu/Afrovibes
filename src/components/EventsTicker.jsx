@@ -1,31 +1,17 @@
-import { useRef } from "react";
 import { motion } from "framer-motion";
 import { EventCard } from "./EventCards";
-import useIsMobile from "../hooks/useIsMobile";
+import useTickerSpeed from "../hooks/useTickerSpeed";
 
 // Exact same technique as the GB Studios site's BrandTicker/Process
 // tickers: framer-motion animates a plain 0% -> -50% transform, linear,
-// on infinite repeat. Percentage transforms are relative to the track's
-// own width, so this stays seamless at any screen size with no JS width
-// measurement or resize listener.
-//
-// This ticker can be fed as few as 1-3 events (Home.jsx passes
-// upcoming.slice(1, 4)). With only two duplicated groups that's not
-// enough content to fill a wide desktop viewport, so each of the two
-// groups repeats the event list enough times on its own to guarantee the
-// track always overflows the viewport, regardless of how many events
-// exist.
-const MIN_ITEMS_PER_HALF = 12;
-// A fixed duration reads much faster on a narrow phone screen than on
-// desktop (the same motion covers a bigger fraction of the screen each
-// second), so mobile gets a slower duration to feel like the same speed.
-const DURATION_DESKTOP = 42;
-const DURATION_MOBILE = 65;
-
+// on infinite repeat. The duration itself comes from useTickerSpeed,
+// which measures this ticker's real rendered width once and converts it
+// to a duration that matches the same px/second speed as every other
+// ticker on the site (including the partner logos strip) — instead of
+// guessing a fixed number of seconds that reads differently depending on
+// how wide the cards actually render on a given device.
 export default function EventsTicker({ events }) {
-  const trackRef = useRef(null);
-  const isMobile = useIsMobile();
-  const duration = isMobile ? DURATION_MOBILE : DURATION_DESKTOP;
+  const { trackRef, repeats, duration } = useTickerSpeed(events.length);
 
   // Tapping the ticker toggles pause/play by pausing the underlying Web
   // Animation framer-motion creates for this transform — that's a native
@@ -44,7 +30,6 @@ export default function EventsTicker({ events }) {
 
   if (!events.length) return null;
 
-  const repeats = Math.max(1, Math.ceil(MIN_ITEMS_PER_HALF / events.length));
   const repeatedEvents = Array.from({ length: repeats }, () => events).flat();
 
   const renderGroup = (suffix = "") => (
