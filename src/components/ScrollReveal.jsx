@@ -27,7 +27,14 @@ export default function ScrollReveal() {
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const nodes = Array.from(document.querySelectorAll(SELECTOR));
+    // Cards duplicated inside a ticker (EventsTicker) must never get the
+    // reveal treatment — they scroll continuously, so the observer would
+    // catch each one only once it's already mid-motion, making the card
+    // "pop in" out of nowhere while the ticker is running instead of
+    // just always being visible and moving smoothly.
+    const nodes = Array.from(document.querySelectorAll(SELECTOR)).filter(
+      (n) => !n.closest(".ticker-item")
+    );
     if (nodes.length === 0) return;
 
     if (reduced) {

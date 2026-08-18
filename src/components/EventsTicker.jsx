@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { EventCard } from "./EventCards";
+import useIsMobile from "../hooks/useIsMobile";
 
 // Exact same technique as the GB Studios site's BrandTicker/Process
 // tickers: framer-motion animates a plain 0% -> -50% transform, linear,
@@ -15,10 +16,16 @@ import { EventCard } from "./EventCards";
 // track always overflows the viewport, regardless of how many events
 // exist.
 const MIN_ITEMS_PER_HALF = 12;
-const DURATION = 42; // seconds per loop, matches the previous CSS timing
+// A fixed duration reads much faster on a narrow phone screen than on
+// desktop (the same motion covers a bigger fraction of the screen each
+// second), so mobile gets a slower duration to feel like the same speed.
+const DURATION_DESKTOP = 42;
+const DURATION_MOBILE = 65;
 
 export default function EventsTicker({ events }) {
   const trackRef = useRef(null);
+  const isMobile = useIsMobile();
+  const duration = isMobile ? DURATION_MOBILE : DURATION_DESKTOP;
 
   // Tapping the ticker toggles pause/play by pausing the underlying Web
   // Animation framer-motion creates for this transform — that's a native
@@ -57,7 +64,7 @@ export default function EventsTicker({ events }) {
           ref={trackRef}
           className="ticker-track"
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ ease: "linear", duration: DURATION, repeat: Infinity }}
+          transition={{ ease: "linear", duration, repeat: Infinity }}
         >
           {renderGroup()}
           {renderGroup("b")}

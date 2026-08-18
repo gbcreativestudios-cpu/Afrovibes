@@ -138,6 +138,9 @@ p{font-weight:var(--t-body-weight,600);font-size:var(--t-body-size);line-height:
   gap:14px;
   padding-right:14px;
 }
+@media(max-width:640px){
+  .gallery-ticker-group{gap:16px;padding-right:16px}
+}
 
 /* CMS paragraph color controls. Empty CMS values remove these variables and
    fall back to the site's existing per-section colors. */

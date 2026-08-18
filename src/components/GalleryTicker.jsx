@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { site } from "../data/content";
+import useIsMobile from "../hooks/useIsMobile";
 
 // Exact same technique as the GB Studios site's Process-section ticker:
 // framer-motion animates a plain 0% -> -50% transform, linear, on
@@ -12,7 +13,12 @@ import { site } from "../data/content";
 // image list enough times to guarantee the track always overflows the
 // viewport.
 const MIN_ITEMS_PER_HALF = 16;
-const DURATION = 40; // seconds per loop, matches the previous CSS timing
+// Image items are narrower on mobile (clamp floor vs desktop's wider
+// ceiling), so the same fixed duration covers noticeably less distance —
+// it reads as sluggish and, since the content repeats, almost smeared/
+// overlapping. Mobile gets a shorter duration so it actually moves.
+const DURATION_DESKTOP = 40;
+const DURATION_MOBILE = 20;
 
 // Deterministic shuffle (no external deps, stable across re-renders for the
 // same input) so the order looks "random" without reshuffling on every
@@ -33,6 +39,8 @@ function shuffle(arr) {
 
 export default function GalleryTicker({ events }) {
   const limit = Number(site.galleryTickerLimit) > 0 ? Number(site.galleryTickerLimit) : 10;
+  const isMobile = useIsMobile();
+  const duration = isMobile ? DURATION_MOBILE : DURATION_DESKTOP;
 
   const images = useMemo(() => {
     // Only ever pull from each event's image gallery — video links live in
@@ -64,7 +72,7 @@ export default function GalleryTicker({ events }) {
         <motion.div
           className="gallery-ticker-track"
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ ease: "linear", duration: DURATION, repeat: Infinity }}
+          transition={{ ease: "linear", duration, repeat: Infinity }}
         >
           {renderGroup()}
           {renderGroup("b")}
