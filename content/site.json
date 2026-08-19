@@ -88,30 +88,30 @@
   "typographyScale": {
     "hero-page": {
       "weight": "900",
-      "size": 96,
+      "size": 65,
       "lineHeight": 0.9,
       "letterSpacing": -0.06,
       "color": ""
     },
     "body": {
-      "weight": "600",
-      "size": 17.6,
+      "weight": "500",
+      "size": 25.6,
       "lineHeight": 1.5,
       "letterSpacing": 0,
       "color": ""
     },
     "subheading": {
-      "weight": "900",
-      "size": 24,
+      "weight": "600",
+      "size": 40,
       "lineHeight": 1.1,
       "letterSpacing": -0.03,
       "color": ""
     },
     "nav": {
-      "weight": "500",
-      "size": 12.5,
+      "weight": "700",
+      "size": 20.5,
       "lineHeight": 1.2,
-      "letterSpacing": 0.08,
+      "letterSpacing": -2.92,
       "color": ""
     },
     "caption": {
@@ -123,9 +123,9 @@
     },
     "metadata": {
       "weight": "700",
-      "size": 12,
+      "size": 15,
       "lineHeight": 1.3,
-      "letterSpacing": 0.09,
+      "letterSpacing": -4.91,
       "color": ""
     },
     "formlabel": {
@@ -136,29 +136,29 @@
       "color": ""
     },
     "cta": {
-      "weight": "600",
-      "size": 11.8,
+      "weight": "700",
+      "size": 15.8,
       "lineHeight": 1,
-      "letterSpacing": 0.08,
+      "letterSpacing": -2.92,
       "color": ""
     },
     "hero-home": {
       "weight": "900",
-      "size": 90,
+      "size": 80,
       "lineHeight": 0.9,
       "letterSpacing": -0.06,
       "color": ""
     },
     "headline": {
-      "weight": "900",
-      "size": 72,
+      "weight": "700",
+      "size": 55,
       "lineHeight": 0.9,
       "letterSpacing": -0.055,
       "color": ""
     },
     "footer": {
-      "weight": "300",
-      "size": 12,
+      "weight": "600",
+      "size": 20,
       "lineHeight": 1.4,
       "letterSpacing": 0,
       "color": ""
