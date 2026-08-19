@@ -22,10 +22,11 @@
       "enabled": true
     }
   },
+  "galleryTickerEnabled": true,
   "upcomingEventsViewAll": {
     "enabled": false
   },
-  "footerLogoSize": 60,
+  "footerLogoSize": 90,
   "heroBackground": {
     "enabled": true,
     "interval": 4,
@@ -169,8 +170,9 @@
       "color": ""
     }
   },
-  "whatsappNumber": "+1 (587) 889-0297",
+  "whatsappNumber": "+15878890297",
   "contactEmail": "hello@afrovibes.ca",
   "instagramUrl": "https://instagram.com/",
-  "galleryTickerLimit": 10
+  "galleryTickerLimit": 10,
+  "galleryTickerHideOnMobile": true
 }
