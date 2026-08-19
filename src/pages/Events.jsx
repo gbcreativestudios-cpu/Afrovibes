@@ -66,7 +66,11 @@ export default function Events() {
             <p className="muted">No past events yet — check back soon.</p>
           )}
         </div>
-        <GalleryTicker events={past} />
+        {site.galleryTickerEnabled !== false && (
+          <div className={site.galleryTickerHideOnMobile ? "gallery-ticker-desktop-only" : undefined}>
+            <GalleryTicker events={past} />
+          </div>
+        )}
       </section>
     </main>
   );

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { events, products, money, formatEventDate, getTitle, isPastEvent, site } from "../data/content";
 import { FeaturedEventCard, thumbnailMode } from "../components/EventCards";
-import EventsTicker from "../components/EventsTicker";
+import EventsSlider from "../components/EventsSlider";
 import HeroBackground from "../components/HeroBackground";
 import Title from "../components/Title";
 import ActionButton from "../components/ActionButton";
@@ -70,6 +70,8 @@ export default function Home() {
         enabled={site.partners?.enabled ?? true}
         bgColor={site.partners?.bgColor}
         logos={site.partners?.logos}
+        logoHeight={site.partners?.logoHeight}
+        logoGap={site.partners?.logoGap}
         title={partnersTitle}
       />
 
@@ -107,7 +109,7 @@ export default function Home() {
                 </Link>
               )}
             </div>
-            <EventsTicker events={rest} />
+            <EventsSlider events={rest} />
           </div>
         </section>
       )}

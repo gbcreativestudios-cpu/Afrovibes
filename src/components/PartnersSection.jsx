@@ -14,7 +14,7 @@ import Title from "./Title";
 const MIN_ITEMS_PER_HALF = 12;
 const DURATION = 26; // seconds per loop, matches the previous CSS timing
 
-export default function PartnersSection({ enabled, bgColor, logos, title }) {
+export default function PartnersSection({ enabled, bgColor, logos, title, logoHeight, logoGap }) {
   // Decap's list widget (single sub-field, no wrapper) saves each entry as
   // a plain URL string, not `{ url }` — handle both shapes, same as
   // HeroBackground does for the hero slideshow images.
@@ -27,8 +27,17 @@ export default function PartnersSection({ enabled, bgColor, logos, title }) {
   const repeats = Math.max(1, Math.ceil(MIN_ITEMS_PER_HALF / list.length));
   const track = Array.from({ length: repeats * 2 }, () => list).flat();
 
+  // Logo Height / Space Between Logos in Decap set these CSS variables,
+  // which the .partners-track / .partners-logo rules in index.css read
+  // (with the existing sizes as their fallback when left blank).
+  const sectionStyle = {
+    ...(bgColor ? { backgroundColor: bgColor } : {}),
+    ...(logoHeight ? { "--partners-logo-height": `${logoHeight}px` } : {}),
+    ...(logoGap ? { "--partners-gap": `${logoGap}px` } : {}),
+  };
+
   return (
-    <section className="section partners-section" style={bgColor ? { backgroundColor: bgColor } : undefined}>
+    <section className="section partners-section" style={sectionStyle}>
       <div className="container">
         <div className="section-head partners-head">
           <Title as="h2" text={title.text} color={title.color} category="headline" />

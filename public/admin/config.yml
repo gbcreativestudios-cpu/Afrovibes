@@ -123,6 +123,8 @@ collections:
           - { label: "Footer Logo Image", name: "footerLogoImage", widget: "image", required: false, hint: "Optional — only needed if you want a different logo in the footer than the nav bar. Leave empty to reuse the Logo Image above." }
           - { label: "Footer Logo Height (px)", name: "footerLogoSize", widget: "number", value_type: "int", required: false, hint: "Leave blank for the default size." }
           - { label: "Favicon", name: "favicon", widget: "image", required: false, hint: "Small square image, shown in the browser tab. Leave empty to keep the default." }
+          - { label: "Past-Events Ticker — Show?", name: "galleryTickerEnabled", widget: "boolean", default: true, hint: "Turns the moving photo ticker on the Events page (below Past Events) on or off entirely." }
+          - { label: "Past-Events Ticker — Hide on Mobile?", name: "galleryTickerHideOnMobile", widget: "boolean", default: false, hint: "When on, the ticker still shows on desktop but is hidden on phone screens." }
           - { label: "Past-Events Ticker — Max Images", name: "galleryTickerLimit", widget: "number", value_type: "int", default: 10, hint: "Caps how many photos the moving ticker on the Events page pulls in total, no matter how many are in the galleries." }
           - label: "Homepage Hero Background"
             name: "heroBackground"
@@ -166,6 +168,8 @@ collections:
             fields:
               - { label: "Show this section?", name: "enabled", widget: "boolean", default: true }
               - { label: "Section Background Color", name: "bgColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Colors the whole Partners section — the logos sit directly on it (no separate strip background or border). Leave blank to use the default dark background." }
+              - { label: "Logo Height (px)", name: "logoHeight", widget: "number", value_type: "int", required: false, hint: "Controls how large each partner logo appears in the scrolling strip. Leave blank for the default size." }
+              - { label: "Space Between Logos (px)", name: "logoGap", widget: "number", value_type: "int", required: false, hint: "Controls the horizontal spacing between logos in the scrolling strip. Leave blank for the default spacing." }
               - label: "Partner Logos"
                 name: "logos"
                 widget: "list"
