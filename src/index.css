@@ -51,15 +51,6 @@
     .events-slider-dots{display:flex;justify-content:center;gap:9px;margin-top:18px}
     .events-slider-dot{width:8px;height:8px;border-radius:50%;background:var(--line);padding:0;border:0}
     .events-slider-dot.active{background:var(--purple)}
-    /* Desktop mode (>900px, same breakpoint the normal events grid
-       switches at): shows a full page of 3 cards instead of one. Reuses
-       the site's existing .grid.events-grid column layout so it looks
-       identical to any other 3-up events row. */
-    .events-slider-desktop{max-width:none}
-    .events-slider-desktop .events-slider-page{margin:0}
-    .events-slider-desktop .events-slider-arrow{top:50%}
-    .events-slider-desktop .events-slider-arrow-left{left:-16px}
-    .events-slider-desktop .events-slider-arrow-right{right:-16px}
     .gallery-ticker-bleed{width:100vw;position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;margin-top:50px}.gallery-ticker{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent);padding:0 4vw}.gallery-ticker-item{flex:0 0 clamp(160px,20vw,240px);aspect-ratio:4/5;background-size:cover;background-position:center;border:1px solid var(--line)}
     /* When "Hide on Mobile?" is turned on in Decap for the past-events
        gallery ticker, this class is added around it. */
