@@ -108,8 +108,8 @@
       "color": ""
     },
     "nav": {
-      "weight": "700",
-      "size": 20.5,
+      "weight": "600",
+      "size": 12.5,
       "lineHeight": 1.2,
       "letterSpacing": -2.92,
       "color": ""
@@ -136,8 +136,8 @@
       "color": ""
     },
     "cta": {
-      "weight": "700",
-      "size": 15.8,
+      "weight": "500",
+      "size": 16.8,
       "lineHeight": 1,
       "letterSpacing": -2.92,
       "color": ""
