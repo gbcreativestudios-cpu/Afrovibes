@@ -1,178 +1,179 @@
 {
-  "eventThumbnails": {
-    "next": "1:1",
-    "upcoming": "1:1",
-    "pastEvents": "1:1",
-    "pastHome": "16:9"
-  },
-  "buttonSlots": {
-    "navCta": {
-      "action": "merch",
-      "label": "",
-      "enabled": true
+    "eventThumbnails": {
+        "next": "1:1",
+        "upcoming": "1:1",
+        "pastEvents": "1:1",
+        "pastHome": "16:9"
     },
-    "heroPrimary": {
-      "action": "events",
-      "label": "",
-      "enabled": true
+    "buttonSlots": {
+        "navCta": {
+            "action": "merch",
+            "label": "",
+            "enabled": true
+        },
+        "heroPrimary": {
+            "action": "events",
+            "label": "",
+            "enabled": true
+        },
+        "heroSecondary": {
+            "action": "merch",
+            "label": "",
+            "enabled": true
+        }
     },
-    "heroSecondary": {
-      "action": "merch",
-      "label": "",
-      "enabled": true
-    }
-  },
-  "galleryTickerEnabled": true,
-  "upcomingEventsViewAll": {
-    "enabled": false
-  },
-  "footerLogoSize": 90,
-  "heroBackground": {
-    "enabled": true,
-    "interval": 4,
-    "images": [
-      "/uploads/afv-79.jpg",
-      "/uploads/afv-125.jpg",
-      "/uploads/afv-27.jpg",
-      "/uploads/afv-24.jpg"
-    ]
-  },
-  "heroScrollIndicator": {
-    "enabled": true
-  },
-  "aboutFeatures": {
-    "greatPeopleImage": "/uploads/afv-84.jpg",
-    "bringPeopleImage": "/uploads/afv-23.jpg"
-  },
-  "partners": {
-    "enabled": true,
-    "bgColor": "",
-    "logos": [
-      "/uploads/chatgpt-image-aug-15-2026-01_06_13-am.png",
-      "/uploads/artboard-9.webp",
-      "/uploads/chatgpt-image-aug-15-2026-01_03_57-am.png",
-      "/uploads/full-stacked-logo-white-500x.webp"
-    ]
-  },
-  "socialLinks": [
-    {
-      "platform": "instagram",
-      "url": "https://instagram.com/"
+    "galleryTickerEnabled": true,
+    "upcomingEventsViewAll": {
+        "enabled": false
     },
-    {
-      "platform": "tiktok",
-      "url": "https://tiktok.com/"
-    }
-  ],
-  "nextEventBg": {
-    "color": "#0d0d0d"
-  },
-  "logoImage": "/uploads/full-logo-white.webp",
-  "favicon": "/uploads/favicon-6-.webp",
-  "customSection": {
-    "enabled": false,
-    "paragraph": ""
-  },
-  "tiktokUrl": "https://tiktok.com/",
-  "footerLogoImage": "/uploads/av-mark-white.webp",
-  "newsletter": {
-    "paragraph": "Stay in the loop. Get first access to upcoming experiences, events and drops."
-  },
-  "aboutBanner": {
-    "enabled": true,
-    "image": "/uploads/afv-47.jpg",
-    "text": "",
-    "size": "compact"
-  },
-  "typographyScale": {
-    "hero-page": {
-      "weight": "900",
-      "size": 96,
-      "lineHeight": 0.9,
-      "letterSpacing": -0.06,
-      "color": ""
+    "footerLogoSize": 90,
+    "heroBackground": {
+        "enabled": true,
+        "interval": 4,
+        "images": [
+            "/uploads/afv-79.jpg",
+            "/uploads/afv-125.jpg",
+            "/uploads/afv-27.jpg",
+            "/uploads/afv-24.jpg"
+        ]
     },
-    "body": {
-      "weight": "600",
-      "size": 17.6,
-      "lineHeight": 1.5,
-      "letterSpacing": 0,
-      "color": ""
+    "heroScrollIndicator": {
+        "enabled": true
     },
-    "subheading": {
-      "weight": "900",
-      "size": 24,
-      "lineHeight": 1.1,
-      "letterSpacing": -0.03,
-      "color": ""
+    "aboutFeatures": {
+        "greatPeopleImage": "/uploads/afv-84.jpg",
+        "bringPeopleImage": "/uploads/afv-23.jpg"
     },
-    "nav": {
-      "weight": "500",
-      "size": 12.5,
-      "lineHeight": 1.2,
-      "letterSpacing": 0.08,
-      "color": ""
+    "partners": {
+        "enabled": true,
+        "bgColor": "",
+        "logos": [
+            "/uploads/chatgpt-image-aug-15-2026-01_06_13-am.png",
+            "/uploads/artboard-9.webp",
+            "/uploads/chatgpt-image-aug-15-2026-01_03_57-am.png",
+            "/uploads/full-stacked-logo-white-500x.webp"
+        ]
     },
-    "caption": {
-      "weight": "700",
-      "size": 20,
-      "lineHeight": 1.2,
-      "letterSpacing": -0.01,
-      "color": ""
+    "socialLinks": [
+        {
+            "platform": "instagram",
+            "url": "https://instagram.com/"
+        },
+        {
+            "platform": "tiktok",
+            "url": "https://tiktok.com/"
+        }
+    ],
+    "nextEventBg": {
+        "color": "#0d0d0d"
     },
-    "metadata": {
-      "weight": "700",
-      "size": 12,
-      "lineHeight": 1.3,
-      "letterSpacing": 0.09,
-      "color": ""
+    "logoImage": "/uploads/full-logo-white.webp",
+    "favicon": "/uploads/favicon-6-.webp",
+    "customSection": {
+        "enabled": false,
+        "paragraph": ""
     },
-    "formlabel": {
-      "weight": "500",
-      "size": 11.5,
-      "lineHeight": 1.3,
-      "letterSpacing": 0.1,
-      "color": ""
+    "tiktokUrl": "https://tiktok.com/",
+    "footerLogoImage": "/uploads/av-mark-white.webp",
+    "newsletter": {
+        "paragraph": "Stay in the loop. Get first access to upcoming experiences, events and drops."
     },
-    "cta": {
-      "weight": "600",
-      "size": 11.8,
-      "lineHeight": 1,
-      "letterSpacing": 0.08,
-      "color": ""
+    "aboutBanner": {
+        "enabled": true,
+        "image": "/uploads/afv-47.jpg",
+        "text": "",
+        "size": "compact"
     },
-    "hero-home": {
-      "weight": "900",
-      "size": 104,
-      "lineHeight": 0.9,
-      "letterSpacing": -0.06,
-      "color": ""
+    "typographyScale": {
+        "hero-page": {
+            "weight": "900",
+            "size": 96,
+            "lineHeight": 0.9,
+            "letterSpacing": -0.06,
+            "color": ""
+        },
+        "body": {
+            "weight": "600",
+            "size": 17.6,
+            "lineHeight": 1.5,
+            "letterSpacing": 0,
+            "color": ""
+        },
+        "subheading": {
+            "weight": "900",
+            "size": 24,
+            "lineHeight": 1.1,
+            "letterSpacing": -0.03,
+            "color": ""
+        },
+        "nav": {
+            "weight": "500",
+            "size": 12.5,
+            "lineHeight": 1.2,
+            "letterSpacing": 0.08,
+            "color": ""
+        },
+        "caption": {
+            "weight": "700",
+            "size": 20,
+            "lineHeight": 1.2,
+            "letterSpacing": -0.01,
+            "color": ""
+        },
+        "metadata": {
+            "weight": "700",
+            "size": 12,
+            "lineHeight": 1.3,
+            "letterSpacing": 0.09,
+            "color": ""
+        },
+        "formlabel": {
+            "weight": "500",
+            "size": 11.5,
+            "lineHeight": 1.3,
+            "letterSpacing": 0.1,
+            "color": ""
+        },
+        "cta": {
+            "weight": "600",
+            "size": 11.8,
+            "lineHeight": 1,
+            "letterSpacing": 0.08,
+            "color": ""
+        },
+        "hero-home": {
+            "weight": "900",
+            "size": 104,
+            "lineHeight": 0.9,
+            "letterSpacing": -0.06,
+            "color": ""
+        },
+        "headline": {
+            "weight": "900",
+            "size": 72,
+            "lineHeight": 0.9,
+            "letterSpacing": -0.055,
+            "color": ""
+        },
+        "footer": {
+            "weight": "300",
+            "size": 12,
+            "lineHeight": 1.4,
+            "letterSpacing": 0,
+            "color": ""
+        },
+        "quote": {
+            "weight": "600",
+            "size": 22,
+            "lineHeight": 1.4,
+            "letterSpacing": 0,
+            "color": ""
+        }
     },
-    "headline": {
-      "weight": "900",
-      "size": 72,
-      "lineHeight": 0.9,
-      "letterSpacing": -0.055,
-      "color": ""
-    },
-    "footer": {
-      "weight": "300",
-      "size": 12,
-      "lineHeight": 1.4,
-      "letterSpacing": 0,
-      "color": ""
-    },
-    "quote": {
-      "weight": "600",
-      "size": 22,
-      "lineHeight": 1.4,
-      "letterSpacing": 0,
-      "color": ""
-    }
-  },
-  "whatsappNumber": "+15878890297",
-  "contactEmail": "hello@afrovibes.ca",
-  "instagramUrl": "https://instagram.com/",
-  "galleryTickerLimit": 10,
-  "galleryTickerHideOnMobile": true
+    "whatsappNumber": "+15878890297",
+    "contactEmail": "hello@afrovibes.ca",
+    "instagramUrl": "https://instagram.com/",
+    "galleryTickerLimit": 10,
+    "galleryTickerHideOnMobile": true,
+    "fontFamily": "jost"
 }

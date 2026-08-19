@@ -38,6 +38,18 @@ const CATEGORY_DEFAULTS = {
   footer: [300, 12, 0.95, 1.4, 0],
 };
 
+// Font Family options — each key matches a value the Decap "Site Font"
+// select field can save, mapped to the CSS font-family name declared for
+// it via @font-face in index.css. "jost" (branded AfroFutura) is the
+// original site font and is what's used whenever this field is blank.
+const FONT_OPTIONS = {
+  jost: "AfroFutura",
+  poppins: "SitePoppins",
+  archivo: "SiteArchivo",
+  "space-grotesk": "SiteSpaceGrotesk",
+  unbounded: "SiteUnbounded",
+};
+
 // Standard "fluid type" formula: a clamp() that holds at minSize below
 // MIN_VIEWPORT_PX, holds at maxSize above MAX_VIEWPORT_PX, and scales
 // smoothly (viewport-width-driven) in between -- the "professional
@@ -88,6 +100,12 @@ export default function TypographySettings() {
       // override an inline per-item color -- see that file.
       apply(`--t-${category}-color`, c.color);
     }
+
+    // Site Font — one select field in Decap swaps the font-family used
+    // sitewide. Blank (or "jost") leaves the original AfroFutura/Jost
+    // font in place, since --site-font falls back to it in index.css.
+    const fontKey = site.fontFamily;
+    apply("--site-font", fontKey && FONT_OPTIONS[fontKey] ? FONT_OPTIONS[fontKey] : undefined);
   }, []);
 
   return null;
