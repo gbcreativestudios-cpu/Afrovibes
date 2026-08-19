@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: gbcreativestudios-cpu/Afrovibes
+  name: git-gateway
   branch: main
 
 media_folder: "public/uploads"
@@ -124,6 +123,8 @@ collections:
           - { label: "Footer Logo Image", name: "footerLogoImage", widget: "image", required: false, hint: "Optional — only needed if you want a different logo in the footer than the nav bar. Leave empty to reuse the Logo Image above." }
           - { label: "Footer Logo Height (px)", name: "footerLogoSize", widget: "number", value_type: "int", required: false, hint: "Leave blank for the default size." }
           - { label: "Favicon", name: "favicon", widget: "image", required: false, hint: "Small square image, shown in the browser tab. Leave empty to keep the default." }
+          - { label: "Past-Events Ticker — Show?", name: "galleryTickerEnabled", widget: "boolean", default: true, hint: "Turns the moving photo ticker on the Events page (below Past Events) on or off entirely." }
+          - { label: "Past-Events Ticker — Hide on Mobile?", name: "galleryTickerHideOnMobile", widget: "boolean", default: false, hint: "When on, the ticker still shows on desktop but is hidden on phone screens." }
           - { label: "Past-Events Ticker — Max Images", name: "galleryTickerLimit", widget: "number", value_type: "int", default: 10, hint: "Caps how many photos the moving ticker on the Events page pulls in total, no matter how many are in the galleries." }
           - label: "Homepage Hero Background"
             name: "heroBackground"
@@ -167,6 +168,8 @@ collections:
             fields:
               - { label: "Show this section?", name: "enabled", widget: "boolean", default: true }
               - { label: "Section Background Color", name: "bgColor", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Colors the whole Partners section — the logos sit directly on it (no separate strip background or border). Leave blank to use the default dark background." }
+              - { label: "Logo Height (px)", name: "logoHeight", widget: "number", value_type: "int", required: false, hint: "Controls how large each partner logo appears in the scrolling strip. Leave blank for the default size." }
+              - { label: "Space Between Logos (px)", name: "logoGap", widget: "number", value_type: "int", required: false, hint: "Controls the horizontal spacing between logos in the scrolling strip. Leave blank for the default spacing." }
               - label: "Partner Logos"
                 name: "logos"
                 widget: "list"
@@ -324,162 +327,528 @@ collections:
                   - { label: "4:3", value: "4:3" }
                   - { label: "16:9", value: "16:9" }
                   - { label: "21:9", value: "21:9" }
-          - label: "Text Weights & Styles"
-            name: "typography"
+          - label: "Global Typography"
+            name: "typographyScale"
             widget: "object"
             collapsed: true
-            hint: "Each control below only affects its own section — changing one never changes the others."
+            hint: "One control panel for text sitewide, grouped by role. Adjusting Weight, Size, Line Height or Letter Spacing here changes every matching element at once. Color is the one exception: individual items (like a specific title) can still have their own color set elsewhere in Decap, but if you set a Color here, it overrides every individual color in this category. Leave a category Color blank and nothing changes. Size is a single desktop reference number -- mobile scales down automatically and proportionally."
             fields:
-              - label: "Footer Text Weight"
-                name: "footerWeight"
-                widget: "select"
-                required: false
-                hint: "Affects every line of text inside the footer (links, tagline, copyright) at once. Leave blank for the default look."
-                options:
-                  - { label: "Default", value: "" }
-                  - { label: "Light", value: "300" }
-                  - { label: "Regular", value: "400" }
-                  - { label: "Medium", value: "500" }
-                  - { label: "Demi / Semi Bold", value: "600" }
-                  - { label: "Bold", value: "700" }
-                  - { label: "Heavy", value: "800" }
-              - label: "Footer Paragraph Color"
-                name: "footerBodyColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "Affects paragraph text color inside the footer. Leave blank to keep the current color."
-              - label: "\"Who We Are\" Body Text Weight"
-                name: "aboutBodyWeight"
-                widget: "select"
-                required: false
-                hint: "Affects the paragraph text on the Who We Are page only (the intro, and the text under Great People / Bring People Together / Redefine Connection)."
-                options:
-                  - { label: "Default", value: "" }
-                  - { label: "Light", value: "300" }
-                  - { label: "Regular", value: "400" }
-                  - { label: "Medium", value: "500" }
-                  - { label: "Demi / Semi Bold", value: "600" }
-                  - { label: "Bold", value: "700" }
-                  - { label: "Heavy", value: "800" }
-              - label: "Who We Are Body Text Color"
-                name: "aboutBodyColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "Affects paragraph text color on the Who We Are page only."
-              - label: "Home Page Paragraph Weight"
-                name: "homeBodyWeight"
-                widget: "select"
-                required: false
-                hint: "Affects paragraph text on the Home page only."
-                options: &weight_options
-                  - { label: "Default", value: "" }
-                  - { label: "Light", value: "300" }
-                  - { label: "Regular", value: "400" }
-                  - { label: "Medium", value: "500" }
-                  - { label: "Demi / Semi Bold", value: "600" }
-                  - { label: "Bold", value: "700" }
-                  - { label: "Heavy", value: "800" }
-              - label: "Home Page Paragraph Color"
-                name: "homeBodyColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "Affects paragraph text color on the Home page only."
-              - label: "Events Page Paragraph Weight"
-                name: "eventsBodyWeight"
-                widget: "select"
-                required: false
-                hint: "Affects paragraph text on the Events page only."
-                options: *weight_options
-              - label: "Events Page Paragraph Color"
-                name: "eventsBodyColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "Affects paragraph text color on the Events page only."
-              - label: "Event Detail Page Paragraph Weight"
-                name: "eventDetailBodyWeight"
-                widget: "select"
-                required: false
-                hint: "Affects paragraph text on individual Event Detail pages only."
-                options: *weight_options
-              - label: "Event Detail Page Paragraph Color"
-                name: "eventDetailBodyColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "Affects paragraph text color on individual Event Detail pages only."
-              - label: "Merch Page Paragraph Weight"
-                name: "merchBodyWeight"
-                widget: "select"
-                required: false
-                hint: "Affects paragraph text on the Merch page only."
-                options: *weight_options
-              - label: "Merch Page Paragraph Color"
-                name: "merchBodyColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "Affects paragraph text color on the Merch page only."
-              - label: "Product Detail Page Paragraph Weight"
-                name: "productDetailBodyWeight"
-                widget: "select"
-                required: false
-                hint: "Affects paragraph text on individual Product Detail pages only."
-                options: *weight_options
-              - label: "Product Detail Page Paragraph Color"
-                name: "productDetailBodyColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "Affects paragraph text color on individual Product Detail pages only."
-              - label: "Connect Page Paragraph Weight"
-                name: "connectBodyWeight"
-                widget: "select"
-                required: false
-                hint: "Affects paragraph text on the Connect page only."
-                options: *weight_options
-              - label: "Connect Page Paragraph Color"
-                name: "connectBodyColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "Affects paragraph text color on the Connect page only."
-              - label: "\"Connection / Adventure / Community / Memories\" Weight"
-                name: "valuesHeadingWeight"
-                widget: "select"
-                required: false
-                hint: "One control for all 4 words at once."
-                options:
-                  - { label: "Default", value: "" }
-                  - { label: "Light", value: "300" }
-                  - { label: "Regular", value: "400" }
-                  - { label: "Medium", value: "500" }
-                  - { label: "Demi / Semi Bold", value: "600" }
-                  - { label: "Bold", value: "700" }
-                  - { label: "Heavy", value: "800" }
-              - label: "\"Connection / Adventure / Community / Memories\" Color"
-                name: "valuesHeadingColor"
-                widget: "color"
-                required: false
-                allowInput: true
-                enableAlpha: false
-                hint: "One control for all 4 words at once. Leave blank for the default white."
-              - label: "\"Connection / Adventure / Community / Memories\" Size"
-                name: "valuesHeadingSize"
-                widget: "string"
-                required: false
-                hint: "One control for all 4 words at once, e.g. 1.3rem or 22px. Leave blank for the default size."
+              - label: "Home Page Hero"
+                name: "hero-home"
+                widget: "object"
+                collapsed: true
+                hint: "The big title at the very top of the Home page only."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "900"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 104
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0.9
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: -0.06
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Other Page Heroes"
+                name: "hero-page"
+                widget: "object"
+                collapsed: true
+                hint: "The big banner title at the top of every other page -- Who We Are, Events, Merch, Connect, individual Event pages, and Product pages."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "900"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 96
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0.9
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: -0.06
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Headlines (Section Titles)"
+                name: "headline"
+                widget: "object"
+                collapsed: true
+                hint: "Every section title sitewide -- Next Event, Our Partners, About page section titles, Newsletter, and more."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "900"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 72
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0.9
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: -0.055
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Subheadings (Event Titles on Cards)"
+                name: "subheading"
+                widget: "object"
+                collapsed: true
+                hint: "The event name shown on event cards, the Next Event card, and Past Events -- not the big title on an event's own page (that's a Page Hero, above)."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "900"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 24
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1.1
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: -0.03
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Body Copy"
+                name: "body"
+                widget: "object"
+                collapsed: true
+                hint: "Every paragraph, sitewide."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "600"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 17.6
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1.5
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Captions"
+                name: "caption"
+                widget: "object"
+                collapsed: true
+                hint: "Small text tied to a photo -- team member names, merch product names, and the labels on the Home page merch cards."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "700"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 20
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1.2
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: -0.01
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Quotes / Testimonials"
+                name: "quote"
+                widget: "object"
+                collapsed: true
+                hint: "Not used anywhere on the site yet -- ready here for whenever a quote or testimonial section gets added."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "600"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 22
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1.4
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Navigation"
+                name: "nav"
+                widget: "object"
+                collapsed: true
+                hint: "The top menu links (Home, Events, Merch, etc.)"
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "500"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 12.5
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1.2
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0.08
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Buttons (Calls to Action)"
+                name: "cta"
+                widget: "object"
+                collapsed: true
+                hint: "Every button sitewide -- Get Tickets, Shop Merch, filters, size selector, WhatsApp bubble, form submit buttons, and more."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "600"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 11.8
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0.08
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Form Labels"
+                name: "formlabel"
+                widget: "object"
+                collapsed: true
+                hint: "Currently applies to placeholder text in the Connect page form and the option labels on Product pages (e.g. Size, Color) -- the site doesn't use separate visible field labels elsewhere yet."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "500"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 11.5
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1.3
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0.1
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Metadata"
+                name: "metadata"
+                widget: "object"
+                collapsed: true
+                hint: "Small info tags -- event dates, prices, Tickets Available, and similar small uppercase labels."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "700"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 12
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1.3
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0.09
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
+              - label: "Footer & Legal"
+                name: "footer"
+                widget: "object"
+                collapsed: true
+                hint: "Footer links and the copyright line at the very bottom of the site."
+                fields:
+                  - label: "Weight"
+                    name: "weight"
+                    widget: "select"
+                    required: false
+                    default: "300"
+                    options:
+                    - { label: "Light (300)", value: "300" }
+                    - { label: "Regular (400)", value: "400" }
+                    - { label: "Medium (500)", value: "500" }
+                    - { label: "Demi / Semi Bold (600)", value: "600" }
+                    - { label: "Bold (700)", value: "700" }
+                    - { label: "Extra Bold (800)", value: "800" }
+                    - { label: "Black / Heavy (900)", value: "900" }
+                  - label: "Size (px, desktop reference -- scales down automatically on mobile)"
+                    name: "size"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 12
+                  - label: "Line Height"
+                    name: "lineHeight"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 1.4
+                  - label: "Letter Spacing (em -- negative tightens, positive spreads out)"
+                    name: "letterSpacing"
+                    widget: "number"
+                    required: false
+                    value_type: "float"
+                    default: 0
+                  - label: "Color (overrides individual colors in this category when set)"
+                    name: "color"
+                    widget: "color"
+                    required: false
+                    allowInput: true
+                    enableAlpha: false
 
       - name: "titles"
         label: "Page & Section Titles"
@@ -494,9 +863,8 @@ collections:
                 label: "Hero Title"
                 widget: "object"
                 fields: &title_fields
-                  - { label: "Text", name: "text", widget: "string", hint: "Type it exactly how you want it to appear — any casing. To force a fixed line break (so it stays put on both desktop and mobile), put a | where each line should end, e.g. \"Come for the|vibe. stay for the|memories\"." }
-                  - { label: "Font Size (e.g. 3rem, 48px — leave blank for default)", name: "fontSize", widget: "string", required: false }
-                  - { label: "Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
+                  - { label: "Text", name: "text", widget: "string", hint: "Type it exactly how you want it to appear — any casing." }
+                  - { label: "Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color. Note: the Global Typography panel (Site Settings) can override this if a color is set there for this title's category." }
               - name: "partnersTitle"
                 label: "\"Our Partners\" Title"
                 widget: "object"
@@ -562,19 +930,15 @@ collections:
               - name: "nextEventTitle"
                 label: "\"Next Event\" Section Title"
                 widget: "object"
-                fields: &title_fields_with_weight
-                  - { label: "Text", name: "text", widget: "string", hint: "Type it exactly how you want it to appear — any casing. To force a fixed line break (so it stays put on both desktop and mobile), put a | where each line should end, e.g. \"Come for the|vibe. stay for the|memories\"." }
-                  - { label: "Font Size (e.g. 3rem, 48px — leave blank for default)", name: "fontSize", widget: "string", required: false }
-                  - { label: "Font Weight", name: "fontWeight", widget: "select", required: false, options: ["300", "400", "500", "600", "700", "800", "900"], hint: "Leave blank to use the default (900, bold)." }
-                  - { label: "Color", name: "color", widget: "color", required: false, allowInput: true, enableAlpha: false, hint: "Leave blank to use the default theme color." }
+                fields: *title_fields
               - name: "calendarTitle"
                 label: "\"Our Calendar\" Section Title"
                 widget: "object"
-                fields: *title_fields_with_weight
+                fields: *title_fields
               - name: "pastEventsTitle"
                 label: "\"Past Events\" Section Title"
                 widget: "object"
-                fields: *title_fields_with_weight
+                fields: *title_fields
           - label: "Merch Page"
             name: "merch"
             widget: "object"
