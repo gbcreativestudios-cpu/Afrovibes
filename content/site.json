@@ -52,7 +52,9 @@
             "/uploads/artboard-9.webp",
             "/uploads/chatgpt-image-aug-15-2026-01_03_57-am.png",
             "/uploads/full-stacked-logo-white-500x.webp"
-        ]
+        ],
+        "logoHeight": 56,
+        "logoGap": 64
     },
     "socialLinks": [
         {
