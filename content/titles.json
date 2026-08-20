@@ -80,13 +80,13 @@
   "merch": {
     "heroTitle": {
       "text": "SHOP THE VIBE",
-      "color": ""
+      "color": " #7B2FF7"
     }
   },
   "connect": {
     "heroTitle": {
       "text": "CONNECT WITH US",
-      "color": ""
+      "color": " #7B2FF7"
     },
     "createTitle": {
       "text": "LET'S CREATE SOMETHING",
@@ -109,7 +109,7 @@
   },
   "newsletter": {
     "title": {
-      "text": "STAY IN THE LOOP",
+      "text": "JOIN OUR COMMUNITY",
       "color": ""
     }
   },
