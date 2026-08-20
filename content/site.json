@@ -5,7 +5,7 @@
     "pastEvents": "1:1",
     "pastHome": "16:9"
   },
-  "cardRadius": 0,
+  "cardRadius": 20,
   "buttonSlots": {
     "navCta": {
       "action": "merch",
