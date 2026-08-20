@@ -73,7 +73,7 @@
     }
   ],
   "nextEventBg": {
-    "color": "#0D0D0D"
+    "color": "#ffffff"
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "fontFamily": "unbounded",
@@ -84,6 +84,7 @@
   },
   "tiktokUrl": "https://tiktok.com/",
   "footerLogoImage": "/uploads/av-mark-white.webp",
+  "teamSectionEnabled": false,
   "newsletter": {
     "paragraph": "Stay in the loop. Get first access to upcoming experiences, events and drops."
   },
@@ -103,7 +104,7 @@
     },
     "body": {
       "weight": "600",
-      "size": 17.6,
+      "size": 12.6,
       "lineHeight": 1.5,
       "letterSpacing": 0,
       "color": ""
