@@ -1,11 +1,12 @@
 {
   "galleryVideos": [],
   "customFields": [],
+  "titleColor": "#000000",
   "ticket": false,
   "time": "",
   "date": "2026-09-19",
   "url": "",
-  "venue": "",
+  "venue": "1235 11 AVE SW",
   "desc": "Competitive, playful and social — bring your people and your game face.",
   "gallery": [
     "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
@@ -14,8 +15,8 @@
   "instagram": "",
   "status": "TICKETS AVAILABLE",
   "showVideos": false,
-  "location": "Canada",
-  "title": "Games Night",
+  "location": "DOWNTOWN CALGARY, ALBERTA",
+  "title": "GAMES NIGHT",
   "id": "games-night",
   "image": "/uploads/thumb-asdf.jpg"
 }
