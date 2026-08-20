@@ -62,7 +62,7 @@
   "events": {
     "nextEventTitle": {
       "text": "NEXT EVENT",
-      "color": "#060606"
+      "color": ""
     },
     "calendarTitle": {
       "text": "EVENT LINE UP",
@@ -71,6 +71,9 @@
     "pastEventsTitle": {
       "text": "MEDIA GALLERY",
       "color": ""
+    },
+    "heroTitle": {
+      "text": "OUR EVENTS"
     }
   },
   "merch": {
