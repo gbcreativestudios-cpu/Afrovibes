@@ -66,10 +66,14 @@
     {
       "platform": "tiktok",
       "url": "https://tiktok.com/"
+    },
+    {
+      "platform": "email",
+      "url": "MAILTO:afrovibesyyc@gmail.com"
     }
   ],
   "nextEventBg": {
-    "color": "#ffffff"
+    "color": "#0D0D0D"
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "fontFamily": "unbounded",
