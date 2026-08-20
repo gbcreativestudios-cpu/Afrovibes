@@ -8,7 +8,7 @@
   "cardRadius": 20,
   "buttonSlots": {
     "navCta": {
-      "action": "merch",
+      "action": "tickets",
       "label": "",
       "enabled": true
     },
@@ -55,8 +55,8 @@
       "/uploads/chatgpt-image-aug-15-2026-01_03_57-am.png",
       "/uploads/full-stacked-logo-white-500x.webp"
     ],
-    "logoHeight": 56,
-    "logoGap": 64
+    "logoHeight": 75,
+    "logoGap": 80
   },
   "socialLinks": [
     {
@@ -69,7 +69,7 @@
     }
   ],
   "nextEventBg": {
-    "color": "#0d0d0d"
+    "color": "#ffffff"
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "fontFamily": "unbounded",
