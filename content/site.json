@@ -73,7 +73,7 @@
     }
   ],
   "nextEventBg": {
-    "color": ""
+    "color": "#0D0D0D"
   },
   "logoImage": "/uploads/full-logo-white.webp",
   "fontFamily": "unbounded",
