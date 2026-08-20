@@ -42,14 +42,15 @@ function TicketButton({ e }) {
   );
 }
 
-export function EventCard({ e }) {
+export function EventCard({ e, hideLocation = false }) {
   return (
     <article className="event-card">
       <Link className="event-card-link" to={`/event/${e.id}`}>
         <EventImage e={e} mode={thumbnailMode("upcoming")} />
         <div className="event-info">
           <div className="event-meta">
-            {formatEventDate(e.date)} · {e.location}
+            {formatEventDate(e.date)}
+            {!hideLocation && e.location ? ` · ${e.location}` : ""}
           </div>
           <Title as="h3" text={e.title} color={e.titleColor} category="subheading" />
         </div>
@@ -64,7 +65,7 @@ export function EventCard({ e }) {
   );
 }
 
-export function FeaturedEventCard({ e }) {
+export function FeaturedEventCard({ e, hideLocation = false }) {
   return (
     <article className="event-card featured">
       <Link className="event-card-media" to={`/event/${e.id}`}>
@@ -74,7 +75,8 @@ export function FeaturedEventCard({ e }) {
         <Link className="event-card-link" to={`/event/${e.id}`}>
           <div className="event-info">
             <div className="event-meta">
-              {formatEventDate(e.date)} · {e.location}
+              {formatEventDate(e.date)}
+              {!hideLocation && e.location ? ` · ${e.location}` : ""}
             </div>
             <Title as="h3" text={e.title} color={e.titleColor} category="subheading" />
           </div>

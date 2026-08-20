@@ -90,7 +90,7 @@ export default function Home() {
               </div>
             </div>
             <div className="grid events-grid single">
-              <FeaturedEventCard e={next} />
+              <FeaturedEventCard e={next} hideLocation />
             </div>
           </div>
         </section>
@@ -109,7 +109,7 @@ export default function Home() {
                 </Link>
               )}
             </div>
-            <EventsSlider events={rest} />
+            <EventsSlider events={rest} hideLocation />
           </div>
         </section>
       )}
@@ -144,7 +144,7 @@ export default function Home() {
 
       <section className="section statement">
         <div className="container statement-inner">
-          <Title as="h2" text={statementTitle.text} color={statementTitle.color} category="headline" />
+          <Title as="h2" text={statementTitle.text} color={statementTitle.color} category="hero-home" />
           <p>
             We create experiences that give people a reason to step away from routine, connect
             with others, try something new, and leave with stories worth telling.
@@ -163,7 +163,7 @@ export default function Home() {
         <div className="container">
           <div className="section-head">
             <div>
-              <Title as="h2" text={merchTeaserTitle.text} color={merchTeaserTitle.color} category="headline" />
+              <Title as="h2" text={merchTeaserTitle.text} color={merchTeaserTitle.color} category="hero-home" />
             </div>
             <Link className="btn btn-primary merch-shop-btn-desktop" to="/merch">
               Shop Merch

@@ -108,24 +108,26 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <Title as="h2" text={teamTitle.text} color={teamTitle.color} category="headline" />
+      {(site.teamSectionEnabled ?? true) && (
+        <section className="section">
+          <div className="container">
+            <div className="section-head">
+              <div>
+                <Title as="h2" text={teamTitle.text} color={teamTitle.color} category="headline" />
+              </div>
+            </div>
+            <div className="grid team-grid">
+              {team.map((t, i) => (
+                <div className="team-card" key={i}>
+                  <img src={t.image} alt={t.name} />
+                  <h3>{t.name}</h3>
+                  <p>{t.role}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="grid team-grid">
-            {team.map((t, i) => (
-              <div className="team-card" key={i}>
-                <img src={t.image} alt={t.name} />
-                <h3>{t.name}</h3>
-                <p>{t.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </main>
   );
 }

@@ -42,7 +42,6 @@ export default function EventDetail() {
         </div>
         <div className="detail-content">
           <aside>
-            <h3 className="aside-label">Experience</h3>
             {isNext && <p className="muted">{e.status}</p>}
             {isNext && e.status === "TICKETS AVAILABLE" && (
               e.url ? (
@@ -70,7 +69,7 @@ export default function EventDetail() {
 
             {past && (
               <>
-                <Title as="h2" text={momentsTitle.text} color={momentsTitle.color} category="headline" style={{ marginTop: 55 }} />
+                <Title as="h2" className="detail-section-title" text={momentsTitle.text} color={momentsTitle.color} category="nav" />
                 <div className="gallery">
                   {(e.gallery || []).map((x, i) => (
                     <img key={i} src={x} alt={`${e.title} experience`} />
@@ -78,7 +77,7 @@ export default function EventDetail() {
                 </div>
                 {e.showVideos && e.galleryVideos && e.galleryVideos.length > 0 && (
                   <>
-                    <Title as="h2" text={videosTitle.text} color={videosTitle.color} category="headline" style={{ marginTop: 55 }} />
+                    <Title as="h2" className="detail-section-title" text={videosTitle.text} color={videosTitle.color} category="nav" />
                     <div className="gallery video-gallery">
                       {e.galleryVideos.map((v, i) =>
                         /\.(mp4|webm|mov)(\?.*)?$/i.test(v) ? (

@@ -265,6 +265,7 @@ collections:
               - { label: "\"Great People. Great Experiences.\" Image", name: "greatPeopleImage", widget: "image", required: false }
               - { label: "\"Bring People Together.\" Image", name: "bringPeopleImage", widget: "image", required: false }
               - { label: "\"Redefine Connection.\" Image", name: "redefineImage", widget: "image", required: false }
+          - { label: "Show \"Meet The Team\" Section?", name: "teamSectionEnabled", widget: "boolean", default: true, hint: "Turns the team grid on the Who We Are page on or off entirely." }
           - label: "Event Thumbnail Controls"
             name: "eventThumbnails"
             widget: "object"
@@ -940,6 +941,10 @@ collections:
             widget: "object"
             collapsed: true
             fields:
+              - name: "heroTitle"
+                label: "Hero Title"
+                widget: "object"
+                fields: *title_fields
               - name: "nextEventTitle"
                 label: "\"Next Event\" Section Title"
                 widget: "object"

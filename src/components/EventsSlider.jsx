@@ -41,7 +41,7 @@ function desktopPageStarts(count, pageSize) {
   return starts.filter((s, i) => i === 0 || s !== starts[i - 1]);
 }
 
-export default function EventsSlider({ events }) {
+export default function EventsSlider({ events, hideLocation = false }) {
   const isDesktop = useIsDesktop();
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -74,7 +74,7 @@ export default function EventsSlider({ events }) {
               transition={{ duration: 0.28, ease: "easeOut" }}
             >
               {visible.map((e) => (
-                <EventCard e={e} key={e.id} />
+                <EventCard e={e} key={e.id} hideLocation={hideLocation} />
               ))}
             </motion.div>
           </AnimatePresence>
@@ -154,7 +154,7 @@ export default function EventsSlider({ events }) {
             dragElastic={0.6}
             onDragEnd={handleDragEnd}
           >
-            <EventCard e={events[mobileIndex]} />
+            <EventCard e={events[mobileIndex]} hideLocation={hideLocation} />
           </motion.div>
         </AnimatePresence>
       </div>

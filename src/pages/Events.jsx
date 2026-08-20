@@ -9,6 +9,7 @@ export default function Events() {
   const next = upcoming[0];
   const rest = upcoming.slice(1);
 
+  const heroTitle = getTitle("events", "heroTitle", "Our Events.");
   const nextEventTitle = getTitle("events", "nextEventTitle", "Next Event.");
   const calendarTitle = getTitle("events", "calendarTitle", "Our Calendar.");
   const pastEventsTitle = getTitle("events", "pastEventsTitle", "Past Events.");
@@ -17,8 +18,18 @@ export default function Events() {
 
   return (
     <main className="events-page">
+      <section className="page-hero">
+        <div className="container">
+          <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-page" />
+          <p className="events-copy">
+            Every gathering, party, and pop-up we've thrown — what's coming up next and what
+            we've already made memories out of.
+          </p>
+        </div>
+      </section>
+
       {next && (
-        <section className="section" style={{ paddingTop: 160, backgroundColor: nextEventBg || "var(--purple)" }}>
+        <section className="section" style={{ paddingTop: 20, backgroundColor: nextEventBg || "var(--purple)" }}>
           <div className="container">
             <div className="section-head">
               <div>
