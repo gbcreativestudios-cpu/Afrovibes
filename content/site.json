@@ -43,7 +43,8 @@
   },
   "aboutFeatures": {
     "greatPeopleImage": "/uploads/afv-84.jpg",
-    "bringPeopleImage": "/uploads/afv-23.jpg"
+    "bringPeopleImage": "/uploads/afv-23.jpg",
+    "redefineImage": "/uploads/afv-69.jpg"
   },
   "partners": {
     "enabled": true,
@@ -91,7 +92,7 @@
   "typographyScale": {
     "hero-page": {
       "weight": "900",
-      "size": 96,
+      "size": 60,
       "lineHeight": 0.9,
       "letterSpacing": -0.06,
       "color": ""
@@ -153,8 +154,8 @@
       "color": ""
     },
     "headline": {
-      "weight": "900",
-      "size": 72,
+      "weight": "600",
+      "size": 50,
       "lineHeight": 0.9,
       "letterSpacing": -0.055,
       "color": ""
