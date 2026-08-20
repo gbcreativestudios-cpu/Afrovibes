@@ -339,6 +339,7 @@ collections:
               - { label: "Archivo", value: "archivo" }
               - { label: "Space Grotesk", value: "space-grotesk" }
               - { label: "Unbounded", value: "unbounded" }
+          - { label: "Card Corner Radius (px)", name: "cardRadius", widget: "number", value_type: "int", required: false, default: 0, hint: "Rounds the corners of event cards, product cards, merch cards, and past-event cards sitewide. 0 = sharp corners (current look)." }
           - label: "Global Typography"
             name: "typographyScale"
             widget: "object"

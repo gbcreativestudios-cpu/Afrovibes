@@ -106,6 +106,12 @@ export default function TypographySettings() {
     // font in place, since --site-font falls back to it in index.css.
     const fontKey = site.fontFamily;
     apply("--site-font", fontKey && FONT_OPTIONS[fontKey] ? FONT_OPTIONS[fontKey] : undefined);
+
+    // Card Corner Radius — one number field rounds every card-style
+    // container sitewide (event cards, product cards, merch cards,
+    // past-event cards). 0 or blank keeps the original sharp corners.
+    const radius = site.cardRadius;
+    apply("--card-radius", radius !== undefined && radius !== null && radius !== "" ? `${radius}px` : undefined);
   }, []);
 
   return null;

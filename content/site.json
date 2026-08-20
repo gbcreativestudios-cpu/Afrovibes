@@ -177,5 +177,6 @@
     "instagramUrl": "https://instagram.com/",
     "galleryTickerLimit": 10,
     "galleryTickerHideOnMobile": true,
-    "fontFamily": "jost"
+    "fontFamily": "jost",
+    "cardRadius": 0
 }
