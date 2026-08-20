@@ -1,7 +1,7 @@
 {
   "galleryVideos": [],
   "customFields": [],
-  "titleColor": "#000000",
+  "titleColor": "#ffffff",
   "ticket": false,
   "time": "",
   "date": "2026-09-19",
@@ -15,7 +15,7 @@
   "instagram": "",
   "status": "TICKETS AVAILABLE",
   "showVideos": false,
-  "location": "DOWNTOWN CALGARY, ALBERTA",
+  "location": "",
   "title": "GAMES NIGHT",
   "id": "games-night",
   "image": "/uploads/thumb-asdf.jpg"
