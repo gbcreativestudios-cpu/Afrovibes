@@ -73,7 +73,8 @@
       "color": ""
     },
     "heroTitle": {
-      "text": "OUR EVENTS"
+      "text": "OUR EVENTS",
+      "color": " #7B2FF7"
     }
   },
   "merch": {
