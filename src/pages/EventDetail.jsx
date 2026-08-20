@@ -19,7 +19,6 @@ export default function EventDetail() {
   const facts = [
     e.date && { label: "Date", value: formatEventDate(e.date) },
     e.time && { label: "Time", value: e.time },
-    e.location && { label: "Location", value: e.location },
     e.venue && { label: "Venue", value: e.venue },
     ...(e.customFields || [])
       .filter((cf) => cf.title || cf.content)
@@ -35,7 +34,7 @@ export default function EventDetail() {
         <div ref={parallaxRef} className="detail-hero" style={{ backgroundImage: `url('${e.image}')` }}>
           <div>
             <div className="event-meta" style={{ color: "var(--white)", marginBottom: 12 }}>
-              {formatEventDate(e.date)} · {e.location}
+              {formatEventDate(e.date)}
             </div>
             <Title as="h1" text={e.title} color={e.titleColor} category="hero-page" />
           </div>

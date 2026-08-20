@@ -42,16 +42,13 @@ function TicketButton({ e }) {
   );
 }
 
-export function EventCard({ e, hideLocation = false }) {
+export function EventCard({ e }) {
   return (
     <article className="event-card">
       <Link className="event-card-link" to={`/event/${e.id}`}>
         <EventImage e={e} mode={thumbnailMode("upcoming")} />
         <div className="event-info">
-          <div className="event-meta">
-            {formatEventDate(e.date)}
-            {!hideLocation && e.location ? ` · ${e.location}` : ""}
-          </div>
+          <div className="event-meta">{formatEventDate(e.date)}</div>
           <Title as="h3" text={e.title} color={e.titleColor} category="subheading" />
         </div>
       </Link>
@@ -65,7 +62,7 @@ export function EventCard({ e, hideLocation = false }) {
   );
 }
 
-export function FeaturedEventCard({ e, hideLocation = false }) {
+export function FeaturedEventCard({ e }) {
   return (
     <article className="event-card featured">
       <Link className="event-card-media" to={`/event/${e.id}`}>
@@ -74,10 +71,7 @@ export function FeaturedEventCard({ e, hideLocation = false }) {
       <div className="event-body">
         <Link className="event-card-link" to={`/event/${e.id}`}>
           <div className="event-info">
-            <div className="event-meta">
-              {formatEventDate(e.date)}
-              {!hideLocation && e.location ? ` · ${e.location}` : ""}
-            </div>
+            <div className="event-meta">{formatEventDate(e.date)}</div>
             <Title as="h3" text={e.title} color={e.titleColor} category="subheading" />
           </div>
         </Link>
@@ -111,7 +105,7 @@ export function PastEventGalleryCard({ e }) {
       <EventImage e={e} mode={thumbnailMode("pastHome")} className="past-gallery-main" />
       <div className="past-gallery-overlay">
         <div className="event-meta" style={{ color: "var(--white)", marginBottom: 6 }}>
-          {formatEventDate(e.date)} · {e.location}
+          {formatEventDate(e.date)}
         </div>
         <Title as="h3" text={e.title} color={e.titleColor} category="subheading" style={{ margin: 0 }} />
       </div>
