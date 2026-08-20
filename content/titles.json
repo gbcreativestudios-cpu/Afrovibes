@@ -62,7 +62,7 @@
   "events": {
     "nextEventTitle": {
       "text": "NEXT EVENT",
-      "color": ""
+      "color": "#060606"
     },
     "calendarTitle": {
       "text": "EVENT LINE UP",
