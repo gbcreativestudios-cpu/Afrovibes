@@ -78,7 +78,14 @@ collections:
       - { label: "Name", name: "name", widget: "string" }
       - { label: "Category", name: "category", widget: "string" }
       - { label: "Price (CAD)", name: "price", widget: "number", value_type: "float" }
-      - { label: "Product Image", name: "image", widget: "image" }
+      - { label: "Product Image (card thumbnail)", name: "image", widget: "image" }
+      - { label: "Detail Page Image (optional)", name: "detailImage", widget: "image", required: false, hint: "Shown as the main image on this product's own page. Leave blank to reuse the card thumbnail above." }
+      - label: "Detail Page Gallery (optional)"
+        name: "gallery"
+        widget: "list"
+        required: false
+        hint: "Extra images shown on this product's page alongside the main image. Add none, one, two, or more — your choice."
+        field: { label: "Image", name: "image", widget: "image" }
       - label: "Available Sizes"
         name: "sizes"
         widget: "list"
@@ -265,6 +272,22 @@ collections:
               - { label: "\"Great People. Great Experiences.\" Image", name: "greatPeopleImage", widget: "image", required: false }
               - { label: "\"Bring People Together.\" Image", name: "bringPeopleImage", widget: "image", required: false }
               - { label: "\"Redefine Connection.\" Image", name: "redefineImage", widget: "image", required: false }
+          - label: "Who We Are — Values List"
+            name: "aboutValues"
+            widget: "list"
+            required: false
+            hint: "The 4 short value items under \"Great People. Great Experiences.\" (Connection, Adventure, Community, Memories by default). Leave empty to keep the defaults."
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
+          - label: "Connect Page — Services List"
+            name: "connectServices"
+            widget: "list"
+            required: false
+            hint: "The 4 short service items under \"Let's Create Something\" (Partnerships, Brand Activations, Event Collaborations, Community Engagement by default). Leave empty to keep the defaults."
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text" }
           - { label: "Show \"Meet The Team\" Section?", name: "teamSectionEnabled", widget: "boolean", default: true, hint: "Turns the team grid on the Who We Are page on or off entirely." }
           - label: "Event Thumbnail Controls"
             name: "eventThumbnails"

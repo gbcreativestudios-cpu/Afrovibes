@@ -6,6 +6,14 @@ export default function Connect() {
   const createTitle = getTitle("connect", "createTitle", "Let's Create Something.");
   const messageTitle = getTitle("connect", "messageTitle", "Send Us A Message.");
 
+  const defaultServices = [
+    { title: "Partnerships", text: "Work with Afrovibes to connect your brand with engaging experiences and an active community." },
+    { title: "Brand Activations", text: "Create memorable, experience-led moments that put your brand directly in the middle of the action." },
+    { title: "Event Collaborations", text: "Partner with us to build experiences that bring the right people together." },
+    { title: "Community Engagement", text: "Connect your brand with people through experiences designed around interaction, participation and shared moments." },
+  ];
+  const services = site.connectServices?.length ? site.connectServices : defaultServices;
+
   const onSubmit = (e) => {
     e.preventDefault();
     const name = e.target["c-name"].value;
@@ -36,22 +44,12 @@ export default function Connect() {
           </div>
           <div>
             <div className="values" style={{ marginTop: 0 }}>
-              <div className="value">
-                <strong>Partnerships</strong>
-                <p>Work with Afrovibes to connect your brand with engaging experiences and an active community.</p>
-              </div>
-              <div className="value">
-                <strong>Brand Activations</strong>
-                <p>Create memorable, experience-led moments that put your brand directly in the middle of the action.</p>
-              </div>
-              <div className="value">
-                <strong>Event Collaborations</strong>
-                <p>Partner with us to build experiences that bring the right people together.</p>
-              </div>
-              <div className="value">
-                <strong>Community Engagement</strong>
-                <p>Connect your brand with people through experiences designed around interaction, participation and shared moments.</p>
-              </div>
+              {services.map((s, i) => (
+                <div className="value" key={i}>
+                  <strong>{s.title}</strong>
+                  <p>{s.text}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

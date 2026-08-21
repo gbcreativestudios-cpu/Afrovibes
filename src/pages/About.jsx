@@ -13,6 +13,14 @@ export default function About() {
   const banner = site.aboutBanner;
   const features = site.aboutFeatures || {};
 
+  const defaultValues = [
+    { title: "Connection", text: "Creating spaces for genuine interaction." },
+    { title: "Adventure", text: "Giving people a reason to try something different." },
+    { title: "Community", text: "Building a vibrant community where everyone feels welcome." },
+    { title: "Memories", text: "Designing moments worth remembering." },
+  ];
+  const values = site.aboutValues?.length ? site.aboutValues : defaultValues;
+
   return (
     <main className="about-page">
       {banner?.enabled && (
@@ -53,22 +61,12 @@ export default function About() {
               everyone with stories worth telling.
             </p>
             <div className="values">
-              <div className="value">
-                <strong>Connection</strong>
-                <p>Creating spaces for genuine interaction.</p>
-              </div>
-              <div className="value">
-                <strong>Adventure</strong>
-                <p>Giving people a reason to try something different.</p>
-              </div>
-              <div className="value">
-                <strong>Community</strong>
-                <p>Building a vibrant community where everyone feels welcome.</p>
-              </div>
-              <div className="value">
-                <strong>Memories</strong>
-                <p>Designing moments worth remembering.</p>
-              </div>
+              {values.map((v, i) => (
+                <div className="value" key={i}>
+                  <strong>{v.title}</strong>
+                  <p>{v.text}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>

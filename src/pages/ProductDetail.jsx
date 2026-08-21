@@ -17,6 +17,8 @@ export default function ProductDetail() {
 
   const customFee = custom === "No customization" ? 0 : 5 * qty;
   const total = p.price * qty + customFee;
+  const mainImage = p.detailImage || p.image;
+  const galleryImages = p.gallery?.length ? p.gallery.map((g) => g.image) : [mainImage];
 
   const processOrder = () => {
     const customLine = custom === "No customization" ? "None" : `${custom}${text ? ` — "${text}"` : ""}`;
@@ -30,8 +32,10 @@ export default function ProductDetail() {
     <main>
       <div className="container product-detail product-detail-page">
         <div className="product-gallery">
-          <img className="product-main" src={p.image} alt={p.name} />
-          <img src={p.image} alt={`${p.name} detail`} />
+          <img className="product-main" src={mainImage} alt={p.name} />
+          {galleryImages.map((g, i) => (
+            <img key={i} src={g} alt={`${p.name} detail ${i + 1}`} />
+          ))}
         </div>
         <div className="product-copy">
           <Link className="back" to="/merch">
