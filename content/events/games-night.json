@@ -1,13 +1,18 @@
 {
   "galleryVideos": [],
-  "customFields": [],
+  "customFields": [
+    {
+      "title": "ACTIVITIES",
+      "content": "GAMES\nKARAOKE\nMUSIC & VIBES\nTEAM BATTLES"
+    }
+  ],
   "titleColor": "#ffffff",
   "ticket": false,
   "time": "6PM-11PM",
   "date": "2026-09-19",
   "url": "https://www.eventbrite.com/e/afrovibes-games-night-tickets-1998391375399?aff=oddtdtcreator",
   "venue": "1235 11 AVE SW",
-  "desc": "Competitive, playful and social — bring your people and your game face.",
+  "desc": "Game night is back! and this time, it's personal. Grab your squad, bring your competitive streak, and get ready for a night of games, laughs, and friendly chaos. Spots are limited, lock in your ticket NOW",
   "gallery": [
     "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1200&q=85",
     "https://images.unsplash.com/photo-1606167668584-78701c57f13d?auto=format&fit=crop&w=1200&q=85"
