@@ -53,7 +53,7 @@ export default function EventDetail() {
             )}
           </aside>
           <div>
-            <p style={{ fontSize: "1.2rem", color: "#ddd", maxWidth: 750 }}>{e.desc}</p>
+            <p style={{ maxWidth: 750 }}>{e.desc}</p>
 
             {facts.length > 0 && (
               <div className="event-facts">

@@ -1,10 +1,22 @@
+import { useState } from "react";
 import { site, getTitle } from "../data/content";
 import Title from "../components/Title";
+
+// Netlify Forms only captures a submission if the POST body is
+// application/x-www-form-urlencoded and includes "form-name" matching the
+// static form Netlify indexed at build time (see the hidden twin form in
+// index.html). This encodes a plain {field: value} object into that format.
+function encodeFormData(data) {
+  return Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join("&");
+}
 
 export default function Connect() {
   const heroTitle = getTitle("connect", "heroTitle", "Connect With Us.");
   const createTitle = getTitle("connect", "createTitle", "Let's Create Something.");
   const messageTitle = getTitle("connect", "messageTitle", "Send Us A Message.");
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 
   const defaultServices = [
     { title: "Partnerships", text: "Work with Afrovibes to connect your brand with engaging experiences and an active community." },
@@ -16,13 +28,27 @@ export default function Connect() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const name = e.target["c-name"].value;
-    const email = e.target["c-email"].value;
-    const brand = e.target["c-brand"].value;
-    const type = e.target["c-type"].value;
-    const msg = e.target["c-message"].value;
-    const text = `Hi Afrovibes! I'd like to connect regarding a potential collaboration:%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Brand / Organization:* ${brand}%0A*Collaboration Type:* ${type}%0A%0A*Message:*%0A${msg}`;
-    window.open(`https://wa.me/${site.whatsappNumber}?text=${text}`, "_blank");
+    const form = e.target;
+    const data = {
+      "form-name": "contact",
+      "c-name": form["c-name"].value,
+      "c-email": form["c-email"].value,
+      "c-brand": form["c-brand"].value,
+      "c-type": form["c-type"].value,
+      "c-message": form["c-message"].value,
+    };
+
+    setStatus("sending");
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encodeFormData(data),
+    })
+      .then(() => {
+        setStatus("sent");
+        form.reset();
+      })
+      .catch(() => setStatus("error"));
   };
 
   return (
@@ -64,7 +90,15 @@ export default function Connect() {
               or something completely new, we'd love to hear from you.
             </p>
           </div>
-          <form className="connect-form" onSubmit={onSubmit}>
+          <form
+            className="connect-form"
+            name="contact"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={onSubmit}
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="text" name="bot-field" style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
             <input type="text" name="c-name" placeholder="Full Name" required />
             <input type="email" name="c-email" placeholder="Email Address" required />
             <input type="text" name="c-brand" placeholder="Brand / Organization" required />
@@ -84,10 +118,21 @@ export default function Connect() {
             <button
               type="submit"
               className="btn btn-primary btn-mobile-fill"
+              disabled={status === "sending"}
               style={{ justifySelf: "start", minHeight: 55, padding: "0 35px" }}
             >
-              Send Message
+              {status === "sending" ? "Sending..." : "Send Message"}
             </button>
+            {status === "sent" && (
+              <p style={{ color: "var(--white)", margin: 0 }}>
+                Thanks — your message is in! We'll get back to you soon.
+              </p>
+            )}
+            {status === "error" && (
+              <p style={{ color: "var(--pink)", margin: 0 }}>
+                Something went wrong sending that. Please try again.
+              </p>
+            )}
           </form>
         </div>
       </section>
