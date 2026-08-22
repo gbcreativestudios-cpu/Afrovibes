@@ -12,6 +12,28 @@
   </head>
   <body class="bg-black text-offwhite">
     <div id="root"></div>
+    <!-- Static twin of the "Send Us A Message" form on /connect. Netlify's
+         build bot only scans plain HTML for forms (it can't see forms
+         rendered later by React), so this hidden copy is what lets Netlify
+         detect the form and create the "contact" inbox in the dashboard.
+         Field names here must stay in sync with the real form in
+         src/pages/Connect.jsx. -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="c-name" />
+      <input type="email" name="c-email" />
+      <input type="text" name="c-brand" />
+      <select name="c-type">
+        <option value="Partnership">Partnership</option>
+        <option value="Brand Activation">Brand Activation</option>
+        <option value="Event Collaboration">Event Collaboration</option>
+        <option value="Sponsorship">Sponsorship</option>
+        <option value="Community Engagement">Community Engagement</option>
+        <option value="Creative Collaboration">Creative Collaboration</option>
+        <option value="Other">Other</option>
+      </select>
+      <textarea name="c-message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
     <script type="module" src="/src/main.jsx"></script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
