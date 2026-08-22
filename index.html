@@ -34,6 +34,11 @@
       <textarea name="c-message"></textarea>
       <input type="text" name="bot-field" />
     </form>
+    <!-- Static twin of the "Join The Vibe" newsletter form (src/components/Newsletter.jsx) -->
+    <form name="newsletter" data-netlify="true" netlify-honeypot="nl-bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="nl-bot-field" />
+    </form>
     <script type="module" src="/src/main.jsx"></script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
