@@ -3,12 +3,16 @@
   "customFields": [
     {
       "title": "ACTIVITIES",
-      "content": "GAMES\nKARAOKE\nMUSIC & VIBES\nTEAM BATTLES"
+      "content": "GAMES | KARAOKE | MUSIC & VIBES | TEAM BATTLES"
+    },
+    {
+      "title": "LOCATION",
+      "content": "DOWNTOWN CALGARY, ALBERTA"
     }
   ],
   "titleColor": "#ffffff",
   "ticket": false,
-  "time": "6PM-11PM",
+  "time": "6PM - 11PM",
   "date": "2026-09-19",
   "url": "https://www.eventbrite.com/e/afrovibes-games-night-tickets-1998391375399?aff=oddtdtcreator",
   "venue": "1235 11 AVE SW",
@@ -20,7 +24,7 @@
   "instagram": "",
   "status": "TICKETS AVAILABLE",
   "showVideos": false,
-  "location": "DOWNTOWN CALGARY, ALBERTA",
+  "location": "",
   "title": "GAMES NIGHT",
   "id": "games-night",
   "image": "/uploads/thumb-asdf.jpg"
