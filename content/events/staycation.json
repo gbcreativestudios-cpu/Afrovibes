@@ -1,20 +1,18 @@
 {
-  "id": "staycation",
-  "title": "Staycation",
-  "date": "2026-12-01",
-  "location": "Canada",
-  "status": "COMING SOON",
-  "ticket": false,
-  "url": "",
-  "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85",
-  "desc": "Slow down, reconnect and end the year with an experience worth remembering.",
-  "gallery": [
-    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85"
-  ],
-  "instagram": "",
-  "showVideos": false,
   "galleryVideos": [],
+  "customFields": [],
+  "ticket": false,
   "time": "",
+  "date": "2026-12-01",
+  "url": "",
   "venue": "",
-  "customFields": []
+  "desc": "Slow down, reconnect and end the year with an experience worth remembering.",
+  "gallery": [],
+  "instagram": "",
+  "status": "COMING SOON",
+  "showVideos": false,
+  "location": "Canada",
+  "title": "Staycation",
+  "id": "staycation",
+  "image": "/uploads/artboard-1-copy-2.jpg"
 }
