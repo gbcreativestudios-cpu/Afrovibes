@@ -1,21 +1,18 @@
 {
-  "id": "family-feud",
-  "title": "Family Feud",
-  "date": "2026-10-01",
-  "location": "Canada",
-  "status": "COMING SOON",
-  "ticket": false,
-  "url": "",
-  "image": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85",
-  "desc": "Big personalities, bigger answers and a room full of energy.",
-  "gallery": [
-    "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=85",
-    "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=85"
-  ],
-  "instagram": "",
-  "showVideos": false,
   "galleryVideos": [],
+  "customFields": [],
+  "ticket": false,
   "time": "",
+  "date": "2026-10-01",
+  "url": "",
   "venue": "",
-  "customFields": []
+  "desc": "Big personalities, bigger answers and a room full of energy.",
+  "gallery": [],
+  "instagram": "",
+  "status": "COMING SOON",
+  "showVideos": false,
+  "location": "Canada",
+  "title": "Family Feud",
+  "id": "family-feud",
+  "image": "/uploads/artboard-1.jpg"
 }
