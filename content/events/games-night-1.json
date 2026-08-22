@@ -1,0 +1,19 @@
+{
+  "showVideos": false,
+  "title": "Games Night",
+  "id": "games-night",
+  "date": "2026-05-15",
+  "desc": "Games, laughs, and a little friendly chaos. packed the room with friendly competition, good music, and one unforgettable night of games.",
+  "image": "/uploads/afv-60.jpg",
+  "gallery": [
+    "/uploads/afv-132.jpg",
+    "/uploads/afv-102.jpg",
+    "/uploads/afv-14.jpg",
+    "/uploads/afv-59.jpg",
+    "/uploads/afv-95.jpg",
+    "/uploads/afv-42.jpg",
+    "/uploads/afv-113.jpg",
+    "/uploads/afv-28.jpg"
+  ],
+  "status": "COMING SOON"
+}
