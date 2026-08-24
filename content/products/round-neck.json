@@ -1,9 +1,9 @@
 {
-  "id": "round-neck",
-  "name": "Afrovibes Round Neck",
+  "id": "t-shirt",
+  "name": "Afrovibes T-Shirt",
   "category": "Round Neck",
-  "price": 45,
-  "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1000&q=85",
+  "price": 25,
+  "image": "/uploads/image.png_202608240033.jpeg",
   "sizes": [
     "S",
     "M",
@@ -21,8 +21,20 @@
       "hex": "#f4f4f4"
     },
     {
-      "name": "Purple",
-      "hex": "#7B2FF7"
+      "name": "Dark Teal",
+      "hex": "#1F505D"
+    },
+    {
+      "hex": "#4C392B",
+      "name": "Brown"
+    },
+    {
+      "name": "Rose",
+      "hex": "#D5999B"
+    },
+    {
+      "hex": "#A36A32",
+      "name": "Tan"
     }
   ],
   "custom": [
