@@ -2,8 +2,8 @@
   "id": "tank-top",
   "name": "Afrovibes Tank Top",
   "category": "Tank Top",
-  "price": 35,
-  "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=1000&q=85",
+  "price": 30,
+  "image": "/uploads/create_commercial_product_photog…_202608240016.jpeg",
   "sizes": [
     "S",
     "M",
@@ -12,12 +12,28 @@
   ],
   "colors": [
     {
+      "hex": "#669F8E",
+      "name": "Green"
+    },
+    {
       "name": "Black",
       "hex": "#111111"
     },
     {
-      "name": "Pink",
-      "hex": "#FF2D95"
+      "name": "Dark Red",
+      "hex": "#B90D1E"
+    },
+    {
+      "name": "White",
+      "hex": "#F9FAFC"
+    },
+    {
+      "hex": "#ECD4C6",
+      "name": "Rose"
+    },
+    {
+      "hex": "#DFC673",
+      "name": "Olive Yellow"
     }
   ],
   "custom": [
