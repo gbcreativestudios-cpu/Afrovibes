@@ -1,27 +1,28 @@
 {
-  "id": "sweatpants",
-  "name": "Afrovibes Sweatpants",
-  "category": "Sweatpants",
   "price": 60,
-  "image": "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?auto=format&fit=crop&w=1000&q=85",
-  "sizes": [
-    "S",
-    "M",
-    "L",
-    "XL"
-  ],
+  "detailImage": "",
+  "name": "Afrovibes Sweatpants",
   "colors": [
     {
       "name": "Black",
       "hex": "#111111"
     },
     {
-      "name": "Purple",
-      "hex": "#7B2FF7"
+      "name": "Brown",
+      "hex": "#624531"
     }
   ],
   "custom": [
     "No customization",
     "Add my name"
-  ]
+  ],
+  "sizes": [
+    "S",
+    "M",
+    "L",
+    "XL"
+  ],
+  "id": "sweatpants",
+  "image": "/uploads/shrinking_image_border_202608240119.jpeg",
+  "category": "Sweatpants"
 }
