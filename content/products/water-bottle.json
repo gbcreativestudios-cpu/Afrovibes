@@ -3,18 +3,22 @@
   "name": "Afrovibes Water Bottle",
   "category": "Water Bottle",
   "price": 25,
-  "image": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=1000&q=85",
+  "image": "/uploads/water_bottles_floating_mockup_de…_202608240040.jpeg",
   "sizes": [
     "One Size"
   ],
   "colors": [
     {
-      "name": "Black",
-      "hex": "#111111"
+      "name": "White",
+      "hex": "#EFF3F5"
     },
     {
-      "name": "Pink",
-      "hex": "#FF2D95"
+      "name": "Dark Teal",
+      "hex": "#14677D"
+    },
+    {
+      "name": "Dark Blue",
+      "hex": "#003C7E"
     }
   ],
   "custom": [
