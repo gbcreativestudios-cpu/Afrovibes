@@ -2,8 +2,8 @@
   "id": "sweatshirt",
   "name": "Afrovibes Sweatshirt",
   "category": "Sweatshirt",
-  "price": 65,
-  "image": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=1000&q=85",
+  "price": 55,
+  "image": "/uploads/sweatshirt.jpg.jpeg_202608240200.jpeg",
   "sizes": [
     "S",
     "M",
@@ -17,12 +17,8 @@
       "hex": "#111111"
     },
     {
-      "name": "Grey",
-      "hex": "#888888"
-    },
-    {
-      "name": "Purple",
-      "hex": "#7B2FF7"
+      "name": "Light Grey",
+      "hex": "#F0F0F0"
     }
   ],
   "custom": [
