@@ -7,11 +7,31 @@ const teamModules = import.meta.glob("../../content/team/*.json", { eager: true 
 const siteModule = import.meta.glob("../../content/site.json", { eager: true });
 const titlesModule = import.meta.glob("../../content/titles.json", { eager: true });
 
-export const events = Object.values(eventModules)
-  .map((m) => m.default)
+// The `id` field in Decap is free text and only sets the filename at the
+// moment an entry is first created — editing or duplicating an entry later
+// can leave two different files with the same `id` value. Since every
+// card link and the EventDetail lookup key off `id`, a collision makes two
+// unrelated events resolve to the same URL (whichever comes first in the
+// sorted list always "wins"), which is what caused past/upcoming events
+// with matching ids to show the wrong content and the wrong status tag.
+// Filenames are guaranteed unique by the filesystem, so we derive the
+// routing id from the filename instead of trusting the CMS field — this
+// makes id collisions impossible going forward, no matter what gets typed
+// into the "ID" field in Decap.
+export const events = Object.entries(eventModules)
+  .map(([path, m]) => {
+    const fileSlug = path.split("/").pop().replace(/\.json$/, "");
+    return { ...m.default, id: fileSlug };
+  })
   .sort((a, b) => a.date.localeCompare(b.date));
 
-export const products = Object.values(productModules).map((m) => m.default);
+// Same collision risk exists for products (id is free text in Decap), so
+// apply the same filename-based safeguard here even though no duplicates
+// exist today.
+export const products = Object.entries(productModules).map(([path, m]) => {
+  const fileSlug = path.split("/").pop().replace(/\.json$/, "");
+  return { ...m.default, id: fileSlug };
+});
 
 export const team = Object.values(teamModules)
   .map((m) => m.default)
