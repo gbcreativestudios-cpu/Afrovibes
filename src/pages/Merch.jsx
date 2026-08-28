@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { products, money, getTitle } from "../data/content";
 import Title from "../components/Title";
+import { FadeIn, Reveal } from "../components/Reveal";
 
-function ProductCard({ p }) {
+function ProductCard({ p, index = 0 }) {
   return (
-    <Link className="product-card" to={`/product/${p.id}`}>
+    <Reveal as={Link} className="product-card" to={`/product/${p.id}`} index={index}>
       <div className="product-image" style={{ backgroundImage: `url('${p.image}')` }} />
       <div className="product-body">
         <div
@@ -17,7 +19,7 @@ function ProductCard({ p }) {
         <h3>{p.name}</h3>
         <div className="price">{money(p.price)}</div>
       </div>
-    </Link>
+    </Reveal>
   );
 }
 
@@ -30,10 +32,10 @@ export default function Merch() {
   return (
     <main className="merch-page">
       <section className="page-hero">
-        <div className="container">
+        <FadeIn as="div" className="container">
           <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-page" />
           <p className="merch-copy">Afrovibes merch made for the moments before, during and after the experience.</p>
-        </div>
+        </FadeIn>
       </section>
       <section className="section" style={{ paddingTop: 20 }}>
         <div className="container">
@@ -47,11 +49,23 @@ export default function Merch() {
               </button>
             ))}
           </div>
-          <div className="grid products-grid">
-            {list.map((p) => (
-              <ProductCard key={p.id} p={p} />
-            ))}
-          </div>
+          {/* Matches GB's filtered-grid crossfade: switching category
+              fades the old grid out and the new one in instead of
+              cutting instantly. */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              className="grid products-grid"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {list.map((p, i) => (
+                <ProductCard key={p.id} p={p} index={i} />
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
     </main>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { site, getTitle } from "../data/content";
 import Title from "../components/Title";
+import { FadeIn, Reveal } from "../components/Reveal";
 
 // Netlify Forms only captures a submission if the POST body is
 // application/x-www-form-urlencoded and includes "form-name" matching the
@@ -54,13 +55,13 @@ export default function Connect() {
   return (
     <main className="connect-page">
       <section className="page-hero">
-        <div className="container">
+        <FadeIn as="div" className="container">
           <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-page" />
           <p className="connect-copy">Have a brand, idea or collaboration in mind? Let's create something people will want to show up for.</p>
           <a className="btn btn-primary btn-mobile-fill" style={{ marginTop: 20 }} href="#message-section">
             Let's Talk
           </a>
-        </div>
+        </FadeIn>
       </section>
 
       <section className="section">
@@ -71,10 +72,10 @@ export default function Connect() {
           <div>
             <div className="values" style={{ marginTop: 0 }}>
               {services.map((s, i) => (
-                <div className="value" key={i}>
+                <Reveal as="div" className="value" key={i} index={i}>
                   <strong>{s.title}</strong>
                   <p>{s.text}</p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -90,7 +91,8 @@ export default function Connect() {
               or something completely new, we'd love to hear from you.
             </p>
           </div>
-          <form
+          <Reveal
+            as="form"
             className="connect-form"
             name="contact"
             data-netlify="true"
@@ -133,7 +135,7 @@ export default function Connect() {
                 Something went wrong sending that. Please try again.
               </p>
             )}
-          </form>
+          </Reveal>
         </div>
       </section>
     </main>

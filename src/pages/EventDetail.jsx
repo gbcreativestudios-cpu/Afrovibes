@@ -3,6 +3,7 @@ import { events, formatEventDate, getNextEvent, getTitle, isPastEvent } from "..
 import NotFound from "./NotFound";
 import Title from "../components/Title";
 import useParallax from "../hooks/useParallax";
+import { FadeIn, Reveal } from "../components/Reveal";
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -31,16 +32,21 @@ export default function EventDetail() {
         <Link className="back" to="/events">
           ← Back to events
         </Link>
-        <div ref={parallaxRef} className="detail-hero" style={{ backgroundImage: `url('${e.image}')` }}>
+        <FadeIn
+          as="div"
+          ref={parallaxRef}
+          className="detail-hero"
+          style={{ backgroundImage: `url('${e.image}')` }}
+        >
           <div>
             <div className="event-meta" style={{ color: "var(--white)", marginBottom: 12 }}>
               {formatEventDate(e.date)}
             </div>
             <Title as="h1" text={e.title} color={e.titleColor} category="hero-page" />
           </div>
-        </div>
+        </FadeIn>
         <div className="detail-content">
-          <aside>
+          <Reveal as="aside">
             {isNext && <p className="muted">{e.status}</p>}
             {isNext && e.status === "TICKETS AVAILABLE" && (
               e.url ? (
@@ -51,7 +57,7 @@ export default function EventDetail() {
                 <span className="btn btn-primary">Get Ticket</span>
               )
             )}
-          </aside>
+          </Reveal>
           <div>
             <p style={{ maxWidth: 750 }}>{e.desc}</p>
 

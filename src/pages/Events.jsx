@@ -2,6 +2,7 @@ import { events, getTitle, isPastEvent, site } from "../data/content";
 import { EventCard, FeaturedEventCard, PastEventRow } from "../components/EventCards";
 import GalleryTicker from "../components/GalleryTicker";
 import Title from "../components/Title";
+import { FadeIn, Reveal } from "../components/Reveal";
 
 export default function Events() {
   const upcoming = events.filter((e) => !isPastEvent(e));
@@ -19,23 +20,23 @@ export default function Events() {
   return (
     <main className="events-page">
       <section className="page-hero">
-        <div className="container">
+        <FadeIn as="div" className="container">
           <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-page" />
           <p className="events-copy">
             Every gathering, party, and pop-up we've thrown — what's coming up next and what
             we've already made memories out of.
           </p>
-        </div>
+        </FadeIn>
       </section>
 
       {next && (
         <section className="section" style={{ paddingTop: 20, backgroundColor: nextEventBg || "var(--purple)" }}>
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <div>
                 <Title as="h2" text={nextEventTitle.text} color={nextEventTitle.color} category="headline" />
               </div>
-            </div>
+            </Reveal>
             <div className="grid events-grid single">
               <FeaturedEventCard e={next} />
             </div>
@@ -46,14 +47,14 @@ export default function Events() {
       {rest.length > 0 && (
         <section className="section" style={{ paddingTop: 20 }}>
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <div>
                 <Title as="h2" text={calendarTitle.text} color={calendarTitle.color} category="headline" />
               </div>
-            </div>
+            </Reveal>
             <div className="grid events-grid">
-              {rest.map((e) => (
-                <EventCard key={e.id} e={e} />
+              {rest.map((e, i) => (
+                <EventCard key={e.id} e={e} index={i} />
               ))}
             </div>
           </div>
@@ -62,15 +63,15 @@ export default function Events() {
 
       <section id="past-events" className="section" style={{ paddingTop: 20 }}>
         <div className="container">
-          <div className="section-head">
+          <Reveal className="section-head">
             <div>
               <Title as="h2" text={pastEventsTitle.text} color={pastEventsTitle.color} category="headline" />
             </div>
-          </div>
+          </Reveal>
           {past.length > 0 ? (
             <div className="past-list">
-              {past.map((e) => (
-                <PastEventRow key={e.id} e={e} />
+              {past.map((e, i) => (
+                <PastEventRow key={e.id} e={e} index={i} />
               ))}
             </div>
           ) : (

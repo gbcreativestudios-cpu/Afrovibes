@@ -1,6 +1,7 @@
 import { team, getTitle, site } from "../data/content";
 import Title from "../components/Title";
 import useParallax from "../hooks/useParallax";
+import { FadeIn, Reveal } from "../components/Reveal";
 
 export default function About() {
   const parallaxRef = useParallax(40);
@@ -24,7 +25,8 @@ export default function About() {
   return (
     <main className="about-page">
       {banner?.enabled && (
-        <section
+        <FadeIn
+          as="section"
           ref={parallaxRef}
           className={`about-banner${banner.size === "landscape" ? " about-banner-landscape" : ""}`}
           style={banner.image ? { backgroundImage: `url('${banner.image}')` } : undefined}
@@ -34,17 +36,17 @@ export default function About() {
               <p>{banner.text}</p>
             </div>
           )}
-        </section>
+        </FadeIn>
       )}
 
       <section className="page-hero">
-        <div className="container">
+        <FadeIn as="div" className="container">
           <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-page" />
           <p className="about-copy">
             Afrovibes is a social experience brand dedicated to bringing people together through
             unforgettable events that inspire connection, excitement, and lasting memories.
           </p>
-        </div>
+        </FadeIn>
       </section>
 
       <section className="section">
@@ -62,10 +64,10 @@ export default function About() {
             </p>
             <div className="values">
               {values.map((v, i) => (
-                <div className="value" key={i}>
+                <Reveal as="div" className="value" key={i} index={i}>
                   <strong>{v.title}</strong>
                   <p>{v.text}</p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -109,18 +111,18 @@ export default function About() {
       {(site.teamSectionEnabled ?? true) && (
         <section className="section">
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <div>
                 <Title as="h2" text={teamTitle.text} color={teamTitle.color} category="headline" />
               </div>
-            </div>
+            </Reveal>
             <div className="grid team-grid">
               {team.map((t, i) => (
-                <div className="team-card" key={i}>
+                <Reveal as="div" className="team-card" key={i} index={i}>
                   <img src={t.image} alt={t.name} />
                   <h3>{t.name}</h3>
                   <p>{t.role}</p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>

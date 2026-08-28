@@ -8,15 +8,19 @@ import ActionButton from "../components/ActionButton";
 import PartnersSection from "../components/PartnersSection";
 import CustomSection from "../components/CustomSection";
 import ScrollIndicator from "../components/ScrollIndicator";
+import MagneticButton from "../components/MagneticButton";
+import { FadeIn, Reveal } from "../components/Reveal";
 
-function PastHomeCard({ e, small = false }) {
+function PastHomeCard({ e, small = false, index = 0 }) {
   const mode = thumbnailMode("pastHome");
   const ratioStyle = mode !== "adapt" ? { aspectRatio: mode.replace(":", "/") } : undefined;
   return (
-    <Link
+    <Reveal
+      as={Link}
       className={`past-card${small ? " small" : ""} ${mode === "adapt" ? "thumbnail-adapt" : "thumbnail-ratio"}`}
       to={`/event/${e.id}`}
       style={ratioStyle}
+      index={index}
     >
       <img src={e.image} alt={e.title} />
       <div className="past-card-content">
@@ -25,7 +29,7 @@ function PastHomeCard({ e, small = false }) {
         </div>
         <Title as="h3" text={e.title} color={e.titleColor} category="subheading" />
       </div>
-    </Link>
+    </Reveal>
   );
 }
 
@@ -56,13 +60,15 @@ export default function Home() {
           images={site.heroBackground?.images}
         />
         <div className="hero-bg" />
-        <div className="container hero-content hero-content-pushed">
+        <FadeIn className="container hero-content hero-content-pushed">
           <Title as="h1" text={heroTitle.text} color={heroTitle.color} category="hero-home" />
           <div className="actions actions-stack-mobile">
-            <ActionButton slot={site.buttonSlots?.heroPrimary} className="btn btn-primary btn-purple" />
+            <MagneticButton>
+              <ActionButton slot={site.buttonSlots?.heroPrimary} className="btn btn-primary btn-purple" />
+            </MagneticButton>
             <ActionButton slot={site.buttonSlots?.heroSecondary} className="btn btn-outline" />
           </div>
-        </div>
+        </FadeIn>
         <ScrollIndicator enabled={site.heroScrollIndicator?.enabled ?? true} />
       </section>
 
@@ -84,11 +90,11 @@ export default function Home() {
       {next && (
         <section className="section" style={{ backgroundColor: nextEventBg || "var(--purple)" }}>
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <div>
                 <Title as="h2" text={nextEventTitle.text} color={nextEventTitle.color} category="headline" />
               </div>
-            </div>
+            </Reveal>
             <div className="grid events-grid single">
               <FeaturedEventCard e={next} hideLocation />
             </div>
@@ -99,7 +105,7 @@ export default function Home() {
       {rest.length > 0 && (
         <section className="section" style={{ paddingTop: 30 }}>
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <div>
                 <Title as="h2" text={upcomingEventTitle.text} color={upcomingEventTitle.color} category="headline" />
               </div>
@@ -108,7 +114,7 @@ export default function Home() {
                   View All Events
                 </Link>
               )}
-            </div>
+            </Reveal>
             <EventsSlider events={rest} hideLocation />
           </div>
         </section>
@@ -117,23 +123,23 @@ export default function Home() {
       {past.length > 0 && (
         <section className="section" style={{ paddingTop: 30 }}>
           <div className="container">
-            <div className="section-head">
+            <Reveal className="section-head">
               <div>
                 <Title as="h2" text={pastVibesTitle.text} color={pastVibesTitle.color} category="headline" />
               </div>
               <Link className="btn btn-outline" to="/events">
                 View All Events
               </Link>
-            </div>
+            </Reveal>
             <div
               className="grid past-grid"
               style={past.length < 2 ? { gridTemplateColumns: "1fr" } : undefined}
             >
-              <PastHomeCard e={past[0]} />
+              <PastHomeCard e={past[0]} index={0} />
               {past.length > 1 && (
                 <div className="past-stack">
-                  {past.slice(1).map((e) => (
-                    <PastHomeCard key={e.id} e={e} small />
+                  {past.slice(1).map((e, i) => (
+                    <PastHomeCard key={e.id} e={e} small index={i + 1} />
                   ))}
                 </div>
               )}
@@ -143,7 +149,7 @@ export default function Home() {
       )}
 
       <section className="section statement">
-        <div className="container statement-inner">
+        <Reveal as="div" className="container statement-inner">
           <Title as="h2" text={statementTitle.text} color={statementTitle.color} category="hero-home" />
           <p>
             We create experiences that give people a reason to step away from routine, connect
@@ -156,29 +162,29 @@ export default function Home() {
           >
             {mediaLinkText.text}
           </Link>
-        </div>
+        </Reveal>
       </section>
 
       <section className="section merch-teaser">
         <div className="container">
-          <div className="section-head">
+          <Reveal className="section-head">
             <div>
               <Title as="h2" text={merchTeaserTitle.text} color={merchTeaserTitle.color} category="hero-home" />
             </div>
             <Link className="btn btn-primary merch-shop-btn-desktop" to="/merch">
               Shop Merch
             </Link>
-          </div>
+          </Reveal>
           <div className="stack">
-            {products.slice(0, 5).map((p) => (
-              <Link key={p.id} className="merch-card" to={`/product/${p.id}`}>
+            {products.slice(0, 5).map((p, i) => (
+              <Reveal as={Link} key={p.id} className="merch-card" to={`/product/${p.id}`} index={i}>
                 <div className="merch-visual" style={{ backgroundImage: `url('${p.image}')` }}>
                   <div className="merch-label">
                     {p.category}
                     <span className="merch-price">{money(p.price)}</span>
                   </div>
                 </div>
-              </Link>
+              </Reveal>
             ))}
           </div>
           <Link className="btn btn-primary merch-shop-btn-mobile" to="/merch">
