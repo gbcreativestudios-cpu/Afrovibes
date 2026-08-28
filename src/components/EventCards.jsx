@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { formatEventDate, isNextEvent, site } from "../data/content";
 import Title from "./Title";
+import { Reveal } from "./Reveal";
 
 const AVAILABLE_RATIOS = new Set(["1:1", "4:5", "3:4", "2:3", "3:2", "4:3", "16:9", "21:9"]);
 
@@ -42,9 +43,9 @@ function TicketButton({ e }) {
   );
 }
 
-export function EventCard({ e }) {
+export function EventCard({ e, index = 0 }) {
   return (
-    <article className="event-card">
+    <Reveal as="article" className="event-card" index={index}>
       <Link className="event-card-link" to={`/event/${e.id}`}>
         <EventImage e={e} mode={thumbnailMode("upcoming")} />
         <div className="event-info">
@@ -58,13 +59,13 @@ export function EventCard({ e }) {
           Details
         </Link>
       </div>
-    </article>
+    </Reveal>
   );
 }
 
 export function FeaturedEventCard({ e }) {
   return (
-    <article className="event-card featured">
+    <Reveal as="article" className="event-card featured">
       <Link className="event-card-media" to={`/event/${e.id}`}>
         <EventImage e={e} mode={thumbnailMode("next")} />
       </Link>
@@ -82,26 +83,26 @@ export function FeaturedEventCard({ e }) {
           </Link>
         </div>
       </div>
-    </article>
+    </Reveal>
   );
 }
 
-export function PastEventRow({ e }) {
+export function PastEventRow({ e, index = 0 }) {
   return (
-    <Link className="past-row" to={`/event/${e.id}`}>
+    <Reveal as={Link} className="past-row" index={index} to={`/event/${e.id}`}>
       <div className="past-row-meta">
         <div className="past-row-date">{formatEventDate(e.date)}</div>
         <Title as="h3" className="past-row-title" text={e.title} color={e.titleColor} category="subheading" />
       </div>
       <EventImage e={e} mode={thumbnailMode("pastEvents")} className="past-row-thumb" />
-    </Link>
+    </Reveal>
   );
 }
 
-export function PastEventGalleryCard({ e }) {
+export function PastEventGalleryCard({ e, index = 0 }) {
   const thumbs = (e.gallery || []).slice(0, 4);
   return (
-    <Link className="past-gallery-card" to={`/event/${e.id}`}>
+    <Reveal as={Link} className="past-gallery-card" index={index} to={`/event/${e.id}`}>
       <EventImage e={e} mode={thumbnailMode("pastHome")} className="past-gallery-main" />
       <div className="past-gallery-overlay">
         <div className="event-meta" style={{ color: "var(--white)", marginBottom: 6 }}>
@@ -116,6 +117,6 @@ export function PastEventGalleryCard({ e }) {
           ))}
         </div>
       )}
-    </Link>
+    </Reveal>
   );
 }

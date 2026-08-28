@@ -1,7 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { site } from "../data/content";
 import ActionButton from "./ActionButton";
+import { EASE } from "./Reveal";
+
+function NavLinks({ onLinkClick }) {
+  return (
+    <>
+      <Link to="/events" onClick={onLinkClick}>
+        Events
+      </Link>
+      <Link to="/merch" onClick={onLinkClick}>
+        Merch
+      </Link>
+      <Link to="/who-we-are" onClick={onLinkClick}>
+        Who We Are
+      </Link>
+      <Link to="/connect" onClick={onLinkClick}>
+        Connect
+      </Link>
+      <ActionButton slot={site.buttonSlots?.navCta} className="nav-cta" onClick={onLinkClick} />
+    </>
+  );
+}
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -44,20 +66,12 @@ export default function Nav() {
             </>
           )}
         </Link>
-        <div className={`nav-links${open ? " open" : ""}`} id="navLinks">
-          <Link to="/events" onClick={() => setOpen(false)}>
-            Events
-          </Link>
-          <Link to="/merch" onClick={() => setOpen(false)}>
-            Merch
-          </Link>
-          <Link to="/who-we-are" onClick={() => setOpen(false)}>
-            Who We Are
-          </Link>
-          <Link to="/connect" onClick={() => setOpen(false)}>
-            Connect
-          </Link>
-          <ActionButton slot={site.buttonSlots?.navCta} className="nav-cta" onClick={() => setOpen(false)} />
+        {/* Desktop nav links — always mounted, hidden on mobile via CSS.
+            No animation needed here; the mobile overlay below handles
+            the animated open/close, matching GB's mobile menu treatment
+            without disturbing the always-visible desktop nav. */}
+        <div className="nav-links" id="navLinks">
+          <NavLinks onLinkClick={() => {}} />
         </div>
         <ActionButton slot={site.buttonSlots?.navCta} className="nav-cta" />
         <button className="menu" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
@@ -72,6 +86,23 @@ export default function Nav() {
           )}
         </button>
       </div>
+
+      {/* Mobile menu overlay — matches GB's AnimatePresence fade/slide
+          treatment (opacity + y:-20, duration ~0.35) instead of a plain
+          display toggle. */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="nav-links open"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.35, ease: EASE }}
+          >
+            <NavLinks onLinkClick={() => setOpen(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
