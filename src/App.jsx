@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Newsletter from "./components/Newsletter";
 import WhatsAppButton from "./components/WhatsAppButton";
-import ScrollReveal from "./components/ScrollReveal";
 import TypographySettings from "./components/TypographySettings";
+import PageTransition from "./components/PageTransition";
 import Home from "./pages/Home";
 import Events from "./pages/Events";
 import EventDetail from "./pages/EventDetail";
@@ -56,24 +57,35 @@ function Favicon() {
   return null;
 }
 
+// Matches GB Studios' router: AnimatePresence mode="wait" keyed on the
+// route so every navigation cross-fades/scales the outgoing page out
+// before the new one animates in, instead of cutting instantly.
+function AnimatedRoutes() {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/events" element={<PageTransition><Events /></PageTransition>} />
+        <Route path="/event/:id" element={<PageTransition variant="detail"><EventDetail /></PageTransition>} />
+        <Route path="/merch" element={<PageTransition><Merch /></PageTransition>} />
+        <Route path="/product/:id" element={<PageTransition variant="detail"><ProductDetail /></PageTransition>} />
+        <Route path="/who-we-are" element={<PageTransition variant="detail"><About /></PageTransition>} />
+        <Route path="/connect" element={<PageTransition variant="connect"><Connect /></PageTransition>} />
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
 export default function App() {
   return (
     <>
       <Favicon />
       <TypographySettings />
       <ScrollToTop />
-      <ScrollReveal />
       <Nav />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/event/:id" element={<EventDetail />} />
-        <Route path="/merch" element={<Merch />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/who-we-are" element={<About />} />
-        <Route path="/connect" element={<Connect />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <AnimatedRoutes />
       <Newsletter />
       <Footer />
       <WhatsAppButton />
