@@ -3,7 +3,7 @@ import { events, formatEventDate, getNextEvent, getTitle, isPastEvent } from "..
 import NotFound from "./NotFound";
 import Title from "../components/Title";
 import useParallax from "../hooks/useParallax";
-import { FadeIn, Reveal } from "../components/Reveal";
+import { FadeIn } from "../components/Reveal";
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -46,7 +46,7 @@ export default function EventDetail() {
           </div>
         </FadeIn>
         <div className="detail-content">
-          <Reveal as="aside">
+          <FadeIn as="aside" delay={0.15}>
             {isNext && <p className="muted">{e.status}</p>}
             {isNext && e.status === "TICKETS AVAILABLE" && (
               e.url ? (
@@ -57,7 +57,7 @@ export default function EventDetail() {
                 <span className="btn btn-primary">Get Ticket</span>
               )
             )}
-          </Reveal>
+          </FadeIn>
           <div>
             <p style={{ maxWidth: 750 }}>{e.desc}</p>
 

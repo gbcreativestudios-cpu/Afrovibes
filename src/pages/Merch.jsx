@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { products, money, getTitle } from "../data/content";
 import Title from "../components/Title";
-import { FadeIn, Reveal } from "../components/Reveal";
+import { FadeIn } from "../components/Reveal";
 
-function ProductCard({ p, index = 0 }) {
+// Plain — no per-card scroll-reveal here. This card only ever renders
+// inside the filter-switch crossfade below, which already handles the
+// grid's entrance; adding a second, independent reveal per card on top
+// of that produced the same "double motion" (fades in twice, jerkily)
+// that the events slider had.
+function ProductCard({ p }) {
   return (
-    <Reveal as={Link} className="product-card" to={`/product/${p.id}`} index={index}>
+    <Link className="product-card" to={`/product/${p.id}`}>
       <div className="product-image" style={{ backgroundImage: `url('${p.image}')` }} />
       <div className="product-body">
         <div
@@ -19,7 +24,7 @@ function ProductCard({ p, index = 0 }) {
         <h3>{p.name}</h3>
         <div className="price">{money(p.price)}</div>
       </div>
-    </Reveal>
+    </Link>
   );
 }
 
@@ -61,8 +66,8 @@ export default function Merch() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {list.map((p, i) => (
-                <ProductCard key={p.id} p={p} index={i} />
+              {list.map((p) => (
+                <ProductCard key={p.id} p={p} />
               ))}
             </motion.div>
           </AnimatePresence>

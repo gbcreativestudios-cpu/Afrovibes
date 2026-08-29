@@ -74,7 +74,7 @@ export default function EventsSlider({ events, hideLocation = false }) {
               transition={{ duration: 0.28, ease: "easeOut" }}
             >
               {visible.map((e) => (
-                <EventCard e={e} key={e.id} hideLocation={hideLocation} />
+                <EventCard e={e} key={e.id} hideLocation={hideLocation} animate={false} />
               ))}
             </motion.div>
           </AnimatePresence>
@@ -154,7 +154,7 @@ export default function EventsSlider({ events, hideLocation = false }) {
             dragElastic={0.6}
             onDragEnd={handleDragEnd}
           >
-            <EventCard e={events[mobileIndex]} hideLocation={hideLocation} />
+            <EventCard e={events[mobileIndex]} hideLocation={hideLocation} animate={false} />
           </motion.div>
         </AnimatePresence>
       </div>

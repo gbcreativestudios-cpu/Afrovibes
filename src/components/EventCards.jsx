@@ -43,9 +43,9 @@ function TicketButton({ e }) {
   );
 }
 
-export function EventCard({ e, index = 0 }) {
-  return (
-    <Reveal as="article" className="event-card" index={index}>
+export function EventCard({ e, index = 0, animate = true }) {
+  const inner = (
+    <>
       <Link className="event-card-link" to={`/event/${e.id}`}>
         <EventImage e={e} mode={thumbnailMode("upcoming")} />
         <div className="event-info">
@@ -59,6 +59,22 @@ export function EventCard({ e, index = 0 }) {
           Details
         </Link>
       </div>
+    </>
+  );
+
+  // `animate=false` is used inside EventsSlider, which already animates
+  // each card's entrance itself (slide/drag transition) — stacking our
+  // own scroll-reveal on top of that caused a visible "double motion"
+  // (slide in, then fade-and-slide again). Plain static grids (Events
+  // page "calendar" section) still want the scroll reveal, so it stays
+  // the default there.
+  if (!animate) {
+    return <article className="event-card">{inner}</article>;
+  }
+
+  return (
+    <Reveal as="article" className="event-card" index={index}>
+      {inner}
     </Reveal>
   );
 }
