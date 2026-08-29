@@ -3,16 +3,24 @@ import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { products, money, getTitle } from "../data/content";
 import Title from "../components/Title";
-import { FadeIn } from "../components/Reveal";
+import { FadeIn, EASE } from "../components/Reveal";
+
+const MotionLink = motion(Link);
 
 // Plain — no per-card scroll-reveal here. This card only ever renders
 // inside the filter-switch crossfade below, which already handles the
 // grid's entrance; adding a second, independent reveal per card on top
 // of that produced the same "double motion" (fades in twice, jerkily)
-// that the events slider had.
+// that the events slider had. The hover lift is still Framer-driven
+// (not a CSS :hover transition) so nothing else ever fights it for
+// ownership of `transform`.
 function ProductCard({ p }) {
   return (
-    <Link className="product-card" to={`/product/${p.id}`}>
+    <MotionLink
+      className="product-card"
+      to={`/product/${p.id}`}
+      whileHover={{ y: -5, transition: { duration: 0.25, ease: EASE } }}
+    >
       <div className="product-image" style={{ backgroundImage: `url('${p.image}')` }} />
       <div className="product-body">
         <div
@@ -24,7 +32,7 @@ function ProductCard({ p }) {
         <h3>{p.name}</h3>
         <div className="price">{money(p.price)}</div>
       </div>
-    </Link>
+    </MotionLink>
   );
 }
 

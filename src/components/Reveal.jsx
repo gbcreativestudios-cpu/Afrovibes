@@ -39,9 +39,14 @@ export const FadeIn = forwardRef(function FadeIn(
 
 // Scroll-triggered reveal — same easing/duration as FadeIn, but plays
 // once when the element scrolls into view. `index` gives grids of cards
-// GB's per-card stagger (delay: i * 0.1).
+// GB's per-card stagger (delay: i * 0.1). `hoverLift` adds a Framer
+// Motion-driven hover lift (translateY) instead of a CSS :hover
+// transition — keeping transform fully owned by Framer Motion avoids the
+// "double motion" that showed up when a CSS transition on the same
+// element tried to smooth the same property Framer was already
+// animating.
 export const Reveal = forwardRef(function Reveal(
-  { as = "div", children, index = 0, y = 30, className, style, once = true, ...rest },
+  { as = "div", children, index = 0, y = 30, className, style, once = true, hoverLift = false, ...rest },
   ref
 ) {
   const Comp = useMemo(() => resolveMotionComponent(as), [as]);
@@ -51,6 +56,7 @@ export const Reveal = forwardRef(function Reveal(
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, amount: 0.2 }}
+      whileHover={hoverLift ? { y: -5, transition: { duration: 0.25, ease: EASE } } : undefined}
       transition={{ duration: 0.8, delay: index * 0.1, ease: EASE }}
       className={className}
       style={style}

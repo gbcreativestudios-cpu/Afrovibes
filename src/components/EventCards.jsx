@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { formatEventDate, isNextEvent, site } from "../data/content";
 import Title from "./Title";
-import { Reveal } from "./Reveal";
+import { Reveal, EASE } from "./Reveal";
 
 const AVAILABLE_RATIOS = new Set(["1:1", "4:5", "3:4", "2:3", "3:2", "4:3", "16:9", "21:9"]);
 
@@ -69,11 +70,18 @@ export function EventCard({ e, index = 0, animate = true }) {
   // page "calendar" section) still want the scroll reveal, so it stays
   // the default there.
   if (!animate) {
-    return <article className="event-card">{inner}</article>;
+    return (
+      <motion.article
+        className="event-card"
+        whileHover={{ y: -5, transition: { duration: 0.25, ease: EASE } }}
+      >
+        {inner}
+      </motion.article>
+    );
   }
 
   return (
-    <Reveal as="article" className="event-card" index={index}>
+    <Reveal as="article" className="event-card" index={index} hoverLift>
       {inner}
     </Reveal>
   );
@@ -81,7 +89,7 @@ export function EventCard({ e, index = 0, animate = true }) {
 
 export function FeaturedEventCard({ e }) {
   return (
-    <Reveal as="article" className="event-card featured">
+    <Reveal as="article" className="event-card featured" hoverLift>
       <Link className="event-card-media" to={`/event/${e.id}`}>
         <EventImage e={e} mode={thumbnailMode("next")} />
       </Link>
