@@ -181,3 +181,20 @@ export function isNextEvent(e, list = events) {
   const next = getNextEvent(list);
   return Boolean(next && e?.id === next.id);
 }
+
+// Events an editor has manually toggled "Show in Next Events" on (see the
+// `featured` boolean in the CMS), soonest first — this is what powers the
+// Next Events section so it can hold more than one card. If nobody has
+// toggled anything yet, falls back to the single soonest upcoming event so
+// existing sites keep working exactly as before with zero setup.
+export function getFeaturedEvents(list = events) {
+  const upcoming = getUpcomingEvents(list);
+  const marked = upcoming.filter((e) => e.featured);
+  if (marked.length) return marked;
+  const next = upcoming[0];
+  return next ? [next] : [];
+}
+
+export function isFeaturedEvent(e, list = events) {
+  return getFeaturedEvents(list).some((x) => x.id === e?.id);
+}

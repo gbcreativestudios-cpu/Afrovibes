@@ -28,7 +28,8 @@ collections:
         date_format: "YYYY-MM-DD"
         time_format: false
         picker_utc: true
-        hint: "Set the exact event day. Before today = Past; today or later = Upcoming. The earliest future date automatically becomes Next Event."
+        hint: "Set the exact event day. Before today = Past; today or later = Upcoming. If no events below are toggled \"Show in Next Events\", the earliest future date automatically becomes the Next Event."
+      - { label: "Show in Next Events?", name: "featured", widget: "boolean", default: false, hint: "Turn this on to pin this event in the Next Events section (home page + events page), alongside any other events also toggled on. If nothing is toggled on for any upcoming event, the site falls back to showing just the soonest one automatically." }
       - { label: "Time", name: "time", widget: "string", required: false, hint: "e.g. 7:00 PM" }
       - { label: "Location", name: "location", widget: "string", required: false }
       - { label: "Venue", name: "venue", widget: "string", required: false, hint: "Specific venue name or address, if different from Location." }

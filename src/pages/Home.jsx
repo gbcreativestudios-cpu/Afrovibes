@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { events, products, money, formatEventDate, getTitle, isPastEvent, site } from "../data/content";
+import { events, products, money, formatEventDate, getFeaturedEvents, getTitle, isPastEvent, site } from "../data/content";
 import { FeaturedEventCard, thumbnailMode } from "../components/EventCards";
 import EventsSlider from "../components/EventsSlider";
 import HeroBackground from "../components/HeroBackground";
@@ -35,8 +35,8 @@ function PastHomeCard({ e, small = false, index = 0 }) {
 
 export default function Home() {
   const upcoming = events.filter((e) => !isPastEvent(e));
-  const next = upcoming[0];
-  const rest = upcoming.slice(1, 4);
+  const featured = getFeaturedEvents(events);
+  const rest = upcoming.filter((e) => !featured.some((f) => f.id === e.id)).slice(0, 3);
   const past = events.filter(isPastEvent);
 
   const heroTitle = getTitle("home", "heroTitle", "Make Plans. Make Memories.");
@@ -87,7 +87,7 @@ export default function Home() {
         paragraph={site.customSection?.paragraph}
       />
 
-      {next && (
+      {featured.length > 0 && (
         <section className="section" style={{ backgroundColor: nextEventBg || "var(--purple)" }}>
           <div className="container">
             <Reveal className="section-head">
@@ -95,8 +95,10 @@ export default function Home() {
                 <Title as="h2" text={nextEventTitle.text} color={nextEventTitle.color} category="headline" />
               </div>
             </Reveal>
-            <div className="grid events-grid single">
-              <FeaturedEventCard e={next} hideLocation />
+            <div className={`grid events-grid${featured.length === 1 ? " single" : ""}`}>
+              {featured.map((e) => (
+                <FeaturedEventCard key={e.id} e={e} hideLocation />
+              ))}
             </div>
           </div>
         </section>

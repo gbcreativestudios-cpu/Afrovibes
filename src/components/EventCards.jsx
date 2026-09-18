@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { formatEventDate, isNextEvent, site } from "../data/content";
+import { formatEventDate, isFeaturedEvent, site } from "../data/content";
 import Title from "./Title";
 import { Reveal, EASE } from "./Reveal";
 
@@ -19,13 +19,13 @@ function EventImage({ e, mode, className = "event-img" }) {
       style={ratioStyle}
     >
       <img src={e.image} alt={e.title} />
-      {className === "event-img" && isNextEvent(e) && <span className="event-status">{e.status}</span>}
+      {className === "event-img" && isFeaturedEvent(e) && <span className="event-status">{e.status}</span>}
     </div>
   );
 }
 
 function TicketButton({ e }) {
-  if (!isNextEvent(e) || e.status !== "TICKETS AVAILABLE") return null;
+  if (!isFeaturedEvent(e) || e.status !== "TICKETS AVAILABLE") return null;
 
   if (!e.url) {
     return <span className="btn btn-primary">Get Ticket</span>;

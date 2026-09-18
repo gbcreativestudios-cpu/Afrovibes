@@ -1,4 +1,4 @@
-import { events, getTitle, isPastEvent, site } from "../data/content";
+import { events, getFeaturedEvents, getTitle, isPastEvent, site } from "../data/content";
 import { EventCard, FeaturedEventCard, PastEventRow } from "../components/EventCards";
 import GalleryTicker from "../components/GalleryTicker";
 import Title from "../components/Title";
@@ -7,8 +7,8 @@ import { FadeIn, Reveal } from "../components/Reveal";
 export default function Events() {
   const upcoming = events.filter((e) => !isPastEvent(e));
   const past = events.filter(isPastEvent);
-  const next = upcoming[0];
-  const rest = upcoming.slice(1);
+  const featured = getFeaturedEvents(events);
+  const rest = upcoming.filter((e) => !featured.some((f) => f.id === e.id));
 
   const heroTitle = getTitle("events", "heroTitle", "Our Events.");
   const nextEventTitle = getTitle("events", "nextEventTitle", "Next Event.");
@@ -29,7 +29,7 @@ export default function Events() {
         </FadeIn>
       </section>
 
-      {next && (
+      {featured.length > 0 && (
         <section className="section" style={{ paddingTop: 20, backgroundColor: nextEventBg || "var(--purple)" }}>
           <div className="container">
             <Reveal className="section-head">
@@ -37,8 +37,10 @@ export default function Events() {
                 <Title as="h2" text={nextEventTitle.text} color={nextEventTitle.color} category="headline" />
               </div>
             </Reveal>
-            <div className="grid events-grid single">
-              <FeaturedEventCard e={next} />
+            <div className={`grid events-grid${featured.length === 1 ? " single" : ""}`}>
+              {featured.map((e) => (
+                <FeaturedEventCard key={e.id} e={e} />
+              ))}
             </div>
           </div>
         </section>

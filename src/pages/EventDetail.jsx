@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { events, formatEventDate, getNextEvent, getTitle, isPastEvent } from "../data/content";
+import { events, formatEventDate, getTitle, isFeaturedEvent, isPastEvent } from "../data/content";
 import NotFound from "./NotFound";
 import Title from "../components/Title";
 import useParallax from "../hooks/useParallax";
@@ -12,8 +12,7 @@ export default function EventDetail() {
   if (!e) return <NotFound />;
 
   const past = isPastEvent(e);
-  const next = getNextEvent(events);
-  const isNext = Boolean(next && next.id === e.id);
+  const isNext = isFeaturedEvent(e, events);
   const momentsTitle = getTitle("eventDetail", "momentsTitle", "The Moments.");
   const videosTitle = getTitle("eventDetail", "videosTitle", "The Videos.");
 
